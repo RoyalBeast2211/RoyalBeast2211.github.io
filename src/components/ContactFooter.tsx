@@ -15,6 +15,8 @@ export default function ContactFooter() {
   const [copied, setCopied] = useState(false);
   const [formSent, setFormSent] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const containerRef = useRef<HTMLElement>(null);
   const line1Ref = useRef<HTMLDivElement>(null);
@@ -88,12 +90,40 @@ export default function ContactFooter() {
     };
   }, []);
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSent(true);
-    setTimeout(() => {
-      setFormData({ name: "", email: "", message: "" });
-    }, 1000);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "65784729-3f9f-427e-b532-97a009cd54c6",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `Portfolio Contact from ${formData.name}`,
+          from_name: "Omkar More Portfolio",
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setFormSent(true);
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setSubmitError(result.message || "Failed to dispatch message. Please use direct email.");
+      }
+    } catch {
+      setSubmitError(`Network error. Please email directly at ${email}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -298,12 +328,28 @@ export default function ContactFooter() {
                   />
                 </div>
 
+                {submitError && (
+                  <div className="p-2.5 border border-red-500/50 bg-red-950/30 text-red-300 text-[11px] leading-relaxed font-mono">
+                    {submitError}
+                  </div>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full py-2.5 bg-[var(--accent)] hover:bg-[var(--text-primary)] text-[#111111] hover:text-[var(--bg-primary)] font-bold uppercase tracking-wider transition-colors duration-150 flex items-center justify-center gap-2"
+                  disabled={isSubmitting}
+                  className="w-full py-2.5 bg-[var(--accent)] hover:bg-[var(--text-primary)] disabled:opacity-50 disabled:cursor-not-allowed text-[#111111] hover:text-[var(--bg-primary)] font-bold uppercase tracking-wider transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Send className="w-3.5 h-3.5" />
-                  <span>TRANSMIT MESSAGE</span>
+                  {isSubmitting ? (
+                    <>
+                      <span className="w-3.5 h-3.5 border-2 border-[#111111] border-t-transparent rounded-full animate-spin" />
+                      <span>TRANSMITTING...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      <span>TRANSMIT MESSAGE</span>
+                    </>
+                  )}
                 </button>
               </form>
             )}
