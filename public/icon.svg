@@ -1,0 +1,139 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="dragonGradLight" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF3B00" />
+      <stop offset="100%" stop-color="#111111" />
+    </linearGradient>
+    <linearGradient id="dragonGradDark" x1="12" y1="12" x2="52" y2="52" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF4D1C" />
+      <stop offset="100%" stop-color="#FFFFFF" />
+    </linearGradient>
+  </defs>
+  <style>
+    .bg-disc { fill: #111111; }
+    .dragon-main { fill: #F3F1EA; }
+    .dragon-accent { fill: #FF3B00; }
+    .dragon-stroke { stroke: #111111; }
+    .dragon-inner { stroke: #F3F1EA; }
+    .snore-z { fill: #FF3B00; }
+
+    @media (prefers-color-scheme: dark) {
+      .bg-disc { fill: #171717; }
+      .dragon-main { fill: #F2F0E9; }
+      .dragon-accent { fill: #FF4D1C; }
+      .dragon-stroke { stroke: #0D0D0D; }
+      .dragon-inner { stroke: #171717; }
+      .snore-z { fill: #FF4D1C; }
+    }
+  </style>
+
+  <!-- Background brutalist circular badge for guaranteed contrast in any tab bar -->
+  <rect width="64" height="64" rx="14" class="bg-disc" />
+  
+  <!-- Outer border ring with brutalist corner notches -->
+  <rect width="60" height="60" x="2" y="2" rx="12" fill="none" stroke="var(--accent, #FF3B00)" stroke-width="1.5" stroke-dasharray="8 3" opacity="0.6" />
+
+  <!-- Sleeping Coiled Dragon Silhouette -->
+  <!-- Dorsal Spine Spikes along outer curve -->
+  <path d="M14 26 L8 22 L14 20 Z" class="dragon-accent" />
+  <path d="M11 36 L5 34 L11 31 Z" class="dragon-accent" />
+  <path d="M14 46 L8 47 L13 42 Z" class="dragon-accent" />
+  <path d="M22 53 L18 58 L22 50 Z" class="dragon-accent" />
+  <path d="M33 55 L32 61 L36 53 Z" class="dragon-accent" />
+  <path d="M22 15 L20 8 L26 14 Z" class="dragon-accent" />
+  <path d="M34 11 L35 5 L38 11 Z" class="dragon-accent" />
+
+  <!-- Coiled Dragon Body: Thick curved ring looping from tail to head -->
+  <path
+    d="M 46 44 
+       C 43 51, 33 54, 25 51
+       C 15 47, 10 38, 12 28
+       C 14 17, 24 11, 35 12
+       C 45 13, 53 21, 52 30
+       C 51 36, 46 41, 40 41
+       C 35 41, 32 37, 34 32
+       C 36 27, 43 27, 44 32
+       C 44 34, 42 36, 40 36
+       C 38 36, 37 34, 38 32
+       C 38 27, 30 25, 27 29
+       C 24 33, 27 40, 33 42
+       C 39 44, 46 41, 47 37
+       C 48 33, 44 26, 38 23
+       C 31 20, 23 23, 20 29
+       C 17 35, 21 44, 28 47
+       C 34 49, 42 47, 45 42
+       Z"
+    class="dragon-main"
+  />
+
+  <!-- Curled Dragon Head resting peacefully -->
+  <!-- Snout & Jaw -->
+  <path
+    d="M 33 34
+       C 31 32, 28 32, 26 34
+       C 24 36, 25 39, 28 40
+       C 32 41, 36 39, 37 36
+       Z"
+    class="dragon-main"
+  />
+
+  <!-- Swept Back Dragon Horns (Orange Accent) -->
+  <path
+    d="M 36 29 
+       C 42 25, 48 24, 54 26
+       C 51 28, 45 28, 40 31
+       Z"
+    class="dragon-accent"
+  />
+  <path
+    d="M 34 27 
+       C 38 21, 46 19, 51 20
+       C 47 22, 42 23, 38 27
+       Z"
+    class="dragon-accent"
+  />
+
+  <!-- Serene Sleeping Closed Eye Arc (Downward curve indicating deep sleep) -->
+  <path
+    d="M 29 35 Q 31 37 33 35"
+    fill="none"
+    class="dragon-stroke"
+    stroke-width="1.6"
+    stroke-linecap="round"
+  />
+
+  <!-- Peaceful Whisker Flowing Under Chin -->
+  <path
+    d="M 27 38 C 24 41, 22 45, 25 47"
+    fill="none"
+    class="dragon-accent"
+    stroke-width="1.2"
+    stroke-linecap="round"
+  />
+
+  <!-- Subtle Flame Tuft at Tail tip -->
+  <path
+    d="M 45 43 C 51 44, 55 48, 52 52 C 48 53, 46 49, 44 45 Z"
+    class="dragon-accent"
+  />
+
+  <!-- Tiny Slumber Z or Smoke loop (Peaceful Sleep indicator) -->
+  <path
+    d="M 21 27 L 25 27 L 21 31 L 25 31"
+    fill="none"
+    class="snore-z"
+    stroke-width="1.2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.8"
+  />
+  <path
+    d="M 18 20 L 21 20 L 18 23 L 21 23"
+    fill="none"
+    class="snore-z"
+    stroke-width="1"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    opacity="0.5"
+  />
+</svg>
