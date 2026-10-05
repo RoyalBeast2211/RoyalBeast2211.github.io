@@ -8,6 +8,7 @@ import GitlikeTechnicalVisual from "./GitlikeTechnicalVisual";
 import SectionHeader from "./SectionHeader";
 import { observeScrollReveal, initMagneticElement } from "@/animations";
 import { animate } from "animejs";
+import LiquidReveal from "./LiquidReveal";
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -73,6 +74,7 @@ function CountUpNumber({ target = 4000, suffix = "+" }: { target?: number; suffi
 
 export default function SelectedWork() {
   const [activeProjectModal, setActiveProjectModal] = useState<ProjectItem | null>(null);
+  const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
 
   // Featured projects: IG App & GitLike ONLY
   const featuredProjects = PROJECTS.filter((p) => p.featured).sort(
@@ -161,7 +163,7 @@ export default function SelectedWork() {
   }, []);
 
   return (
-    <section id="projects" className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-24 scroll-mt-20">
+    <section id="projects" className="relative z-10 max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-24 scroll-mt-20">
       {/* 03 / PROJECTS Header per Prompt Section 19 */}
       <SectionHeader
         number="03"
@@ -197,8 +199,8 @@ export default function SelectedWork() {
             </div>
           </div>
 
-          {/* Main Grid Spread: Text on Left, Phone on Right (Prompt Section 22) */}
-          <div className="mt-10 lg:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Desktop Grid Spread: Text on Left, Phone on Right (Untouched, hidden on mobile) */}
+          <div className="hidden lg:grid mt-14 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: IG App Narrative & Prominent User Stats */}
             <div ref={igMetaRef} className="lg:col-span-6 space-y-6">
               {/* Type pill */}
@@ -330,6 +332,140 @@ export default function SelectedWork() {
               />
             </div>
           </div>
+
+          {/* Mobile Composition: Condensed Presentation + Liquid Reveal */}
+          <div className="block lg:hidden mt-8 space-y-6">
+            {/* Type pill */}
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
+              <span className="text-[var(--accent)] font-bold">{"//"}</span>
+              <span>CROSS-PLATFORM MOBILE</span>
+            </div>
+
+            {/* Title & Subtitle */}
+            <div className="space-y-1">
+              <h3 className="font-display font-black text-3xl sm:text-4xl tracking-tighter text-[var(--text-primary)] uppercase">
+                {igApp.title}
+              </h3>
+              <p className="font-mono text-xs text-[var(--accent)] font-semibold tracking-wider uppercase">
+                {igApp.subtitle}
+              </p>
+            </div>
+
+            {/* Prominent Real Metric (Always visible) */}
+            <div className="p-4 sm:p-5 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-md">
+              <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
+                SCALE & PRODUCTION TRACTION
+              </div>
+              <div className="text-4xl sm:text-5xl font-display font-black text-[var(--accent)] tracking-tight">
+                <CountUpNumber target={4000} suffix="+" />
+              </div>
+              <div className="font-display font-bold text-sm tracking-wide uppercase text-[var(--text-primary)]">
+                REAL UNIVERSITY USERS
+              </div>
+            </div>
+
+            {/* Interactive Phone Mockup Carousel (Touch-first, swipeable, independent) */}
+            <div className="flex justify-center py-2">
+              <MobileProjectViewer
+                images={
+                  igApp.images && igApp.images.length > 0
+                    ? igApp.images
+                    : ["/images/ig-app.jpg"]
+                }
+                title={igApp.title}
+                userCount={igApp.userCount}
+              />
+            </div>
+
+            {/* Liquid Reveal for Hidden Information */}
+            <LiquidReveal
+              isOpen={expandedProjectId === "ig-app"}
+              onToggle={() =>
+                setExpandedProjectId((prev) => (prev === "ig-app" ? null : "ig-app"))
+              }
+              openLabel="VIEW DETAILS"
+              closeLabel="HIDE DETAILS"
+              badge="SPECS & STACK"
+            >
+              <div className="space-y-5 pt-2 border-l-2 border-[var(--accent)] pl-3.5">
+                <div>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
+                    DESCRIPTION:
+                  </span>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                    {igApp.description}
+                  </p>
+                </div>
+
+                {/* Compact Technical Specs */}
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs">
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">TYPE</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Mobile App</span>
+                  </div>
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">USERS</span>
+                    <span className="font-bold text-[var(--accent)] block mt-0.5">4,000+ Real</span>
+                  </div>
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATUS</span>
+                    <span className="font-bold text-[#10B981] block mt-0.5">Live / Active</span>
+                  </div>
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STACK</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Flutter · Dart</span>
+                  </div>
+                </div>
+
+                {/* Highlights */}
+                <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
+                  <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
+                    KEY ACHIEVEMENTS:
+                  </span>
+                  {igApp.highlights.slice(0, 3).map((h, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <span className="text-[var(--accent)] font-bold">↳</span>
+                      <span className="leading-relaxed">{h}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="pt-3 flex flex-col gap-2.5 font-mono text-xs">
+                  {igApp.liveUrl && (
+                    <a
+                      href={igApp.liveUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-2 py-3 px-4 bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold uppercase tracking-wider"
+                    >
+                      <span>VISIT LIVE DEMO</span>
+                      <span>↗</span>
+                    </a>
+                  )}
+                  {igApp.githubUrl && (
+                    <a
+                      href={igApp.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-2 py-3 px-4 border border-[var(--border-color)] text-[var(--text-primary)] font-bold uppercase tracking-wider"
+                    >
+                      <GithubIcon className="w-3.5 h-3.5" />
+                      <span>SOURCE CODE</span>
+                      <span>↗</span>
+                    </a>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setActiveProjectModal(igApp)}
+                    className="text-left py-1 text-[var(--text-muted)] hover:text-[var(--accent)] underline underline-offset-4 text-xs font-mono"
+                  >
+                    [ VIEW ARCHITECTURAL DOSSIER ]
+                  </button>
+                </div>
+              </div>
+            </LiquidReveal>
+          </div>
         </article>
 
         {/* ========================================================= */}
@@ -357,8 +493,8 @@ export default function SelectedWork() {
             </div>
           </div>
 
-          {/* Main Grid Spread: Reversed Composition! Terminal on Left, Text on Right (Prompt Section 22) */}
-          <div className="mt-10 lg:mt-14 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          {/* Desktop Grid Spread: Reversed Composition! Terminal on Left, Text on Right (Untouched, hidden on mobile) */}
+          <div className="hidden lg:grid mt-14 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             {/* Left Column: Systems Architecture & Code Inspector */}
             <div ref={gitlikeTerminalRef} className="lg:col-span-6 order-2 lg:order-1">
               <GitlikeTechnicalVisual />
@@ -452,6 +588,114 @@ export default function SelectedWork() {
                 </button>
               </div>
             </div>
+          </div>
+
+          {/* Mobile Composition: Condensed Presentation + Liquid Reveal */}
+          <div className="block lg:hidden mt-8 space-y-6">
+            {/* Type pill */}
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
+              <span className="text-[var(--accent)] font-bold">{"//"}</span>
+              <span>CONTENT-ADDRESSABLE STORAGE ENGINE</span>
+            </div>
+
+            {/* Title & Category */}
+            <div className="space-y-1">
+              <h3 className="font-display font-black text-3xl sm:text-4xl tracking-tighter text-[var(--text-primary)] uppercase">
+                {gitlike.title}
+              </h3>
+              <p className="font-mono text-xs text-[var(--accent)] font-semibold tracking-wider uppercase">
+                CLI / SYSTEMS PROJECT
+              </p>
+            </div>
+
+            {/* Real Technical Workbench Visual (Cropped & responsive for mobile) */}
+            <div className="w-full overflow-hidden">
+              <GitlikeTechnicalVisual />
+            </div>
+
+            {/* Liquid Reveal for Hidden Information */}
+            <LiquidReveal
+              isOpen={expandedProjectId === "gitlike"}
+              onToggle={() =>
+                setExpandedProjectId((prev) => (prev === "gitlike" ? null : "gitlike"))
+              }
+              openLabel="VIEW DETAILS"
+              closeLabel="HIDE DETAILS"
+              badge="VCS ENGINE SPECS"
+            >
+              <div className="space-y-5 pt-2 border-l-2 border-[var(--accent)] pl-3.5">
+                {/* Tagline */}
+                <p className="font-mono text-xs text-[var(--text-primary)] font-bold tracking-wide uppercase border-l-2 border-[var(--accent)] pl-2">
+                  {gitlike.tagline}
+                </p>
+
+                {/* Description */}
+                <div>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
+                    DESCRIPTION:
+                  </span>
+                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
+                    {gitlike.description}
+                  </p>
+                </div>
+
+                {/* Compact Technical Specs */}
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs">
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">TYPE</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Systems CLI</span>
+                  </div>
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STORAGE</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Zlib Blobs</span>
+                  </div>
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">CRYPTO</span>
+                    <span className="font-bold text-[var(--accent)] block mt-0.5">SHA-1 Direct</span>
+                  </div>
+                  <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATUS</span>
+                    <span className="font-bold text-[#10B981] block mt-0.5">Production</span>
+                  </div>
+                </div>
+
+                {/* Highlights */}
+                <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
+                  <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
+                    KEY TECHNICAL HIGHLIGHTS:
+                  </span>
+                  {gitlike.highlights.map((h, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <span className="text-[var(--accent)] font-bold">↳</span>
+                      <span className="leading-relaxed">{h}</span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="pt-3 flex flex-col gap-2.5 font-mono text-xs">
+                  {gitlike.githubUrl && (
+                    <a
+                      href={gitlike.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center justify-center gap-2 py-3 px-4 bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold uppercase tracking-wider"
+                    >
+                      <GithubIcon className="w-3.5 h-3.5" />
+                      <span>AUDIT VCS SOURCE</span>
+                      <span>↗</span>
+                    </a>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setActiveProjectModal(gitlike)}
+                    className="inline-flex items-center justify-center gap-2 py-3 px-4 border border-[var(--border-color)] text-[var(--text-primary)] font-bold uppercase tracking-wider"
+                  >
+                    <span>VIEW DOSSIER ↗</span>
+                  </button>
+                </div>
+              </div>
+            </LiquidReveal>
           </div>
         </article>
       </div>

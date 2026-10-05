@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import dynamic from "next/dynamic";
-const LoadingScreen = dynamic(() => import("@/components/LoadingScreen"), { ssr: false });
+import LoadingScreen from "@/components/LoadingScreen";
 import CustomCursor from "@/components/CustomCursor";
+import MobileNav from "@/components/MobileNav";
 import PageProgress from "@/components/PageProgress";
 import ThemeToggle from "@/components/ThemeToggle";
 import AboutHero from "@/components/AboutHero";
@@ -43,12 +43,15 @@ function PortfolioContent() {
       {/* Cinematic Horizontal Whip & Film-Strip Transition Overlay */}
       <CinematicTransitionOverlay />
 
-      {/* Floating Corner Theme Switcher */}
-      <div className="fixed top-4 right-4 sm:right-6 lg:right-8 z-40">
+      {/* Desktop Floating Corner Theme Switcher */}
+      <div className="hidden lg:block fixed top-4 right-8 z-40">
         <ThemeToggle />
       </div>
 
-      {/* Persistent Page Progress Nav Bar (Right-Side 5-Chapter Navigation) */}
+      {/* Dedicated Mobile Top Navigation & Fullscreen Editorial Menu */}
+      <MobileNav />
+
+      {/* Persistent Page Progress Nav Bar (Right-Side 5-Chapter Navigation - Desktop) */}
       <PageProgress />
 
       {/* Physical Viewport Camera Container (pulls horizontally during transitions) */}

@@ -11,7 +11,7 @@ interface PrintedHeroPortraitProps {
 
 export default function PrintedHeroPortrait({
   className = "",
-  isMobile = false,
+  isMobile: _isMobile = false,
 }: PrintedHeroPortraitProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const imageMaskRef = useRef<HTMLDivElement>(null);
@@ -21,7 +21,6 @@ export default function PrintedHeroPortrait({
   const statusBadgeRef = useRef<HTMLSpanElement>(null);
 
   const [isPrinting, setIsPrinting] = useState<boolean>(true);
-  const [isComplete, setIsComplete] = useState<boolean>(false);
   const animationFrameRef = useRef<number | null>(null);
 
   const startPrintAnimation = useCallback(() => {
@@ -30,7 +29,6 @@ export default function PrintedHeroPortrait({
       if (carriageRef.current) carriageRef.current.style.opacity = "0";
       if (readoutRef.current) readoutRef.current.textContent = "100%";
       setIsPrinting(false);
-      setIsComplete(true);
       return;
     }
 
@@ -39,7 +37,6 @@ export default function PrintedHeroPortrait({
     }
 
     setIsPrinting(true);
-    setIsComplete(false);
 
     // Initial state: paper blank, carriage at top
     if (imageMaskRef.current) imageMaskRef.current.style.clipPath = "inset(0 0 100% 0)";
@@ -108,7 +105,6 @@ export default function PrintedHeroPortrait({
           rasterOverlayRef.current.style.opacity = "0";
         }
         setIsPrinting(false);
-        setIsComplete(true);
       }
     };
 

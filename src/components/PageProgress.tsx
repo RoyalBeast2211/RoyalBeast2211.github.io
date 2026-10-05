@@ -64,7 +64,7 @@ export default function PageProgress() {
   return (
     <aside
       aria-label="Right Quick Navigation"
-      className="fixed right-2 sm:right-4 lg:right-7 top-1/2 -translate-y-1/2 z-40 flex flex-col items-end font-mono select-none"
+      className="hidden lg:flex fixed right-7 top-1/2 -translate-y-1/2 z-40 flex-col items-end font-mono select-none"
     >
       {/* Editorial Header */}
       <div className="hidden sm:flex items-center gap-1.5 text-[9px] text-[var(--text-muted)] tracking-widest uppercase mb-4 pr-1">

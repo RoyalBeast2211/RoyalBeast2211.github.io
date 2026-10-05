@@ -1,40 +1,7 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
-    --bg-primary: #F3F1EA;
-    --bg-surface: #EAE6DC;
-    --bg-surface-secondary: #E3DFD4;
-    --text-primary: #111111;
-    --text-secondary: #555555;
-    --text-muted: #888888;
-    --border-color: #CFCBC1;
-    --border-strong: #111111;
-    --accent: #FF3B00;
-    --accent-hover: #E03500;
-    --terminal-bg: #111111;
-    --terminal-border: #333333;
-    --terminal-text: #F3F1EA;
-    --card-bg: #FFFFFF;
-    --image-bg: #EAE6DC;
-    --header-bg: rgba(243, 241, 234, 0.95);
-    --scrollbar-track: #F3F1EA;
-    --scrollbar-thumb: #111111;
-    --grid-line: rgba(207, 203, 193, 0.35);
-    --selection-bg: #FF3B00;
-    --selection-text: #F3F1EA;
-    --tattoo-ink: rgba(18, 18, 18, 0.088);
-    --tattoo-ink-subtle: rgba(18, 18, 18, 0.042);
-    --tattoo-ink-accent: rgba(18, 18, 18, 0.128);
-    --tattoo-ink-faint: rgba(18, 18, 18, 0.024);
-    --tattoo-fill-wash: rgba(18, 18, 18, 0.015);
-    --dragon-opacity: 0.135;
-    --dragon-body-opacity: 0.052;
-    --dragon-tail-opacity: 0.058;
-    --dragon-blend: multiply;
-    --dragon-filter: none;
-  }
-
+  :root,
   .dark,
   [data-theme="dark"] {
     --bg-primary: #0D0D0D;
@@ -68,6 +35,41 @@
     --dragon-tail-opacity: 0.045;
     --dragon-blend: screen;
     --dragon-filter: invert(1) brightness(0.9) contrast(1.15);
+  }
+
+  .light,
+  [data-theme="light"] {
+    --bg-primary: #F3F1EA;
+    --bg-surface: #EAE6DC;
+    --bg-surface-secondary: #E3DFD4;
+    --text-primary: #111111;
+    --text-secondary: #555555;
+    --text-muted: #888888;
+    --border-color: #CFCBC1;
+    --border-strong: #111111;
+    --accent: #FF3B00;
+    --accent-hover: #E03500;
+    --terminal-bg: #111111;
+    --terminal-border: #333333;
+    --terminal-text: #F3F1EA;
+    --card-bg: #FFFFFF;
+    --image-bg: #EAE6DC;
+    --header-bg: rgba(243, 241, 234, 0.95);
+    --scrollbar-track: #F3F1EA;
+    --scrollbar-thumb: #111111;
+    --grid-line: rgba(207, 203, 193, 0.35);
+    --selection-bg: #FF3B00;
+    --selection-text: #F3F1EA;
+    --tattoo-ink: rgba(18, 18, 18, 0.088);
+    --tattoo-ink-subtle: rgba(18, 18, 18, 0.042);
+    --tattoo-ink-accent: rgba(18, 18, 18, 0.128);
+    --tattoo-ink-faint: rgba(18, 18, 18, 0.024);
+    --tattoo-fill-wash: rgba(18, 18, 18, 0.015);
+    --dragon-opacity: 0.135;
+    --dragon-body-opacity: 0.052;
+    --dragon-tail-opacity: 0.058;
+    --dragon-blend: multiply;
+    --dragon-filter: none;
   }
 
   body {

@@ -54,7 +54,7 @@ export default function SectionHeader({
     <div
       ref={containerRef}
       id={id}
-      className="relative w-full pt-16 pb-8 font-mono select-none overflow-hidden"
+      className="relative w-full pt-10 sm:pt-16 pb-6 sm:pb-8 font-mono select-none overflow-hidden"
     >
       {/* Oversized section number briefly animated behind header */}
       <div
@@ -72,10 +72,10 @@ export default function SectionHeader({
             <span className="text-[var(--accent)] font-bold">CHAPTER //</span>
             <span>{number}</span>
             {tagline && (
-              <>
-                <span className="text-[var(--border-color)]">·</span>
+              <span className="hidden sm:inline">
+                <span className="text-[var(--border-color)] mx-1.5">·</span>
                 <span className="text-[var(--text-secondary)]">{tagline}</span>
-              </>
+              </span>
             )}
           </div>
 

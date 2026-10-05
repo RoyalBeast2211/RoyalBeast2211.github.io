@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useTransition } from "react";
 import Link from "next/link";
-import { ArrowLeft, Globe, Smartphone, Layers, Check, ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { PROJECTS, ProjectItem, ProjectCategory } from "@/data/portfolioData";
 import MobileProjectViewer from "@/components/MobileProjectViewer";
 import DesktopBrowserViewer from "@/components/DesktopBrowserViewer";
@@ -151,21 +151,21 @@ export default function ProjectsArchivePage() {
         </div>
       </header>
 
-      <main className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 py-16 lg:py-24 space-y-16">
+      <main className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 py-10 sm:py-16 lg:py-24 space-y-12 lg:space-y-16">
         {/* ========================================================= */}
         {/* 26. PROJECT ARCHIVE HERO */}
         {/* ========================================================= */}
-        <section className="space-y-6 border-b border-[var(--border-color)] pb-12">
+        <section className="space-y-6 border-b border-[var(--border-color)] pb-10 sm:pb-12">
           <div className="flex items-center gap-3 font-mono text-xs text-[var(--accent)] tracking-widest uppercase font-bold">
             <span>INDEX // 01 — FULL ARCHIVE</span>
           </div>
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="space-y-3">
-              <h1 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-tighter uppercase text-[var(--text-primary)] leading-[0.9]">
+              <h1 className="font-display font-black text-4xl sm:text-7xl lg:text-8xl tracking-tighter uppercase text-[var(--text-primary)] leading-[0.9]">
                 PROJECT ARCHIVE
               </h1>
-              <p className="font-display font-bold text-2xl sm:text-3xl text-[var(--text-secondary)] uppercase tracking-tight">
+              <p className="font-display font-bold text-xl sm:text-3xl text-[var(--text-secondary)] uppercase tracking-tight">
                 SELECTED EXPERIMENTS,
                 <br />
                 PRODUCTS &amp; BUILDS.
@@ -190,28 +190,30 @@ export default function ProjectsArchivePage() {
           {/* ========================================================= */}
           {/* 33. PROJECT ARCHIVE FILTERING */}
           {/* ========================================================= */}
-          <div className="pt-8 flex flex-wrap items-center gap-2 font-mono text-xs">
-            <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mr-2 font-bold">
+          <div className="pt-6 sm:pt-8 flex flex-wrap items-center gap-2 font-mono text-xs">
+            <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider mr-2 font-bold w-full sm:w-auto mb-1 sm:mb-0">
               FILTER BY CATEGORY:
             </span>
-            {CATEGORIES.map((cat) => {
-              const isActive = activeCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => handleCategoryChange(cat)}
-                  data-cursor={cat}
-                  className={`px-3.5 py-1.5 transition-all duration-200 uppercase font-bold tracking-wider cursor-pointer border ${
-                    isActive
-                      ? "bg-[var(--accent)] text-black border-[var(--accent)] shadow-sm"
-                      : "bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-color)] hover:border-[var(--text-primary)] hover:text-[var(--text-primary)]"
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+              {CATEGORIES.map((cat) => {
+                const isActive = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => handleCategoryChange(cat)}
+                    data-cursor={cat}
+                    className={`min-h-[40px] px-3.5 py-2 transition-all duration-200 uppercase font-bold tracking-wider cursor-pointer border ${
+                      isActive
+                        ? "bg-[var(--accent)] text-black border-[var(--accent)] shadow-sm"
+                        : "bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-color)] hover:border-[var(--text-primary)] hover:text-[var(--text-primary)]"
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </section>
 
@@ -231,7 +233,7 @@ export default function ProjectsArchivePage() {
               <article
                 key={project.id}
                 id={`archive-${project.id}`}
-                className={`${colSpan} group relative bg-[var(--bg-surface)]/40 border border-[var(--border-color)] p-6 sm:p-8 flex flex-col justify-between hover:border-[var(--accent)] transition-colors duration-300 shadow-sm`}
+                className={`${colSpan} group relative bg-[var(--bg-surface)]/40 border border-[var(--border-color)] p-4 sm:p-8 flex flex-col justify-between hover:border-[var(--accent)] transition-colors duration-300 shadow-sm`}
               >
                 {/* Top Meta Line: Monospace Category & Year (Prompt Section 28) */}
                 <div className="flex items-center justify-between font-mono text-xs text-[var(--text-muted)] pb-4 border-b border-[var(--border-color)]/60">
@@ -353,7 +355,7 @@ export default function ProjectsArchivePage() {
                           href={project.liveUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-black font-bold uppercase transition-colors"
+                          className="inline-flex items-center gap-1.5 min-h-[40px] px-3.5 py-2 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-black font-bold uppercase transition-colors"
                         >
                           <span>LIVE DEMO</span>
                           <ExternalLink className="w-3 h-3" />
@@ -364,7 +366,7 @@ export default function ProjectsArchivePage() {
                           href={project.githubUrl}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-[var(--border-color)] hover:border-[var(--text-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+                          className="inline-flex items-center gap-1.5 min-h-[40px] px-3.5 py-2 border border-[var(--border-color)] hover:border-[var(--text-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
                         >
                           <GithubIcon className="w-3.5 h-3.5" />
                           <span>CODE</span>

@@ -79,7 +79,8 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.variable} scroll-smooth`}
+      className={`dark ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.variable} scroll-smooth`}
+      data-theme="dark"
     >
       <head>
         <script
@@ -88,20 +89,15 @@ export default function RootLayout({
               (function() {
                 try {
                   var stored = localStorage.getItem('omkar_theme');
-                  var isDark = false;
-                  if (stored === 'dark') {
-                    isDark = true;
-                  } else if (stored === 'light') {
-                    isDark = false;
-                  } else {
-                    isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  }
-                  if (isDark) {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.setAttribute('data-theme', 'dark');
-                  } else {
+                  var isLight = stored === 'light';
+                  if (isLight) {
                     document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
                     document.documentElement.setAttribute('data-theme', 'light');
+                  } else {
+                    document.documentElement.classList.add('dark');
+                    document.documentElement.classList.remove('light');
+                    document.documentElement.setAttribute('data-theme', 'dark');
                   }
                 } catch (e) {}
               })();

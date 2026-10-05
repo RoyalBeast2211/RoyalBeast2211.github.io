@@ -27,9 +27,11 @@ const applyDomTheme = (target: ResolvedTheme, animate = true) => {
 
   if (target === "dark") {
     root.classList.add("dark");
+    root.classList.remove("light");
     root.setAttribute("data-theme", "dark");
   } else {
     root.classList.remove("dark");
+    root.classList.add("light");
     root.setAttribute("data-theme", "light");
   }
 };
@@ -47,11 +49,11 @@ function subscribeTheme(callback: () => void) {
 }
 
 function getThemeSnapshot(): Theme {
-  return (localStorage.getItem("omkar_theme") as Theme) || "system";
+  return (localStorage.getItem("omkar_theme") as Theme) || "dark";
 }
 
 function getServerSnapshot(): Theme {
-  return "system";
+  return "dark";
 }
 
 function getSystemDarkSnapshot(): boolean {
@@ -59,7 +61,7 @@ function getSystemDarkSnapshot(): boolean {
 }
 
 function getSystemDarkServerSnapshot(): boolean {
-  return false;
+  return true;
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -67,7 +69,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const isSystemDark = useSyncExternalStore(subscribeTheme, getSystemDarkSnapshot, getSystemDarkServerSnapshot);
 
   const resolvedTheme: ResolvedTheme =
-    theme === "dark" ? "dark" : theme === "light" ? "light" : isSystemDark ? "dark" : "light";
+    theme === "light" ? "light" : theme === "system" ? (isSystemDark ? "dark" : "light") : "dark";
 
   useEffect(() => {
     applyDomTheme(resolvedTheme, false);
@@ -75,9 +77,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setTheme = (newTheme: Theme) => {
     localStorage.setItem("omkar_theme", newTheme);
-    const isDark =
-      newTheme === "dark" ||
-      (newTheme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const isDark = newTheme === "light" ? false : true;
     applyDomTheme(isDark ? "dark" : "light", true);
     window.dispatchEvent(new Event("omkar_theme_change"));
   };

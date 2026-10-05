@@ -141,6 +141,31 @@ export default function StackSection() {
     setMobileActiveSkill((prev) => (prev?.name === skill.name ? null : skill));
   }, []);
 
+  // Tap outside to clear mobile focus (Prompt Section 34)
+  useEffect(() => {
+    if (!mobileActiveSkill) return;
+
+    const handleOutsideTap = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      // If tap is outside the skills container, dismiss inspector
+      if (containerRef.current && !containerRef.current.contains(target)) {
+        setMobileActiveSkill(null);
+      }
+    };
+
+    const timer = setTimeout(() => {
+      document.addEventListener("click", handleOutsideTap);
+      document.addEventListener("touchend", handleOutsideTap);
+    }, 50);
+
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("click", handleOutsideTap);
+      document.removeEventListener("touchend", handleOutsideTap);
+    };
+  }, [mobileActiveSkill]);
+
   const currentHoveredName = activeSkill?.name;
   const activeCategoryNum = activeSkill?.categoryNum || mobileActiveSkill?.categoryNum || hoveredCategoryNum;
 
@@ -148,7 +173,7 @@ export default function StackSection() {
     <section
       ref={containerRef}
       id="stack"
-      className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-28 scroll-mt-20"
+      className="relative z-10 max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-28 scroll-mt-20"
     >
       {/* 04 / SKILLS Technical Section Divider */}
       <SectionHeader
@@ -209,7 +234,9 @@ export default function StackSection() {
                     const isSelectedDesktop = currentHoveredName === skill.name;
                     const isSelectedMobile = mobileActiveSkill?.name === skill.name;
                     const isSelected = isSelectedDesktop || isSelectedMobile;
-                    const isOtherMuted = currentHoveredName !== undefined && currentHoveredName !== null && !isSelectedDesktop;
+                    const isOtherMuted =
+                      (Boolean(currentHoveredName) && !isSelectedDesktop) ||
+                      (Boolean(mobileActiveSkill) && !isSelectedMobile);
                     const isCategoryHighlighted = hoveredCategoryNum === cat.num && !currentHoveredName;
 
                     return (

@@ -1,13 +1,15 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { PERSONAL_INFO } from "@/data/portfolioData";
 import { animate } from "animejs";
-import { EASES, prefersReducedMotion, initMagneticElement } from "@/animations";
+import { prefersReducedMotion, initMagneticElement } from "@/animations";
 import PrintedHeroPortrait from "./PrintedHeroPortrait";
+import LiquidReveal from "./LiquidReveal";
 
 export default function AboutHero() {
+  const [aboutExpanded, setAboutExpanded] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
   const nameLine1Ref = useRef<HTMLSpanElement>(null);
   const nameLine2Ref = useRef<HTMLSpanElement>(null);
@@ -32,6 +34,11 @@ export default function AboutHero() {
 
     // Choreographed entrance:
     // Name enters from left with overshoot, narrative & role stagger in, portrait prints onto screen
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+    const nameShift = isMobile ? -20 : -80;
+    const roleShift = isMobile ? 14 : 25;
+    const narrativeShift = isMobile ? 12 : 20;
+
     if (photoContainerRef.current) {
       animate(photoContainerRef.current as any, {
         opacity: [0, 1],
@@ -43,9 +50,9 @@ export default function AboutHero() {
 
     if (nameLine1Ref.current) {
       animate(nameLine1Ref.current as any, {
-        translateX: [-80, 0],
+        translateX: [nameShift, 0],
         opacity: [0, 1],
-        duration: 1650,
+        duration: isMobile ? 1100 : 1650,
         delay: 200,
         ease: "outCubic",
       } as any);
@@ -53,9 +60,9 @@ export default function AboutHero() {
 
     if (nameLine2Ref.current) {
       animate(nameLine2Ref.current as any, {
-        translateX: [-80, 0],
+        translateX: [nameShift, 0],
         opacity: [0, 1],
-        duration: 1650,
+        duration: isMobile ? 1100 : 1650,
         delay: 380,
         ease: "outCubic",
       } as any);
@@ -63,25 +70,23 @@ export default function AboutHero() {
 
     if (roleRef.current) {
       animate(roleRef.current as any, {
-        translateY: [25, 0],
+        translateY: [roleShift, 0],
         opacity: [0, 1],
-        duration: 1400,
-        delay: 650,
+        duration: isMobile ? 950 : 1400,
+        delay: 550,
         ease: "outCubic",
       } as any);
     }
 
     if (narrativeRef.current) {
       animate(narrativeRef.current as any, {
-        translateY: [20, 0],
+        translateY: [narrativeShift, 0],
         opacity: [0, 1],
-        duration: 1450,
-        delay: 850,
+        duration: isMobile ? 1000 : 1450,
+        delay: 750,
         ease: "outCubic",
       } as any);
     }
-
-
 
     return () => cleanups.forEach((c) => c());
   }, []);
@@ -90,7 +95,7 @@ export default function AboutHero() {
     <section
       ref={containerRef}
       id="about"
-      className="relative min-h-[90vh] flex flex-col justify-between pt-4 pb-16 px-4 sm:px-6 lg:px-12 max-w-[1520px] mx-auto border-b border-[var(--border-color)] scroll-mt-20"
+      className="relative min-h-[90vh] flex flex-col justify-between pt-16 sm:pt-20 lg:pt-4 pb-16 px-4 sm:px-6 lg:px-12 max-w-[1520px] mx-auto border-b border-[var(--border-color)] scroll-mt-20"
     >
       {/* Chapter Indicator Bar */}
       <div className="flex items-center justify-between font-mono text-xs border-b border-[var(--border-color)] pb-3 min-h-[28px] select-none tracking-wider">
@@ -100,7 +105,7 @@ export default function AboutHero() {
           <span className="text-[var(--text-primary)] font-semibold">ABOUT</span>
         </div>
 
-        <div className="flex items-center gap-3 text-xs text-[var(--text-secondary)] pr-28 sm:pr-32 lg:pr-36">
+        <div className="flex items-center gap-3 text-xs text-[var(--text-secondary)] pr-0 lg:pr-36">
           <span className="hidden sm:inline tracking-widest text-[11px] uppercase">NAGPUR, INDIA</span>
           <span className="text-[var(--border-color)] hidden sm:inline">·</span>
           <span className="text-[var(--text-primary)] font-semibold tracking-wide uppercase">VNIT NAGPUR</span>
@@ -111,7 +116,7 @@ export default function AboutHero() {
       {/* Main Editorial Composition: Identity Left, Portrait Right */}
       <div className="my-auto py-8 sm:py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
         {/* Mobile-first: Photograph displayed on top on mobile, on right on desktop */}
-        <div className="block lg:hidden order-1 w-full max-w-[320px] mx-auto">
+        <div className="block lg:hidden order-1 w-full max-w-[340px] sm:max-w-[360px] mx-auto">
           <PrintedHeroPortrait isMobile />
         </div>
 
@@ -119,7 +124,7 @@ export default function AboutHero() {
         <div className="lg:col-span-7 space-y-6 sm:space-y-8 order-2 lg:order-1">
           {/* Monumental Name */}
           <div className="space-y-1">
-            <h1 className="font-display font-black tracking-tighter text-[var(--text-primary)] leading-[0.88] select-none text-[clamp(3.5rem,8vw,8rem)] uppercase">
+            <h1 className="font-display font-black tracking-tighter text-[var(--text-primary)] leading-[0.88] select-none text-[clamp(3.1rem,11vw,8rem)] uppercase">
               <span
                 ref={nameLine1Ref}
                 className="inline-block will-change-transform"
@@ -154,10 +159,30 @@ export default function AboutHero() {
             </div>
           </div>
 
-          {/* Engineering Narrative */}
+          {/* Mobile Progressive Narrative via Liquid Reveal (Collapsed by default) */}
+          <div className="block lg:hidden">
+            <LiquidReveal
+              isOpen={aboutExpanded}
+              onToggle={() => setAboutExpanded(!aboutExpanded)}
+              openLabel="VIEW NARRATIVE"
+              closeLabel="HIDE NARRATIVE"
+              badge="PROFILE CONTEXT"
+            >
+              <div className="space-y-3 text-base text-[var(--text-secondary)] leading-relaxed font-sans border-l-2 border-[var(--accent)] pl-3.5 py-1">
+                <p className="font-normal text-[var(--text-primary)] text-sm sm:text-base leading-relaxed">
+                  Ever since I can remember, I&apos;ve been driven by an innate curiosity to understand how things work — the quiet joy of getting lost in a puzzle, taking ideas apart, and staying with a problem until the pieces finally fall into place.
+                </p>
+                <p className="leading-relaxed text-[var(--text-secondary)] font-normal text-xs sm:text-sm">
+                  That obsession with understanding systems from first principles grew into a deep dedication to software. Today, whether I&apos;m dissecting complex algorithms, architecting resilient backends, or shipping end-to-end applications, I build with technical rigor, precision, and an uncompromising focus on engineering craft.
+                </p>
+              </div>
+            </LiquidReveal>
+          </div>
+
+          {/* Desktop Full Narrative (Untouched) */}
           <div
             ref={narrativeRef}
-            className="space-y-3.5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl will-change-transform font-sans"
+            className="hidden lg:block space-y-3.5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl will-change-transform font-sans"
             style={{ opacity: 0 }}
           >
             <p className="font-normal text-[var(--text-primary)] text-lg sm:text-xl leading-relaxed">

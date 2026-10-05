@@ -25,7 +25,6 @@ export default function MobileProjectViewer({
   title,
   captions = DEFAULT_CAPTIONS,
   className = "",
-  userCount,
 }: MobileProjectViewerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [dragOffset, setDragOffset] = useState(0);
@@ -37,7 +36,7 @@ export default function MobileProjectViewer({
   const dragStartYRef = useRef(0);
   const isPointerDownRef = useRef(false);
   const isHorizontalGestureRef = useRef<boolean | null>(null);
-  const lastInteractionRef = useRef(Date.now());
+  const lastInteractionRef = useRef(0);
   const autoplayDoneRef = useRef(false);
 
   const total = images.length;
@@ -214,7 +213,7 @@ export default function MobileProjectViewer({
       aria-label={`${title} interactive mobile preview`}
     >
       {/* Editorial Tech Badge Top */}
-      <div className="w-full max-w-[320px] sm:max-w-[340px] flex items-center justify-between text-[11px] font-mono text-[var(--text-muted)] pb-3 px-2">
+      <div className="w-full max-w-[min(80vw,340px)] sm:max-w-[340px] flex items-center justify-between text-[11px] font-mono text-[var(--text-muted)] pb-3 px-2">
         <span className="flex items-center gap-1.5">
           <Smartphone className="w-3.5 h-3.5 text-[var(--accent)]" />
           <span className="font-semibold text-[var(--text-primary)]">MOBILE PRODUCT</span>
@@ -226,7 +225,7 @@ export default function MobileProjectViewer({
 
       {/* Realistic Minimalist Smartphone Frame (Chassis wrapping exact 9:19.5 inner screen) */}
       <div
-        className={`relative w-[280px] sm:w-[320px] md:w-[335px] rounded-[44px] p-2.5 sm:p-3 bg-[#141414] border-[3px] border-[#2C2C2C] shadow-2xl transition-all duration-300 ease-out will-change-transform ${
+        className={`relative w-[min(80vw,340px)] sm:w-[320px] md:w-[335px] rounded-[36px] sm:rounded-[44px] p-2.5 sm:p-3 bg-[#141414] border-[2.5px] sm:border-[3px] border-[#2C2C2C] shadow-2xl transition-all duration-300 ease-out will-change-transform ${
           isHovered
             ? "md:-translate-y-2 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] border-[var(--accent)]/50"
             : "shadow-[0_15px_35px_-10px_rgba(0,0,0,0.5)]"

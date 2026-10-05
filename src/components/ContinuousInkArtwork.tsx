@@ -10,11 +10,11 @@ export default function ContinuousInkArtwork() {
   const whiskerRef2 = useRef<SVGGElement>(null);
 
   useEffect(() => {
-    // Respect user's motion preferences
+    // Respect user's motion preferences or mobile performance (Section 42 & 47)
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    if (prefersReducedMotion) return;
+    if (prefersReducedMotion || (typeof window !== "undefined" && window.innerWidth < 1024)) return;
 
     let rafId: number;
     let lastScrollY = -1;
@@ -59,7 +59,7 @@ export default function ContinuousInkArtwork() {
             piercing gaze, whiskers, upper neck coils, moon & clouds
             ======================================================== */}
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1520px] aspect-[16/9] max-h-[920px] pointer-events-none"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1520px] aspect-[16/9] max-h-[920px] pointer-events-none opacity-35 lg:opacity-100"
           style={{
             maskImage:
               "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
@@ -135,10 +135,11 @@ export default function ContinuousInkArtwork() {
             ======================================================== */}
 
         {/* 01. DRAGON CLAW CLUTCHING SACRED PEARL (HOJU) (~980px, Right) */}
-        <div
-          className="absolute right-[3%] xl:right-[6%] pointer-events-none select-none opacity-[0.85]"
-          style={{ top: "980px", width: "240px", height: "240px" }}
-        >
+        <div className="hidden lg:block">
+          <div
+            className="absolute right-[3%] xl:right-[6%] pointer-events-none select-none opacity-[0.85]"
+            style={{ top: "980px", width: "240px", height: "240px" }}
+          >
           <svg viewBox="0 0 240 240" fill="none" className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
             <circle cx="120" cy="120" r="32" stroke="var(--tattoo-ink-accent)" strokeWidth="1.8" fill="var(--tattoo-fill-wash)" />
             <circle cx="120" cy="120" r="24" stroke="var(--tattoo-ink-subtle)" strokeWidth="1.0" />
@@ -1451,6 +1452,7 @@ export default function ContinuousInkArtwork() {
             <line x1="60" y1="28" x2="60" y2="92" stroke="var(--tattoo-ink-subtle)" strokeWidth="1.0" />
             <line x1="28" y1="60" x2="92" y2="60" stroke="var(--tattoo-ink-subtle)" strokeWidth="1.0" />
           </svg>
+        </div>
         </div>
 
       </div>

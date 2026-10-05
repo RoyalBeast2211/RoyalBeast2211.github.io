@@ -100,7 +100,7 @@ export default function ContactFooter() {
     <footer
       ref={containerRef}
       id="contact"
-      className="max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-16 scroll-mt-20"
+      className="relative z-10 max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-16 scroll-mt-20"
     >
       {/* Technical Section Divider */}
       <SectionHeader
@@ -117,12 +117,12 @@ export default function ContactFooter() {
           <div className="lg:col-span-7 space-y-6">
             <div className="space-y-1 overflow-hidden">
               <div ref={line1Ref} className="overflow-hidden will-change-transform">
-                <h2 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-tighter text-[var(--text-primary)] leading-[0.88] uppercase select-none">
+                <h2 className="font-display font-black text-4xl sm:text-7xl lg:text-8xl tracking-tighter text-[var(--text-primary)] leading-[0.88] uppercase select-none">
                   DIRECT
                 </h2>
               </div>
               <div ref={line2Ref} className="overflow-hidden will-change-transform">
-                <h2 className="font-display font-black text-5xl sm:text-7xl lg:text-8xl tracking-tighter text-[var(--accent)] leading-[0.88] uppercase select-none">
+                <h2 className="font-display font-black text-4xl sm:text-7xl lg:text-8xl tracking-tighter text-[var(--accent)] leading-[0.88] uppercase select-none">
                   CONTACT.
                 </h2>
               </div>
@@ -131,12 +131,12 @@ export default function ContactFooter() {
             {/* Staggered Channels with Section 07 Magnetic Links */}
             <div
               ref={channelsRef}
-              className="pt-6 flex flex-wrap items-center gap-4 sm:gap-6 font-mono text-sm sm:text-base font-bold"
+              className="pt-6 flex flex-wrap items-center gap-3 sm:gap-6 font-mono text-sm sm:text-base font-bold"
             >
               <a
                 href={`mailto:${email}`}
                 data-magnetic="true"
-                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative"
+                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative min-h-[44px] py-1"
               >
                 <span className="magnetic-target inline-flex items-center gap-1 will-change-transform">
                   <span className="link-text">EMAIL</span>
@@ -150,7 +150,7 @@ export default function ContactFooter() {
                 target="_blank"
                 rel="noreferrer"
                 data-magnetic="true"
-                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative"
+                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative min-h-[44px] py-1"
               >
                 <span className="magnetic-target inline-flex items-center gap-1 will-change-transform">
                   <span className="link-text">GITHUB</span>
@@ -164,7 +164,7 @@ export default function ContactFooter() {
                 target="_blank"
                 rel="noreferrer"
                 data-magnetic="true"
-                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative"
+                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative min-h-[44px] py-1"
               >
                 <span className="magnetic-target inline-flex items-center gap-1 will-change-transform">
                   <span className="link-text">LINKEDIN</span>
@@ -178,7 +178,7 @@ export default function ContactFooter() {
                 target="_blank"
                 rel="noreferrer"
                 data-magnetic="true"
-                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative"
+                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative min-h-[44px] py-1"
               >
                 <span className="magnetic-target inline-flex items-center gap-1 will-change-transform">
                   <span className="link-text">LEETCODE</span>
@@ -189,14 +189,13 @@ export default function ContactFooter() {
 
               <a
                 href={PERSONAL_INFO.resumePdf}
-                download="Omkar_More_Resume.pdf"
                 target="_blank"
                 rel="noreferrer"
                 data-magnetic="true"
-                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative"
+                className="editorial-link group inline-flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--accent)] transition-colors relative min-h-[44px] py-1"
               >
                 <span className="magnetic-target inline-flex items-center gap-1 will-change-transform">
-                  <span className="link-text">RESUME [PDF]</span>
+                  <span className="link-text">VIEW RESUME</span>
                   <span className="link-dash">─</span>
                   <ArrowUpRight className="link-arrow w-4 h-4 text-[var(--accent)]" />
                 </span>
@@ -235,7 +234,7 @@ export default function ContactFooter() {
           </div>
 
           {/* Right: Quick Brutalist Dispatch Form */}
-          <div className="lg:col-span-5 bg-[var(--terminal-bg)] text-[var(--terminal-text)] p-6 sm:p-8 border border-[var(--terminal-border)] shadow-2xl">
+          <div className="relative z-10 lg:col-span-5 bg-[var(--terminal-bg)] text-[var(--terminal-text)] p-6 sm:p-8 border border-[var(--terminal-border)] shadow-2xl">
             <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-color)]/30 font-mono text-xs">
               <span className="text-[var(--accent)] font-bold">SEND MESSAGE DIRECT</span>
               <span className="text-[var(--text-muted)]">[ENCRYPTED]</span>
@@ -250,7 +249,7 @@ export default function ContactFooter() {
                 <p className="text-xs text-[var(--text-muted)]">Thank you. I will reply within 24 hours.</p>
                 <button
                   onClick={() => setFormSent(false)}
-                  className="text-xs text-[var(--accent)] underline pt-2 block mx-auto"
+                  className="text-xs text-[var(--accent)] underline pt-2 block mx-auto cursor-pointer"
                 >
                   Send another message
                 </button>
@@ -267,7 +266,7 @@ export default function ContactFooter() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Ada Lovelace"
-                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] focus:outline-none focus:border-[var(--accent)] transition-colors"
+                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors relative z-10"
                   />
                 </div>
 
@@ -281,7 +280,7 @@ export default function ContactFooter() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="ada@computing.org"
-                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] focus:outline-none focus:border-[var(--accent)] transition-colors"
+                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors relative z-10"
                   />
                 </div>
 
@@ -295,7 +294,7 @@ export default function ContactFooter() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Hey Omkar, let's talk about..."
-                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] focus:outline-none focus:border-[var(--accent)] transition-colors resize-none"
+                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors resize-none relative z-10"
                   />
                 </div>
 

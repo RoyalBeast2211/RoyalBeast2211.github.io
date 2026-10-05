@@ -9,8 +9,8 @@ export default function GitlikeTechnicalVisual() {
   return (
     <div className="w-full bg-[var(--terminal-bg)] text-[var(--terminal-text)] border-2 border-[var(--border-strong)] shadow-2xl overflow-hidden font-mono select-none">
       {/* Top Editorial Window Header */}
-      <div className="px-4 py-3 bg-[var(--bg-surface)] border-b border-[var(--border-color)] flex flex-wrap items-center justify-between gap-3 text-xs">
-        <div className="flex items-center gap-3">
+      <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-[var(--bg-surface)] border-b border-[var(--border-color)] flex flex-wrap items-center justify-between gap-2.5 text-xs">
+        <div className="flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
             <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
@@ -18,7 +18,8 @@ export default function GitlikeTechnicalVisual() {
           </div>
           <span className="text-[var(--text-muted)]">|</span>
           <span className="text-[var(--text-primary)] font-bold tracking-wider">
-            GITLIKE // SYSTEMS WORKBENCH
+            <span className="hidden sm:inline">GITLIKE // SYSTEMS WORKBENCH</span>
+            <span className="sm:hidden">GITLIKE // CLI</span>
           </span>
         </div>
 
@@ -27,33 +28,35 @@ export default function GitlikeTechnicalVisual() {
           <button
             type="button"
             onClick={() => setActiveTab("arch")}
-            className={`px-3 py-1 text-[11px] font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTab === "arch"
                 ? "bg-[var(--accent)] text-[#111111]"
                 : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
           >
             <Layers className="w-3 h-3" />
-            <span>DAG Architecture</span>
+            <span className="hidden sm:inline">DAG Architecture</span>
+            <span className="sm:hidden">DAG</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("code")}
-            className={`px-3 py-1 text-[11px] font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer ${
+            className={`px-2.5 sm:px-3 py-1 text-[10px] sm:text-[11px] font-bold uppercase transition-colors flex items-center gap-1.5 cursor-pointer ${
               activeTab === "code"
                 ? "bg-[var(--accent)] text-[#111111]"
                 : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
           >
             <FileCode className="w-3 h-3" />
-            <span>Python Engine</span>
+            <span className="hidden sm:inline">Python Engine</span>
+            <span className="sm:hidden">Engine</span>
           </button>
         </div>
       </div>
 
       {/* Main Systems Display: Either DAG Architecture or Python Engine */}
       {activeTab === "arch" ? (
-        <div className="p-6 sm:p-8 space-y-6">
+        <div className="p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
           {/* Content Addressable Storage Flowchart */}
           <div className="space-y-2">
             <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)] uppercase tracking-wider pb-2 border-b border-[var(--border-color)]/40">

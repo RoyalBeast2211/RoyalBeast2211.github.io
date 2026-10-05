@@ -82,77 +82,88 @@ export default function CinematicTransitionOverlay() {
 
     el.style.willChange = "transform, filter, opacity";
     const isForward = direction === "forward";
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
 
     if (phase === "prep") {
       el.style.transition = "transform 40ms ease-out";
       el.style.transform = "translate3d(0, 0, 0) scale(1)";
     } else if (phase === "whip-out") {
       // Rapid acceleration sideways (out of viewport)
-      // Section 10: forward moves left (-24vw), Section 11: backward moves right (+24vw)
-      const shiftX = isForward ? "-24vw" : "24vw";
+      // Mobile: restrained 20px shift without blur (Section 39, 41)
+      // Desktop: full 24vw cinematic whip with depth parallax and motion blur
+      const shiftX = isMobile ? (isForward ? "-20px" : "20px") : (isForward ? "-24vw" : "24vw");
       const shiftNum = isForward ? -24 : 24;
-      el.style.transition =
-        "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2), filter 160ms ease-in, opacity 180ms ease-in";
-      el.style.transform = `translate3d(${shiftX}, 0, 0) scale(0.985)`;
-      // Section 14: Subtle horizontal motion-blur impression during transition only
-      el.style.filter = "blur(4px)";
-      el.style.opacity = "0.78";
+      el.style.transition = isMobile
+        ? "transform 140ms ease-in, opacity 140ms ease-in"
+        : "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2), filter 160ms ease-in, opacity 180ms ease-in";
+      el.style.transform = `translate3d(${shiftX}, 0, 0) ${isMobile ? "scale(1)" : "scale(0.985)"}`;
+      if (!isMobile) {
+        el.style.filter = "blur(4px)";
+      }
+      el.style.opacity = isMobile ? "0.85" : "0.78";
 
-      // Section 12: Multi-layer depth parallax (GRID 1.25x, METADATA 1.15x, IMAGE 0.90x)
-      const grids = el.querySelectorAll<HTMLElement>('[data-layer="grid"]');
-      grids.forEach((g) => {
-        g.style.transition = "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2)";
-        g.style.transform = `translate3d(${shiftNum * 0.25}px, 0, 0)`;
-      });
+      if (!isMobile) {
+        // Section 12: Multi-layer depth parallax (GRID 1.25x, METADATA 1.15x, IMAGE 0.90x) - Desktop only
+        const grids = el.querySelectorAll<HTMLElement>('[data-layer="grid"]');
+        grids.forEach((g) => {
+          g.style.transition = "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2)";
+          g.style.transform = `translate3d(${shiftNum * 0.25}px, 0, 0)`;
+        });
 
-      const metas = el.querySelectorAll<HTMLElement>('[data-layer="meta"], .font-mono');
-      metas.forEach((m) => {
-        m.style.transition = "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2)";
-        m.style.transform = `translate3d(${shiftNum * 0.15}px, 0, 0)`;
-      });
+        const metas = el.querySelectorAll<HTMLElement>('[data-layer="meta"], .font-mono');
+        metas.forEach((m) => {
+          m.style.transition = "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2)";
+          m.style.transform = `translate3d(${shiftNum * 0.15}px, 0, 0)`;
+        });
 
-      const images = el.querySelectorAll<HTMLElement>('[data-layer="image"], img');
-      images.forEach((img) => {
-        img.style.transition = "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2)";
-        img.style.transform = `translate3d(${shiftNum * -0.10}px, 0, 0)`;
-      });
+        const images = el.querySelectorAll<HTMLElement>('[data-layer="image"], img');
+        images.forEach((img) => {
+          img.style.transition = "transform 180ms cubic-bezier(0.5, 0, 0.8, 0.2)";
+          img.style.transform = `translate3d(${shiftNum * -0.10}px, 0, 0)`;
+        });
 
-      // Section 13: Large typography stretches slightly during movement
-      const titles = el.querySelectorAll<HTMLElement>("h1, h2");
-      titles.forEach((t) => {
-        t.style.transform = "scaleX(1.025)";
-        t.style.transition = "transform 160ms linear";
-      });
+        // Section 13: Large typography stretches slightly during movement
+        const titles = el.querySelectorAll<HTMLElement>("h1, h2");
+        titles.forEach((t) => {
+          t.style.transform = "scaleX(1.025)";
+          t.style.transition = "transform 160ms linear";
+        });
+      }
     } else if (phase === "switch") {
-      // Instant snap to opposite side (zero transition time under cover of blur)
-      const shiftX = isForward ? "24vw" : "-24vw";
+      // Instant snap to opposite side
+      const shiftX = isMobile ? (isForward ? "20px" : "-20px") : (isForward ? "24vw" : "-24vw");
       el.style.transition = "none";
-      el.style.transform = `translate3d(${shiftX}, 0, 0) scale(1.02)`;
-      el.style.filter = "blur(4px)";
-      el.style.opacity = "0.85";
+      el.style.transform = `translate3d(${shiftX}, 0, 0) ${isMobile ? "scale(1)" : "scale(1.02)"}`;
+      if (!isMobile) {
+        el.style.filter = "blur(4px)";
+      }
+      el.style.opacity = isMobile ? "0.9" : "0.85";
       // Force layout reflow
       void el.offsetHeight;
     } else if (phase === "whip-in") {
-      // Section 17: Decelerate quickly: scale 1.02 -> 1, opacity 0.85 -> 1
-      el.style.transition =
-        "transform 240ms cubic-bezier(0.16, 1, 0.3, 1), filter 220ms ease-out, opacity 220ms ease-out";
+      // Settle quickly: opacity -> 1, transform -> 0
+      el.style.transition = isMobile
+        ? "transform 180ms ease-out, opacity 180ms ease-out"
+        : "transform 240ms cubic-bezier(0.16, 1, 0.3, 1), filter 220ms ease-out, opacity 220ms ease-out";
       el.style.transform = "translate3d(0, 0, 0) scale(1)";
-      el.style.filter = "blur(0px)";
+      el.style.filter = "none";
       el.style.opacity = "1";
 
-      // Multi-layer returns to alignment
-      const layers = el.querySelectorAll<HTMLElement>('[data-layer="grid"], [data-layer="meta"], [data-layer="image"], img, .font-mono');
-      layers.forEach((l) => {
+      if (!isMobile) {
+        // Multi-layer returns to alignment
+        const layers = el.querySelectorAll<HTMLElement>('[data-layer="grid"], [data-layer="meta"], [data-layer="image"], img, .font-mono');
+        layers.forEach((l) => {
         l.style.transition = "transform 240ms cubic-bezier(0.16, 1, 0.3, 1)";
         l.style.transform = "translate3d(0, 0, 0)";
       });
 
-      // Typography settles back
-      const titles = el.querySelectorAll<HTMLElement>("h1, h2");
-      titles.forEach((t) => {
-        t.style.transform = "scaleX(1)";
-        t.style.transition = "transform 200ms cubic-bezier(0.16, 1, 0.3, 1)";
-      });
+        // Typography settles back
+        const titles = el.querySelectorAll<HTMLElement>("h1, h2");
+        titles.forEach((t) => {
+          t.style.transform = "scaleX(1)";
+          t.style.transition = "transform 200ms cubic-bezier(0.16, 1, 0.3, 1)";
+        });
+      }
     } else if (phase === "settle") {
       el.style.transition = "transform 50ms ease-out";
       el.style.transform = "translate3d(0, 0, 0) scale(1)";
