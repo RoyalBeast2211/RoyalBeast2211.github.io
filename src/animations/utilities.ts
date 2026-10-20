@@ -30,11 +30,11 @@ export const EASES = {
  * Standard Speeds conforming to Section 04 Guidelines
  */
 export const DURATIONS = {
-  micro: 380,       // slowed from 220
-  fast: 420,        // slowed from 200
-  normal: 950,      // slowed from 520
-  hero: 1600,       // slowed from 1000
-  transition: 950,  // slowed from 600
+  micro: 220,
+  fast: 300,
+  normal: 560,
+  hero: 950,
+  transition: 540,
 };
 
 /**

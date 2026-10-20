@@ -284,7 +284,8 @@ export default function InteractiveSortingVisualizer() {
             type="button"
             onClick={handleShuffle}
             disabled={isSorting}
-            className="flex items-center gap-1.5 px-3 py-1.5 border border-[var(--border-color)] hover:border-[var(--text-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer text-xs font-bold uppercase tracking-wider"
+            data-cursor="SHUFFLE"
+            className="flex items-center gap-1.5 px-3 py-1.5 border border-[var(--border-color)] hover:border-[var(--text-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all duration-150 active:scale-[0.97] cursor-pointer text-xs font-bold uppercase tracking-wider"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span>SHUFFLE</span>
@@ -294,7 +295,8 @@ export default function InteractiveSortingVisualizer() {
             <button
               type="button"
               onClick={handleStop}
-              className="flex items-center gap-1.5 px-4 py-1.5 bg-[var(--accent)] hover:opacity-90 text-[#111111] font-bold transition-colors cursor-pointer text-xs uppercase tracking-wider"
+              data-cursor="HALT"
+              className="flex items-center gap-1.5 px-4 py-1.5 bg-[var(--accent)] hover:opacity-90 text-[#111111] font-bold transition-all duration-150 active:scale-[0.97] cursor-pointer text-xs uppercase tracking-wider"
             >
               <Pause className="w-3.5 h-3.5 fill-current" />
               <span>HALT</span>
@@ -303,7 +305,8 @@ export default function InteractiveSortingVisualizer() {
             <button
               type="button"
               onClick={handleStartSort}
-              className="flex items-center gap-1.5 px-4 py-1.5 bg-[var(--text-primary)] hover:bg-[var(--accent)] text-[var(--bg-primary)] hover:text-[#111111] font-bold transition-colors cursor-pointer text-xs uppercase tracking-wider"
+              data-cursor="RUN"
+              className="flex items-center gap-1.5 px-4 py-1.5 bg-[var(--text-primary)] hover:bg-[var(--accent)] text-[var(--bg-primary)] hover:text-[#111111] font-bold transition-all duration-150 active:scale-[0.97] cursor-pointer text-xs uppercase tracking-wider shadow-xs"
             >
               <Play className="w-3.5 h-3.5 fill-current" />
               <span>RUN SORT</span>

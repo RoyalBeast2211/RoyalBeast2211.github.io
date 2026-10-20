@@ -175,9 +175,9 @@ export default function StackSection() {
       id="stack"
       className="relative z-10 max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-28 scroll-mt-20"
     >
-      {/* 04 / SKILLS Technical Section Divider */}
+      {/* 05 / SKILLS Technical Section Divider */}
       <SectionHeader
-        number="04"
+        number="05"
         title="SKILLS"
       />
 

@@ -22,8 +22,9 @@ export const SECTIONS: SectionMeta[] = [
   { id: "about", num: "01", label: "ABOUT", fullName: "01 / ABOUT", index: 0 },
   { id: "experience", num: "02", label: "EXPERIENCE", fullName: "02 / EXPERIENCE", index: 1 },
   { id: "projects", num: "03", label: "PROJECTS", fullName: "03 / PROJECTS", index: 2 },
-  { id: "stack", num: "04", label: "SKILLS", fullName: "04 / SKILLS", index: 3 },
-  { id: "contact", num: "05", label: "CONTACT", fullName: "05 / CONTACT", index: 4 },
+  { id: "problems", num: "04", label: "RATINGS", fullName: "04 / PROBLEM SOLVING", index: 3 },
+  { id: "stack", num: "05", label: "SKILLS", fullName: "05 / SKILLS", index: 4 },
+  { id: "contact", num: "06", label: "CONTACT", fullName: "06 / CONTACT", index: 5 },
 ];
 
 export type TransitionDirection = "forward" | "backward";
@@ -120,6 +121,15 @@ export function CinematicNavigationProvider({ children }: { children: ReactNode 
     }
     if (targetId === "exp" || targetId === "timeline") {
       targetId = "experience";
+    }
+    if (
+      targetId === "problems" ||
+      targetId === "problem-solving" ||
+      targetId === "ratings" ||
+      targetId === "leetcode" ||
+      targetId === "dsa"
+    ) {
+      targetId = "problems";
     }
     if (targetId === "skills" || targetId === "technologies" || targetId === "tech") {
       targetId = "stack";

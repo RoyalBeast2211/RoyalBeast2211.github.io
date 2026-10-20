@@ -134,7 +134,7 @@ export default function ContactFooter() {
     >
       {/* Technical Section Divider */}
       <SectionHeader
-        number="05"
+        number="06"
         title="CONTACT"
         tagline="DIRECT CHANNELS & PROFILES"
         badge="GET IN TOUCH"
@@ -241,7 +241,8 @@ export default function ContactFooter() {
                 </div>
                 <button
                   onClick={handleCopyEmail}
-                  className="flex items-center gap-1 px-2.5 py-1 bg-[var(--text-primary)] hover:bg-[var(--accent)] text-[var(--bg-primary)] hover:text-[#111111] text-[11px] font-bold transition-colors"
+                  data-cursor="COPY"
+                  className="flex items-center gap-1 px-2.5 py-1 bg-[var(--text-primary)] hover:bg-[var(--accent)] text-[var(--bg-primary)] hover:text-[#111111] text-[11px] font-bold transition-all duration-150 active:scale-95 cursor-pointer"
                 >
                   {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? "COPIED" : "COPY"}</span>
@@ -337,7 +338,8 @@ export default function ContactFooter() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-2.5 bg-[var(--accent)] hover:bg-[var(--text-primary)] disabled:opacity-50 disabled:cursor-not-allowed text-[#111111] hover:text-[var(--bg-primary)] font-bold uppercase tracking-wider transition-colors duration-150 flex items-center justify-center gap-2 cursor-pointer"
+                  data-cursor="SEND"
+                  className="w-full py-2.5 bg-[var(--accent)] hover:bg-[var(--text-primary)] disabled:opacity-50 disabled:cursor-not-allowed text-[#111111] hover:text-[var(--bg-primary)] font-bold uppercase tracking-wider transition-all duration-150 active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer shadow-xs"
                 >
                   {isSubmitting ? (
                     <>

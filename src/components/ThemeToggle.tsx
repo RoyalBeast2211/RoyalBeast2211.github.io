@@ -62,7 +62,8 @@ export default function ThemeToggle({ variant = "desktop" }: ThemeToggleProps) {
       <button
         type="button"
         onClick={() => setTheme("light")}
-        className={`px-2 py-1 flex items-center gap-1 uppercase tracking-wider transition-colors ${
+        data-cursor="THEME"
+        className={`px-2 py-1 flex items-center gap-1 uppercase tracking-wider transition-all duration-150 active:scale-95 cursor-pointer ${
           resolvedTheme === "light"
             ? "bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold shadow-xs"
             : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"
@@ -78,7 +79,8 @@ export default function ThemeToggle({ variant = "desktop" }: ThemeToggleProps) {
       <button
         type="button"
         onClick={() => setTheme("dark")}
-        className={`px-2 py-1 flex items-center gap-1 uppercase tracking-wider transition-colors ${
+        data-cursor="THEME"
+        className={`px-2 py-1 flex items-center gap-1 uppercase tracking-wider transition-all duration-150 active:scale-95 cursor-pointer ${
           resolvedTheme === "dark"
             ? "bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold shadow-xs"
             : "text-[var(--text-muted)] hover:text-[var(--text-primary)]"

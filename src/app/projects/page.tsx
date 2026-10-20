@@ -114,6 +114,25 @@ export default function ProjectsArchivePage() {
     }
   }, [activeCategory]);
 
+  // Handle Escape key and body lock for project detail modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveModalProject(null);
+      }
+    };
+    if (activeModalProject) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [activeModalProject]);
+
   return (
     <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] selection:bg-[var(--accent)] selection:text-[var(--bg-primary)]">
       {/* Desktop Custom Contextual Cursor */}
@@ -411,12 +430,17 @@ export default function ProjectsArchivePage() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[80] bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center select-text"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setActiveModalProject(null);
+            }
+          }}
+          className="fixed inset-0 z-[80] bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center select-text animate-in fade-in duration-200"
         >
-          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] border-2 border-[var(--border-strong)] max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 relative space-y-6 shadow-2xl">
+          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] border-2 border-[var(--border-strong)] max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 relative space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
             <button
               onClick={() => setActiveModalProject(null)}
-              className="absolute top-4 right-4 p-2 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-mono text-xs font-bold transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-2 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-mono text-xs font-bold transition-all duration-150 active:scale-95 cursor-pointer"
             >
               CLOSE [ESC]
             </button>

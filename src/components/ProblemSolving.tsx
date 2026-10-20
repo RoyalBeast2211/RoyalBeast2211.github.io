@@ -110,7 +110,7 @@ export default function ProblemSolving() {
     >
       {/* Technical Section Divider */}
       <SectionHeader
-        number="03"
+        number="04"
         title="PROBLEM SOLVING"
         tagline="COMPETITIVE PROGRAMMING, RATINGS & HONORS"
         badge="980+ SOLVED"

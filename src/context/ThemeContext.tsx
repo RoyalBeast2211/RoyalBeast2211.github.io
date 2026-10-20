@@ -77,7 +77,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setTheme = (newTheme: Theme) => {
     localStorage.setItem("omkar_theme", newTheme);
-    const isDark = newTheme === "light" ? false : true;
+    const isDark =
+      newTheme === "light"
+        ? false
+        : newTheme === "system"
+        ? isSystemDark
+        : true;
     applyDomTheme(isDark ? "dark" : "light", true);
     window.dispatchEvent(new Event("omkar_theme_change"));
   };

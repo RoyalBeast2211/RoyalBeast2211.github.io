@@ -8,8 +8,9 @@ const QUICK_NAV_SECTIONS = [
   { id: "about", num: "01", label: "ABOUT" },
   { id: "experience", num: "02", label: "EXPERIENCE" },
   { id: "projects", num: "03", label: "PROJECTS" },
-  { id: "stack", num: "04", label: "SKILLS" },
-  { id: "contact", num: "05", label: "CONTACT" },
+  { id: "problems", num: "04", label: "RATINGS" },
+  { id: "stack", num: "05", label: "SKILLS" },
+  { id: "contact", num: "06", label: "CONTACT" },
 ];
 
 export default function PageProgress() {

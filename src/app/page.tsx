@@ -9,6 +9,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import AboutHero from "@/components/AboutHero";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SelectedWork from "@/components/SelectedWork";
+import ProblemSolving from "@/components/ProblemSolving";
 import StackSection from "@/components/StackSection";
 import ContactFooter from "@/components/ContactFooter";
 import {
@@ -68,13 +69,16 @@ function PortfolioContent() {
         {/* 02 / EXPERIENCE */}
         <ExperienceTimeline />
 
-        {/* 03 / PROJECTS (IG App + GitLike) */}
+        {/* 03 / PROJECTS */}
         <SelectedWork />
 
-        {/* 04 / SKILLS */}
+        {/* 04 / PROBLEM SOLVING */}
+        <ProblemSolving />
+
+        {/* 05 / SKILLS */}
         <StackSection />
 
-        {/* 05 / CONTACT */}
+        {/* 06 / CONTACT */}
         <ContactFooter />
       </main>
     </div>

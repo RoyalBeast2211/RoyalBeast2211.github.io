@@ -56,24 +56,21 @@ export default function CustomCursor() {
         setCursorText("VIEW ↗");
         setIsPointer(true);
       }
-      // 2. EXTERNAL: OPEN ↗
+      // 2. EXTERNAL or LINK: OPEN ↗
       else if (
         target.closest("a[target='_blank']") ||
         target.closest("a[href^='http']") ||
         target.closest("a[href^='mailto:']") ||
-        target.closest("a[href^='tel:']")
+        target.closest("a[href^='tel:']") ||
+        target.closest("a") ||
+        target.tagName === "A"
       ) {
         setCursorText("OPEN ↗");
         setIsPointer(true);
       }
-      // General clickable
-      else if (
-        target.closest("button") ||
-        target.closest("a") ||
-        target.tagName === "BUTTON" ||
-        target.tagName === "A"
-      ) {
-        setCursorText("OPEN ↗");
+      // 3. Regular buttons and interactive elements: activate pointer ring without inaccurate label
+      else if (target.closest("button") || target.tagName === "BUTTON" || target.closest("[role='button']")) {
+        setCursorText(null);
         setIsPointer(true);
       } else {
         setCursorText(null);

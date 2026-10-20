@@ -104,6 +104,25 @@ export default function SelectedWork() {
     return () => cleanups.forEach((c) => c());
   }, []);
 
+  // Close active project modal on Escape key & lock scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActiveProjectModal(null);
+      }
+    };
+    if (activeProjectModal) {
+      window.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [activeProjectModal]);
+
   // Section 16: IG App Entrance Stagger Sequence
   useEffect(() => {
     if (!igCardRef.current) return;
@@ -701,6 +720,111 @@ export default function SelectedWork() {
       </div>
 
       {/* ========================================================= */}
+      {/* EXPANDED ENGINEERING REPERTOIRE (PROJECTS 03 - 07) */}
+      {/* ========================================================= */}
+      <div className="mt-16 lg:mt-24 pt-12 border-t-2 border-[var(--border-color)] space-y-8">
+        <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono">
+          <div>
+            <span className="text-xs text-[var(--accent)] font-bold tracking-widest block uppercase">
+              {"// EXPANDED REPERTOIRE"}
+            </span>
+            <h3 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[var(--text-primary)] tracking-tight uppercase mt-1">
+              ADDITIONAL PRODUCTIONS & SYSTEMS
+            </h3>
+          </div>
+          <span className="text-xs text-[var(--text-muted)] font-mono">
+            5 SPECIALIZED PLATFORMS & ENGINES
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono">
+          {PROJECTS.filter((p) => !p.featured).map((proj) => (
+            <div
+              key={proj.id}
+              className="group p-6 bg-[var(--bg-surface)] border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] flex flex-col justify-between space-y-5 transition-all duration-200 relative shadow-xs hover:shadow-md"
+            >
+              <div className="space-y-3.5">
+                {/* Card Top: Number, Category & Status */}
+                <div className="flex items-center justify-between text-xs border-b border-[var(--border-color)] pb-3">
+                  <span className="text-[var(--accent)] font-bold text-[11px]">
+                    {proj.number}
+                  </span>
+                  <span className="text-[10px] px-2 py-0.5 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] uppercase">
+                    {proj.category}
+                  </span>
+                  <span className="text-[10px] text-[#10B981] font-semibold">
+                    {proj.status || "Completed"}
+                  </span>
+                </div>
+
+                {/* Title & Subtitle */}
+                <div>
+                  <h4 className="font-display font-black text-2xl text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors uppercase tracking-tight">
+                    {proj.title}
+                  </h4>
+                  <p className="text-[11px] text-[var(--accent)] font-semibold tracking-wider uppercase mt-0.5">
+                    {proj.subtitle}
+                  </p>
+                </div>
+
+                {/* Tagline & Description */}
+                <p className="text-xs text-[var(--text-primary)] font-semibold leading-snug border-l-2 border-[var(--accent)] pl-2.5">
+                  {proj.tagline}
+                </p>
+
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed line-clamp-3">
+                  {proj.description}
+                </p>
+
+                {/* Tech Pills */}
+                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[var(--border-color)]/60 text-[10px]">
+                  {proj.tech.slice(0, 4).map((t, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-0.5 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                  {proj.tech.length > 4 && (
+                    <span className="px-1.5 py-0.5 text-[var(--text-muted)] text-[9px]">
+                      +{proj.tech.length - 4}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-4 border-t border-[var(--border-color)] flex items-center justify-between gap-3 text-xs">
+                <button
+                  type="button"
+                  onClick={() => setActiveProjectModal(proj)}
+                  className="flex-1 py-2.5 px-3 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold text-center uppercase tracking-wider transition-all duration-150 active:scale-[0.98] cursor-pointer"
+                >
+                  DOSSIER ↗
+                </button>
+
+                {proj.githubUrl && (
+                  <a
+                    href={proj.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="p-2.5 border border-[var(--border-color)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[var(--accent)] transition-all duration-150 active:scale-[0.95]"
+                    title="Audit Source Code on GitHub"
+                  >
+                    <GithubIcon className="w-4 h-4" />
+                  </a>
+                )}
+              </div>
+
+              {/* Bottom Subtle Accent Stripe on Hover */}
+              <div className="absolute bottom-0 left-0 w-0 group-hover:w-full h-[2px] bg-[var(--accent)] transition-all duration-200" />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ========================================================= */}
       {/* VIEW ALL PROJECTS CTA */}
       {/* ========================================================= */}
       <div className="mt-16 lg:mt-24 pt-12 border-t-2 border-[var(--border-color)] flex flex-col sm:flex-row sm:items-center justify-between gap-6 font-mono text-xs">
@@ -716,7 +840,7 @@ export default function SelectedWork() {
         <Link
           href="/projects"
           data-cursor="OPEN ARCHIVE"
-          className="view-all-projects-cta group inline-flex items-center gap-3 px-6 py-4 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold text-xs uppercase tracking-wider transition-colors duration-200 self-start sm:self-auto shadow-md"
+          className="view-all-projects-cta group inline-flex items-center gap-3 px-6 py-4 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold text-xs uppercase tracking-wider transition-all duration-150 active:scale-[0.98] self-start sm:self-auto shadow-md"
         >
           <span>VIEW ALL PROJECTS</span>
           <span className="inline-flex items-center transition-transform duration-200 group-hover:translate-x-1">
@@ -733,12 +857,17 @@ export default function SelectedWork() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[80] bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center select-text"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setActiveProjectModal(null);
+            }
+          }}
+          className="fixed inset-0 z-[80] bg-black/85 backdrop-blur-md p-4 sm:p-8 flex items-center justify-center select-text animate-in fade-in duration-200"
         >
-          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] border-2 border-[var(--border-strong)] max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 relative space-y-6 shadow-2xl">
+          <div className="bg-[var(--bg-primary)] text-[var(--text-primary)] border-2 border-[var(--border-strong)] max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 relative space-y-6 shadow-2xl animate-in zoom-in-95 duration-200">
             <button
               onClick={() => setActiveProjectModal(null)}
-              className="absolute top-4 right-4 p-2 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-mono text-xs font-bold transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-2 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-mono text-xs font-bold transition-all duration-150 active:scale-95 cursor-pointer"
             >
               CLOSE [ESC]
             </button>

@@ -123,7 +123,7 @@ export default function MobileNav() {
             <div className="font-mono text-[11px] font-bold px-2 py-1 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--text-secondary)]">
               <span className="text-[var(--accent)]">{activeMeta.num}</span>
               <span className="text-[var(--border-color)] mx-1">/</span>
-              <span>05</span>
+              <span>06</span>
             </div>
 
             {/* Quick 1-Tap Theme Toggle with 44px Touch Target */}

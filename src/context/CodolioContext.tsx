@@ -108,7 +108,6 @@ export function CodolioProvider({ children }: { children: React.ReactNode }) {
   const fetchStats = useCallback(async () => {
     setIsLoading(true);
     try {
-      // Always fetch latest data from /api/codolio which proxies Codolio API with 5min revalidation
       const res = await fetch("/api/codolio", { cache: "no-store" });
       if (res.ok) {
         const json = await res.json();
@@ -125,11 +124,29 @@ export function CodolioProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   useEffect(() => {
-    fetchStats();
-    // Poll every 5 minutes while active tab
-    const interval = setInterval(fetchStats, 5 * 60 * 1000);
-    return () => clearInterval(interval);
-  }, [fetchStats]);
+    let isMounted = true;
+    const initialLoad = async () => {
+      try {
+        const res = await fetch("/api/codolio", { cache: "no-store" });
+        if (res.ok && isMounted) {
+          const json = await res.json();
+          if (json?.data && isMounted) {
+            setData(json.data);
+            setIsLive(true);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not fetch live Codolio data, using verified baseline:", err);
+      }
+    };
+
+    initialLoad();
+    const interval = setInterval(initialLoad, 5 * 60 * 1000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   return (
     <CodolioContext.Provider value={{ data, isLive, isLoading, refresh: fetchStats }}>

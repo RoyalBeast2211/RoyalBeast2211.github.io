@@ -217,7 +217,7 @@ export default function AboutHero() {
               target="_blank"
               rel="noreferrer"
               data-magnetic="true"
-              className="group relative inline-flex items-center gap-3.5 px-6 py-3.5 border-2 border-[var(--border-strong)] bg-[var(--bg-surface)] hover:bg-[var(--accent)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[#0a0a0a] transition-all duration-200 font-mono text-xs font-bold tracking-wider select-none overflow-hidden shadow-xs cursor-pointer"
+              className="group relative inline-flex items-center gap-3.5 px-6 py-3.5 border-2 border-[var(--border-strong)] bg-[var(--bg-surface)] hover:bg-[var(--accent)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[#0a0a0a] transition-all duration-150 active:scale-[0.98] font-mono text-xs font-bold tracking-wider select-none overflow-hidden shadow-xs cursor-pointer"
               title="View Omkar More Resume"
             >
               {/* Technical Corner Brackets */}
