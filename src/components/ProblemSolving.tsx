@@ -194,7 +194,7 @@ export default function ProblemSolving() {
               </div>
               <div className="text-right">
                 <span className="text-xs font-bold text-[var(--text-primary)] border border-[var(--border-strong)] px-2 py-0.5 block">
-                  {codolio?.platforms?.codechef?.starsString || "2★"} STAR
+                  {codolio?.platforms?.codechef?.starsString || "3★"} STAR
                 </span>
                 <span className="text-[10px] text-[var(--text-secondary)] mt-1 block">
                   PEAK {codolio?.platforms?.codechef?.maxRating || 1623}

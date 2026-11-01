@@ -48,7 +48,8 @@ export async function GET() {
     const ccSolved = codechefObj?.totalQuestionStats?.totalQuestionCounts ?? 39;
     const ccRating = codechefObj?.userStats?.currentRating ?? 1590;
     const ccMaxRating = codechefObj?.userStats?.maxRating ?? 1623;
-    const ccStars = codechefObj?.userStats?.stars ?? 2;
+    // Max stars achieved (Peak rating 1623 is 3★ on CodeChef)
+    const ccStars = ccMaxRating >= 1600 ? 3 : (codechefObj?.userStats?.stars ?? 3);
 
     const totalSolved = lcSolved + gfgSolved + ccSolved;
 
@@ -124,8 +125,8 @@ export async function GET() {
             handle: "theomkarmore",
             rating: 1590,
             maxRating: 1623,
-            stars: 2,
-            starsString: "2★",
+            stars: 3,
+            starsString: "3★",
             totalSolved: 39,
             url: "https://www.codechef.com/users/theomkarmore",
           },
