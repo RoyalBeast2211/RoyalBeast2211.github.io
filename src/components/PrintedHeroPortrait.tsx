@@ -4,20 +4,10 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Image from "next/image";
 import { prefersReducedMotion } from "@/animations";
 
-const PORTRAITS = [
-  {
-    src: "/images/omkar-portrait.jpeg",
-    alt: "Omkar More — Portrait 01",
-  },
-  {
-    src: "/images/omkar-portrait-2.jpg",
-    alt: "Omkar More — Portrait 02",
-  },
-  {
-    src: "/images/omkar-portrait-3.jpg",
-    alt: "Omkar More — Portrait 03",
-  },
-];
+const PORTRAIT = {
+  src: "/images/omkar-portrait.jpeg",
+  alt: "Omkar More — Software Engineer Portrait",
+};
 
 interface PrintedHeroPortraitProps {
   className?: string;
@@ -34,9 +24,7 @@ export default function PrintedHeroPortrait({
   const rasterOverlayRef = useRef<HTMLDivElement>(null);
   const statusBadgeRef = useRef<HTMLSpanElement>(null);
 
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isPrinting, setIsPrinting] = useState<boolean>(true);
-  const [isPaused, setIsPaused] = useState<boolean>(false);
   const animationFrameRef = useRef<number | null>(null);
 
   const startPrintAnimation = useCallback(() => {
@@ -136,43 +124,20 @@ export default function PrintedHeroPortrait({
     };
   }, [startPrintAnimation]);
 
-  // Automatic sequence cycling through portraits
-  useEffect(() => {
-    if (isPrinting || isPaused || prefersReducedMotion()) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % PORTRAITS.length);
-    }, 4500);
-
-    return () => clearInterval(interval);
-  }, [isPrinting, isPaused]);
-
-  // Pause when tab is not active
-  useEffect(() => {
-    const handleVisibility = () => {
-      setIsPaused(document.hidden);
-    };
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () => document.removeEventListener("visibilitychange", handleVisibility);
-  }, []);
-
-  const handleAdvance = () => {
+  const handleRePrint = () => {
     if (isPrinting) return;
-    setCurrentIndex((prev) => (prev + 1) % PORTRAITS.length);
+    startPrintAnimation();
   };
 
   return (
     <div
       ref={containerRef}
-      onClick={handleAdvance}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onClick={handleRePrint}
       className={`relative w-full aspect-3/4 border-2 border-[var(--border-strong)] bg-[var(--image-bg)] overflow-hidden shadow-2xl z-10 cursor-pointer ${className}`}
-      title="Click to view next portrait"
+      title="Click to replay print sequence"
     >
-      {/* Raw Print Paper Texture & Alignment Crosshairs (Visible before and under print) */}
+      {/* Raw Print Paper Texture & Alignment Crosshairs */}
       <div className="absolute inset-0 bg-[var(--image-bg)] pointer-events-none z-0">
-        {/* Subtle technical paper grid lines */}
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_31px,var(--border-color)_32px)] [background-size:100%_32px] opacity-15" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,transparent_31px,var(--border-color)_32px)] [background-size:32px_100%] opacity-15" />
 
@@ -189,29 +154,20 @@ export default function PrintedHeroPortrait({
         </div>
       </div>
 
-      {/* The Inked Image Layer (Revealed progressively on load, dissolves between images in sequence) */}
+      {/* The Inked Image Layer (Revealed progressively top to bottom) */}
       <div
         ref={imageMaskRef}
         className="absolute inset-0 z-10 overflow-hidden will-change-[clip-path]"
         style={{ clipPath: "inset(0 0 100% 0)" }}
       >
-        {PORTRAITS.map((portrait, idx) => (
-          <div
-            key={portrait.src}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0 pointer-events-none"
-            }`}
-          >
-            <Image
-              src={portrait.src}
-              alt={portrait.alt}
-              fill
-              unoptimized
-              priority
-              className="object-cover grayscale contrast-115 hover:contrast-100 transition-all duration-700 select-none"
-            />
-          </div>
-        ))}
+        <Image
+          src={PORTRAIT.src}
+          alt={PORTRAIT.alt}
+          fill
+          unoptimized
+          priority
+          className="object-cover grayscale contrast-115 hover:contrast-100 transition-all duration-700 select-none"
+        />
 
         {/* Fine Scanline / Dot Matrix Overlay that dissolves once printed */}
         <div
@@ -245,20 +201,20 @@ export default function PrintedHeroPortrait({
       </div>
 
       {/* Bottom Editorial Technical Metadata Bar */}
-      <div className="absolute bottom-0 inset-x-0 bg-[var(--terminal-bg)]/90 backdrop-blur-xs p-3 sm:p-3.5 border-t border-[var(--border-color)] font-mono text-[11px] text-[var(--terminal-text)] flex justify-between items-center z-20 select-none">
-        <div className="flex items-center gap-2">
-          <span className="text-[var(--accent)] font-bold">
-            PORTRAIT // 0{currentIndex + 1}
+      <div className="absolute bottom-0 inset-x-0 bg-[var(--terminal-bg)]/90 backdrop-blur-xs px-2.5 py-2 sm:px-3 sm:py-2.5 border-t border-[var(--border-color)] font-mono text-[10px] sm:text-[11px] text-[var(--terminal-text)] flex justify-between items-center z-20 select-none">
+        <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
+          <span className="text-[var(--accent)] font-bold whitespace-nowrap">
+            PORTRAIT // 01
           </span>
-          <span className="text-[var(--text-muted)] ml-1 hidden xs:inline">
+          <span className="text-[var(--text-muted)] ml-1 hidden xs:inline truncate">
             OMKAR MORE
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 shrink-0">
           <span
             ref={statusBadgeRef}
-            className="text-[10px] text-[var(--text-muted)] tracking-wider"
+            className="text-[9px] sm:text-[10px] text-[var(--text-muted)] tracking-wider"
           >
             {isPrinting ? (
               <span className="text-[var(--accent)] animate-pulse">● INKING</span>

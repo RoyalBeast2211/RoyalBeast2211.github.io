@@ -25,7 +25,6 @@ export default function AboutHero() {
       cleanups.push(initMagneticElement(resumeBtnRef.current, ".magnetic-target", 6));
     }
 
-
     if (prefersReducedMotion()) {
       if (nameLine1Ref.current) nameLine1Ref.current.style.transform = "none";
       if (nameLine2Ref.current) nameLine2Ref.current.style.transform = "none";
@@ -114,17 +113,12 @@ export default function AboutHero() {
       </div>
 
       {/* Main Editorial Composition: Identity Left, Portrait Right */}
-      <div className="my-auto py-8 sm:py-12 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
-        {/* Mobile-first: Photograph displayed on top on mobile, on right on desktop */}
-        <div className="block lg:hidden order-1 w-full max-w-[340px] sm:max-w-[360px] mx-auto">
-          <PrintedHeroPortrait isMobile />
-        </div>
-
-        {/* Left Column: Monumental Identity & Concise Context */}
-        <div className="lg:col-span-7 space-y-6 sm:space-y-8 order-2 lg:order-1">
+      <div className="my-auto py-6 sm:py-10 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+        {/* Left Column: Monumental Identity & Concise Context (Always first in document and visual flow) */}
+        <div className="lg:col-span-7 space-y-5 sm:space-y-8 order-1">
           {/* Monumental Name */}
           <div className="space-y-1">
-            <h1 className="font-display font-black tracking-tighter text-[var(--text-primary)] leading-[0.88] select-none text-[clamp(3.1rem,11vw,8rem)] uppercase">
+            <h1 className="font-display font-black tracking-tighter text-[var(--text-primary)] leading-[0.88] select-none text-[clamp(2.75rem,10vw,8rem)] uppercase">
               <span
                 ref={nameLine1Ref}
                 className="inline-block will-change-transform"
@@ -159,8 +153,72 @@ export default function AboutHero() {
             </div>
           </div>
 
+          {/* Desktop Full Narrative */}
+          <div
+            ref={narrativeRef}
+            className="hidden lg:block space-y-3.5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl will-change-transform font-sans"
+            style={{ opacity: 0 }}
+          >
+            <p className="font-normal text-[var(--text-primary)] text-lg sm:text-xl leading-relaxed">
+              Ever since I can remember, I&apos;ve been driven by an innate curiosity to understand how things work — the quiet joy of getting lost in a puzzle, taking ideas apart, and staying with a problem until the pieces finally fall into place.
+            </p>
+            <p className="leading-relaxed text-[var(--text-secondary)] font-normal">
+              That obsession with understanding systems from first principles grew into a deep dedication to software. Today, whether I&apos;m dissecting complex algorithms, architecting resilient backends, or shipping end-to-end applications, I build with technical rigor, precision, and an uncompromising focus on engineering craft.
+            </p>
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] tracking-wide font-mono">
+              Driven by algorithmic problem-solving, clean architecture, and building software that is fast, dependable, and built to scale.
+            </p>
+          </div>
+
+          {/* Sincere Human & Academic Credentials */}
+          <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
+            <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--text-primary)] font-semibold text-[11px] sm:text-xs">
+              SWE INTERN @ ACCENTURE
+            </span>
+            <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--accent)] font-bold text-[11px] sm:text-xs">
+              LEETCODE KNIGHT · 980+ SOLVED
+            </span>
+            <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--text-secondary)] text-[11px] sm:text-xs">
+              PRESIDENT · SYNTAX CODING CLUB
+            </span>
+          </div>
+
+          {/* Clean High-End Resume & Work Actions */}
+          <div className="pt-2 flex flex-wrap items-center gap-3">
+            <a
+              ref={resumeBtnRef}
+              href={PERSONAL_INFO.resumePdf}
+              target="_blank"
+              rel="noreferrer"
+              data-magnetic="true"
+              className="group relative inline-flex items-center gap-3.5 px-5 sm:px-6 py-3 sm:py-3.5 border-2 border-[var(--border-strong)] bg-[var(--bg-surface)] hover:bg-[var(--accent)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[#0a0a0a] transition-all duration-150 active:scale-[0.98] font-mono text-xs font-bold tracking-wider select-none overflow-hidden shadow-xs cursor-pointer"
+              title="View Omkar More Resume"
+            >
+              {/* Technical Corner Brackets */}
+              <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t-2 border-l-2 border-[var(--accent)] pointer-events-none group-hover:border-[#0a0a0a] transition-colors" />
+              <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b-2 border-r-2 border-[var(--accent)] pointer-events-none group-hover:border-[#0a0a0a] transition-colors" />
+
+              <span className="magnetic-target inline-flex items-center gap-3 will-change-transform">
+                <span className="w-5 h-5 flex items-center justify-center border border-[var(--border-color)] group-hover:border-[#0a0a0a] text-[var(--accent)] group-hover:text-[#0a0a0a] transition-colors">
+                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </span>
+
+                <span className="tracking-widest uppercase">VIEW RESUME</span>
+              </span>
+            </a>
+
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 px-4 py-3 border border-[var(--border-color)] bg-[var(--bg-surface)] hover:border-[var(--accent)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-mono text-xs font-bold tracking-wider transition-colors cursor-pointer select-none"
+              title="Jump to Featured Projects"
+            >
+              <span>EXPLORE WORK</span>
+              <span className="text-[var(--accent)]">↓</span>
+            </a>
+          </div>
+
           {/* Mobile Progressive Narrative via Liquid Reveal (Collapsed by default) */}
-          <div className="block lg:hidden">
+          <div className="block lg:hidden pt-1">
             <LiquidReveal
               isOpen={aboutExpanded}
               onToggle={() => setAboutExpanded(!aboutExpanded)}
@@ -178,76 +236,22 @@ export default function AboutHero() {
               </div>
             </LiquidReveal>
           </div>
-
-          {/* Desktop Full Narrative (Untouched) */}
-          <div
-            ref={narrativeRef}
-            className="hidden lg:block space-y-3.5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl will-change-transform font-sans"
-            style={{ opacity: 0 }}
-          >
-            <p className="font-normal text-[var(--text-primary)] text-lg sm:text-xl leading-relaxed">
-              Ever since I can remember, I&apos;ve been driven by an innate curiosity to understand how things work — the quiet joy of getting lost in a puzzle, taking ideas apart, and staying with a problem until the pieces finally fall into place.
-            </p>
-            <p className="leading-relaxed text-[var(--text-secondary)] font-normal">
-              That obsession with understanding systems from first principles grew into a deep dedication to software. Today, whether I&apos;m dissecting complex algorithms, architecting resilient backends, or shipping end-to-end applications, I build with technical rigor, precision, and an uncompromising focus on engineering craft.
-            </p>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] tracking-wide font-mono">
-              Driven by algorithmic problem-solving, clean architecture, and building software that is fast, dependable, and built to scale.
-            </p>
-          </div>
-
-          {/* Sincere Human & Academic Credentials (STUDENT MENTOR removed) */}
-          <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs">
-            <span className="px-3 py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--text-primary)] font-semibold">
-              SWE INTERN @ ACCENTURE
-            </span>
-            <span className="px-3 py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--accent)] font-bold">
-              LEETCODE KNIGHT · 980+ SOLVED
-            </span>
-            <span className="px-3 py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--text-secondary)]">
-              PRESIDENT · SYNTAX CODING CLUB
-            </span>
-          </div>
-
-          {/* Clean High-End Resume Action */}
-          <div className="pt-2">
-            <a
-              ref={resumeBtnRef}
-              href={PERSONAL_INFO.resumePdf}
-              target="_blank"
-              rel="noreferrer"
-              data-magnetic="true"
-              className="group relative inline-flex items-center gap-3.5 px-6 py-3.5 border-2 border-[var(--border-strong)] bg-[var(--bg-surface)] hover:bg-[var(--accent)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[#0a0a0a] transition-all duration-150 active:scale-[0.98] font-mono text-xs font-bold tracking-wider select-none overflow-hidden shadow-xs cursor-pointer"
-              title="View Omkar More Resume"
-            >
-              {/* Technical Corner Brackets */}
-              <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t-2 border-l-2 border-[var(--accent)] pointer-events-none group-hover:border-[#0a0a0a] transition-colors" />
-              <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b-2 border-r-2 border-[var(--accent)] pointer-events-none group-hover:border-[#0a0a0a] transition-colors" />
-
-              <span className="magnetic-target inline-flex items-center gap-3 will-change-transform">
-                <span className="w-5 h-5 flex items-center justify-center border border-[var(--border-color)] group-hover:border-[#0a0a0a] text-[var(--accent)] group-hover:text-[#0a0a0a] transition-colors">
-                  <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                </span>
-
-                <span className="tracking-widest uppercase">VIEW RESUME</span>
-              </span>
-            </a>
-          </div>
         </div>
 
-        {/* Right Column: Editorial Photograph (Desktop) */}
+        {/* Right Column: Editorial Photograph (Secondary and compact on mobile, right column on desktop) */}
         <div
           ref={photoContainerRef}
-          className="hidden lg:block lg:col-span-5 relative order-1 lg:order-2"
+          className="order-2 lg:col-span-5 relative w-full flex flex-col items-center lg:block"
         >
-          {/* Subtle brutalist offset decorative box */}
-          <div className="absolute -inset-2.5 border border-[var(--border-color)]/70 pointer-events-none translate-x-2 translate-y-2 z-0" />
+          {/* Subtle brutalist offset decorative box (desktop) */}
+          <div className="hidden lg:block absolute -inset-2.5 border border-[var(--border-color)]/70 pointer-events-none translate-x-2 translate-y-2 z-0" />
 
-          <PrintedHeroPortrait />
+          {/* Sized secondary and compact on mobile so the opening focuses on the portfolio */}
+          <div className="w-full max-w-[190px] xs:max-w-[210px] sm:max-w-[240px] lg:max-w-none">
+            <PrintedHeroPortrait />
+          </div>
         </div>
       </div>
-
-
     </section>
   );
 }
