@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Camera, X } from "lucide-react";
 import { PERSONAL_INFO } from "@/data/portfolioData";
 import { animate } from "animejs";
 import { prefersReducedMotion, initMagneticElement } from "@/animations";
 import PrintedHeroPortrait from "./PrintedHeroPortrait";
-import LiquidReveal from "./LiquidReveal";
 
 export default function AboutHero() {
-  const [aboutExpanded, setAboutExpanded] = useState(false);
+  const [photoDrawerOpen, setPhotoDrawerOpen] = useState(false);
   const containerRef = useRef<HTMLElement>(null);
   const nameLine1Ref = useRef<HTMLSpanElement>(null);
   const nameLine2Ref = useRef<HTMLSpanElement>(null);
@@ -17,6 +16,29 @@ export default function AboutHero() {
   const photoContainerRef = useRef<HTMLDivElement>(null);
   const narrativeRef = useRef<HTMLDivElement>(null);
   const resumeBtnRef = useRef<HTMLAnchorElement>(null);
+
+  // Lock body scroll on mobile when portrait drawer is open
+  useEffect(() => {
+    if (photoDrawerOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [photoDrawerOpen]);
+
+  // Close portrait drawer on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && photoDrawerOpen) {
+        setPhotoDrawerOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [photoDrawerOpen]);
 
   useEffect(() => {
     // Magnetic link effects
@@ -114,8 +136,8 @@ export default function AboutHero() {
 
       {/* Main Editorial Composition: Identity Left, Portrait Right */}
       <div className="my-auto py-6 sm:py-10 lg:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
-        {/* Left Column: Monumental Identity & Concise Context (Always first in document and visual flow) */}
-        <div className="lg:col-span-7 space-y-5 sm:space-y-8 order-1">
+        {/* Left Column: Monumental Identity & Concise Context */}
+        <div className="lg:col-span-7 space-y-5 sm:space-y-8">
           {/* Monumental Name */}
           <div className="space-y-1">
             <h1 className="font-display font-black tracking-tighter text-[var(--text-primary)] leading-[0.88] select-none text-[clamp(2.75rem,10vw,8rem)] uppercase">
@@ -153,19 +175,19 @@ export default function AboutHero() {
             </div>
           </div>
 
-          {/* Desktop Full Narrative */}
+          {/* Profile Narrative - Always Expanded on Both Mobile & Desktop */}
           <div
             ref={narrativeRef}
-            className="hidden lg:block space-y-3.5 text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl will-change-transform font-sans"
+            className="space-y-3 sm:space-y-3.5 text-sm sm:text-base lg:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl will-change-transform font-sans"
             style={{ opacity: 0 }}
           >
-            <p className="font-normal text-[var(--text-primary)] text-lg sm:text-xl leading-relaxed">
+            <p className="font-normal text-[var(--text-primary)] text-base sm:text-lg lg:text-xl leading-relaxed">
               Ever since I can remember, I&apos;ve been driven by an innate curiosity to understand how things work — the quiet joy of getting lost in a puzzle, taking ideas apart, and staying with a problem until the pieces finally fall into place.
             </p>
-            <p className="leading-relaxed text-[var(--text-secondary)] font-normal">
+            <p className="leading-relaxed text-[var(--text-secondary)] font-normal text-xs sm:text-base">
               That obsession with understanding systems from first principles grew into a deep dedication to software. Today, whether I&apos;m dissecting complex algorithms, architecting resilient backends, or shipping end-to-end applications, I build with technical rigor, precision, and an uncompromising focus on engineering craft.
             </p>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] tracking-wide font-mono">
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] tracking-wide font-mono pt-0.5">
               Driven by algorithmic problem-solving, clean architecture, and building software that is fast, dependable, and built to scale.
             </p>
           </div>
@@ -183,7 +205,7 @@ export default function AboutHero() {
             </span>
           </div>
 
-          {/* Clean High-End Resume & Work Actions */}
+          {/* Actions: Resume, Explore Work, and Mobile VIEW PIC Button */}
           <div className="pt-2 flex flex-wrap items-center gap-3">
             <a
               ref={resumeBtnRef}
@@ -194,7 +216,6 @@ export default function AboutHero() {
               className="group relative inline-flex items-center gap-3.5 px-5 sm:px-6 py-3 sm:py-3.5 border-2 border-[var(--border-strong)] bg-[var(--bg-surface)] hover:bg-[var(--accent)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[#0a0a0a] transition-all duration-150 active:scale-[0.98] font-mono text-xs font-bold tracking-wider select-none overflow-hidden shadow-xs cursor-pointer"
               title="View Omkar More Resume"
             >
-              {/* Technical Corner Brackets */}
               <span className="absolute top-0 left-0 w-1.5 h-1.5 border-t-2 border-l-2 border-[var(--accent)] pointer-events-none group-hover:border-[#0a0a0a] transition-colors" />
               <span className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b-2 border-r-2 border-[var(--accent)] pointer-events-none group-hover:border-[#0a0a0a] transition-colors" />
 
@@ -202,7 +223,6 @@ export default function AboutHero() {
                 <span className="w-5 h-5 flex items-center justify-center border border-[var(--border-color)] group-hover:border-[#0a0a0a] text-[var(--accent)] group-hover:text-[#0a0a0a] transition-colors">
                   <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </span>
-
                 <span className="tracking-widest uppercase">VIEW RESUME</span>
               </span>
             </a>
@@ -215,43 +235,107 @@ export default function AboutHero() {
               <span>EXPLORE WORK</span>
               <span className="text-[var(--accent)]">↓</span>
             </a>
-          </div>
 
-          {/* Mobile Progressive Narrative via Liquid Reveal (Collapsed by default) */}
-          <div className="block lg:hidden pt-1">
-            <LiquidReveal
-              isOpen={aboutExpanded}
-              onToggle={() => setAboutExpanded(!aboutExpanded)}
-              openLabel="VIEW NARRATIVE"
-              closeLabel="HIDE NARRATIVE"
-              badge="PROFILE CONTEXT"
+            {/* Mobile View Pic Button - triggers floating sidebar */}
+            <button
+              type="button"
+              onClick={() => setPhotoDrawerOpen(true)}
+              className="inline-flex lg:hidden items-center gap-2 px-4 py-3 border-2 border-[var(--accent)] bg-[var(--accent)]/10 hover:bg-[var(--accent)] text-[var(--accent)] hover:text-[#0a0a0a] font-mono text-xs font-bold tracking-wider transition-colors cursor-pointer select-none group"
+              title="Open Portrait in Sidebar"
+              aria-label="View portrait photo"
             >
-              <div className="space-y-3 text-base text-[var(--text-secondary)] leading-relaxed font-sans border-l-2 border-[var(--accent)] pl-3.5 py-1">
-                <p className="font-normal text-[var(--text-primary)] text-sm sm:text-base leading-relaxed">
-                  Ever since I can remember, I&apos;ve been driven by an innate curiosity to understand how things work — the quiet joy of getting lost in a puzzle, taking ideas apart, and staying with a problem until the pieces finally fall into place.
-                </p>
-                <p className="leading-relaxed text-[var(--text-secondary)] font-normal text-xs sm:text-sm">
-                  That obsession with understanding systems from first principles grew into a deep dedication to software. Today, whether I&apos;m dissecting complex algorithms, architecting resilient backends, or shipping end-to-end applications, I build with technical rigor, precision, and an uncompromising focus on engineering craft.
-                </p>
-              </div>
-            </LiquidReveal>
+              <Camera className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+              <span>VIEW PIC</span>
+              <span className="text-[var(--accent)] group-hover:text-[#0a0a0a]">→</span>
+            </button>
           </div>
         </div>
 
-        {/* Right Column: Editorial Photograph (Secondary and compact on mobile, right column on desktop) */}
+        {/* Right Column: Editorial Photograph (Desktop Only) */}
         <div
           ref={photoContainerRef}
-          className="order-2 lg:col-span-5 relative w-full flex flex-col items-center lg:block"
+          className="hidden lg:block lg:col-span-5 relative"
         >
-          {/* Subtle brutalist offset decorative box (desktop) */}
-          <div className="hidden lg:block absolute -inset-2.5 border border-[var(--border-color)]/70 pointer-events-none translate-x-2 translate-y-2 z-0" />
+          {/* Subtle brutalist offset decorative box */}
+          <div className="absolute -inset-2.5 border border-[var(--border-color)]/70 pointer-events-none translate-x-2 translate-y-2 z-0" />
 
-          {/* Sized secondary and compact on mobile so the opening focuses on the portfolio */}
-          <div className="w-full max-w-[190px] xs:max-w-[210px] sm:max-w-[240px] lg:max-w-none">
-            <PrintedHeroPortrait />
-          </div>
+          <PrintedHeroPortrait />
         </div>
       </div>
+
+      {/* Floating Right "VIEW PIC" Tab on Screen Edge (Mobile Only) */}
+      <button
+        type="button"
+        onClick={() => setPhotoDrawerOpen(true)}
+        className="fixed right-0 top-1/2 -translate-y-1/2 z-30 block lg:hidden bg-[var(--terminal-bg)]/95 backdrop-blur-sm border-l-2 border-y border-[var(--accent)] text-[var(--text-primary)] hover:text-[var(--accent)] shadow-2xl px-1.5 py-3 rounded-l font-mono text-[10px] font-bold tracking-widest uppercase [writing-mode:vertical-lr] cursor-pointer select-none active:scale-95 transition-transform"
+        aria-label="Open Portrait Sidebar"
+        title="View portrait photo"
+      >
+        <span className="text-[var(--accent)] mb-1">●</span> VIEW PIC
+      </button>
+
+      {/* Mobile Floating Photo Sidebar Backdrop */}
+      <div
+        className={`fixed inset-0 bg-black/75 backdrop-blur-xs z-50 transition-opacity duration-300 block lg:hidden ${
+          photoDrawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setPhotoDrawerOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Mobile Floating Photo Sidebar Drawer (slides in from right) */}
+      <aside
+        role="dialog"
+        aria-modal="true"
+        aria-label="Omkar More Portrait"
+        className={`fixed top-0 right-0 bottom-0 z-50 w-[88vw] max-w-[380px] bg-[var(--bg-primary)] border-l-2 border-[var(--border-strong)] shadow-2xl flex flex-col justify-between p-4 sm:p-5 transition-transform duration-300 ease-out block lg:hidden select-none ${
+          photoDrawerOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        style={{
+          paddingTop: "calc(env(safe-area-inset-top, 0px) + 1rem)",
+          paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 1rem)",
+        }}
+      >
+        {/* Drawer Header */}
+        <div className="flex items-center justify-between border-b border-[var(--border-color)] pb-3 font-mono text-xs">
+          <div className="flex items-center gap-2">
+            <span className="text-[var(--accent)] font-bold">{"//"}</span>
+            <span className="text-[var(--text-primary)] font-bold tracking-wider uppercase">
+              PORTRAIT // 01
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setPhotoDrawerOpen(false)}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 border border-[var(--border-color)] bg-[var(--bg-surface)] font-mono text-xs text-[var(--text-primary)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors cursor-pointer"
+            aria-label="Close Portrait Sidebar"
+          >
+            <X className="w-4 h-4 text-[var(--accent)]" />
+            <span className="font-bold">CLOSE</span>
+          </button>
+        </div>
+
+        {/* Central Portrait Container at Original Size */}
+        <div className="my-auto py-4 flex flex-col items-center">
+          <div className="w-full max-w-[320px] sm:max-w-[340px]">
+            {photoDrawerOpen && <PrintedHeroPortrait />}
+          </div>
+
+          <p className="font-mono text-[9px] text-[var(--text-muted)] tracking-wider uppercase mt-3 text-center">
+            TAP PHOTO TO RE-INK · TAP OUTSIDE TO CLOSE
+          </p>
+        </div>
+
+        {/* Drawer Footer Status */}
+        <div className="border-t border-[var(--border-color)] pt-3 flex items-center justify-between font-mono text-[11px] text-[var(--text-secondary)]">
+          <span className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
+            <span>VNIT NAGPUR</span>
+          </span>
+          <span className="text-[var(--text-muted)] text-[10px]">21.1458° N, 79.0882° E</span>
+        </div>
+      </aside>
     </section>
   );
 }
