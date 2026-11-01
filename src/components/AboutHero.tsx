@@ -236,17 +236,16 @@ export default function AboutHero() {
               <span className="text-[var(--accent)]">↓</span>
             </a>
 
-            {/* Mobile View Pic Button - triggers floating sidebar */}
+            {/* Mobile Subtle View Pic Button - natural page flow, no screen sticking */}
             <button
               type="button"
               onClick={() => setPhotoDrawerOpen(true)}
-              className="inline-flex lg:hidden items-center gap-2 px-4 py-3 border-2 border-[var(--accent)] bg-[var(--accent)]/10 hover:bg-[var(--accent)] text-[var(--accent)] hover:text-[#0a0a0a] font-mono text-xs font-bold tracking-wider transition-colors cursor-pointer select-none group"
+              className="inline-flex lg:hidden items-center gap-2 px-3.5 py-3 border border-[var(--border-color)] bg-[var(--bg-surface)] hover:border-[var(--border-strong)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-mono text-xs tracking-wider transition-colors cursor-pointer select-none"
               title="Open Portrait in Sidebar"
               aria-label="View portrait photo"
             >
-              <Camera className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
+              <Camera className="w-3.5 h-3.5 opacity-60" />
               <span>VIEW PIC</span>
-              <span className="text-[var(--accent)] group-hover:text-[#0a0a0a]">→</span>
             </button>
           </div>
         </div>
@@ -263,16 +262,7 @@ export default function AboutHero() {
         </div>
       </div>
 
-      {/* Floating Right "VIEW PIC" Tab on Screen Edge (Mobile Only) */}
-      <button
-        type="button"
-        onClick={() => setPhotoDrawerOpen(true)}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-30 block lg:hidden bg-[var(--terminal-bg)]/95 backdrop-blur-sm border-l-2 border-y border-[var(--accent)] text-[var(--text-primary)] hover:text-[var(--accent)] shadow-2xl px-1.5 py-3 rounded-l font-mono text-[10px] font-bold tracking-widest uppercase [writing-mode:vertical-lr] cursor-pointer select-none active:scale-95 transition-transform"
-        aria-label="Open Portrait Sidebar"
-        title="View portrait photo"
-      >
-        <span className="text-[var(--accent)] mb-1">●</span> VIEW PIC
-      </button>
+
 
       {/* Mobile Floating Photo Sidebar Backdrop */}
       <div
