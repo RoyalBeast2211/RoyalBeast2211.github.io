@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import SectionHeader from "./SectionHeader";
-import { EXPERIENCES, POSITIONS_OF_RESPONSIBILITY, ExperienceItem } from "@/data/portfolioData";
+import { EXPERIENCES, LEADERSHIP_COLUMNS, ExperienceItem } from "@/data/portfolioData";
 import { MapPin, Calendar, ChevronDown } from "lucide-react";
 import { observeScrollReveal, animateTextReveal, animateLineDraw } from "@/animations";
 import LiquidReveal from "./LiquidReveal";
@@ -276,8 +276,8 @@ export default function ExperienceTimeline() {
         ))}
       </div>
 
-      {/* Positions of Responsibility: Minimalist Interactive List */}
-      <div className="mt-16 pt-12 border-t-2 border-[var(--border-strong)] space-y-6">
+      {/* Positions of Responsibility: 3 Vertical Columns Side-by-Side (Department, SyntaX [Center], Hostel) */}
+      <div className="mt-16 pt-12 border-t-2 border-[var(--border-strong)] space-y-8">
         <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono">
           <div>
             <span className="text-xs text-[var(--accent)] font-bold tracking-widest block uppercase">
@@ -288,124 +288,141 @@ export default function ExperienceTimeline() {
             </h3>
           </div>
           <span className="text-xs text-[var(--text-muted)] font-mono">
-            {POSITIONS_OF_RESPONSIBILITY.length} ROLES RECORDED · CLICK TO INSPECT IMPACT & PROGRESSION
+            3 PILLARS // SYNTAX AT CENTER // CLICK ROLE TO EXPAND
           </span>
         </div>
 
-        {/* Minimalist interactive rows */}
-        <div className="border-y border-[var(--border-color)] divide-y divide-[var(--border-color)] font-mono">
-          {POSITIONS_OF_RESPONSIBILITY.map((role) => {
-            const isExpanded = expandedRoleId === role.id;
+        {/* 3 Columns: Left = Department, Center = SyntaX, Right = Hostel */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start font-mono">
+          {LEADERSHIP_COLUMNS.map((column) => {
+            const isCenter = column.isCenter;
             return (
               <div
-                key={role.id}
-                className={`transition-colors ${
-                  isExpanded ? "bg-[var(--bg-surface)]/50" : "hover:bg-[var(--bg-surface)]/40"
+                key={column.id}
+                className={`flex flex-col border transition-all ${
+                  isCenter
+                    ? "bg-[var(--bg-surface)]/70 border-[var(--border-strong)] shadow-sm relative lg:-mt-1"
+                    : "bg-[var(--bg-surface)]/40 border-[var(--border-color)]"
                 }`}
               >
-                {/* Header Row: Always visible */}
-                <button
-                  type="button"
-                  onClick={() => handleToggleRole(role.id)}
-                  className="w-full text-left py-4 sm:py-5 px-3 sm:px-4 flex items-center justify-between gap-4 cursor-pointer select-none focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] group"
-                  aria-expanded={isExpanded}
+                {/* Column Header */}
+                <div
+                  className={`p-5 border-b space-y-2 ${
+                    isCenter
+                      ? "border-[var(--border-strong)] bg-[var(--bg-primary)]/80"
+                      : "border-[var(--border-color)] bg-[var(--bg-surface)]/60"
+                  }`}
                 >
-                  <div className="flex items-center gap-3 sm:gap-4 min-w-0">
-                    <span
-                      className={`w-6 h-6 shrink-0 flex items-center justify-center text-xs font-bold border transition-colors ${
-                        isExpanded
-                          ? "bg-[var(--accent)] text-[#111111] border-[var(--accent)]"
-                          : "border-[var(--border-color)] text-[var(--text-muted)] group-hover:border-[var(--accent)] group-hover:text-[var(--accent)]"
-                      }`}
-                    >
-                      {isExpanded ? "−" : "+"}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] text-[var(--accent)] font-bold tracking-wider uppercase">
+                      {column.tag}
                     </span>
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-display font-bold text-base sm:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors truncate">
-                          {role.title}
-                        </span>
-                        {role.isCurrent && (
-                          <span className="text-[10px] font-bold px-1.5 py-0.5 bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/40 uppercase whitespace-nowrap">
-                            ACTIVE
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-xs text-[var(--text-secondary)] block truncate mt-0.5">
-                        {role.organization}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3 sm:gap-5 shrink-0 text-right">
-                    {role.progressionNote && (
-                      <span className="text-xs text-[var(--text-muted)] hidden md:inline">
-                        {role.progressionNote}
+                    {isCenter && (
+                      <span className="text-[9px] font-bold px-1.5 py-0.5 bg-[var(--accent)] text-[#111111] uppercase tracking-wider">
+                        FLAGSHIP CLUB
                       </span>
                     )}
-                    <span className="text-xs font-semibold text-[var(--accent)] whitespace-nowrap">
-                      {role.period}
-                    </span>
-                    <ChevronDown
-                      className={`w-4 h-4 text-[var(--text-muted)] transition-transform duration-200 hidden sm:inline ${
-                        isExpanded ? "rotate-180 text-[var(--accent)]" : "group-hover:text-[var(--text-primary)]"
-                      }`}
-                    />
                   </div>
-                </button>
 
-                {/* Expanded Details: Revealed only when clicked */}
-                {isExpanded && (
-                  <div className="px-4 pb-5 pt-1 pl-12 sm:pl-14 space-y-4 text-xs border-t border-[var(--border-color)]/40 bg-[var(--bg-surface)]/20">
-                    {/* Progression Timeline */}
-                    <div className="p-3 bg-[var(--bg-primary)] border border-[var(--border-color)] space-y-2">
-                      <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">
-                        LEADERSHIP PROGRESSION:
-                      </span>
-                      <div className="flex flex-wrap items-center gap-1.5">
-                        {role.progression.map((step, sIdx) => {
-                          const isMatch = sIdx === role.stepIndex;
-                          return (
-                            <React.Fragment key={sIdx}>
-                              <span
-                                className={`px-2 py-0.5 text-[11px] font-semibold border ${
-                                  isMatch
-                                    ? "bg-[var(--accent)] text-[#111111] border-[var(--accent)] font-bold shadow-xs"
-                                    : "bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-color)]"
-                                }`}
-                              >
-                                {step}
+                  <h4 className="font-display font-black text-2xl sm:text-3xl text-[var(--text-primary)] tracking-tight uppercase">
+                    {column.title}
+                  </h4>
+
+                  <p className="text-xs text-[var(--text-muted)] truncate">
+                    {column.subtitle}
+                  </p>
+
+                  <div className="pt-2 border-t border-[var(--border-color)]/50 flex items-center gap-1.5 text-[11px] text-[var(--text-secondary)]">
+                    <span className="text-[10px] text-[var(--text-muted)] uppercase font-semibold">PATH:</span>
+                    <span className="font-semibold text-[var(--text-primary)]">{column.progressionPath}</span>
+                  </div>
+                </div>
+
+                {/* Vertical Roles Stack */}
+                <div className="divide-y divide-[var(--border-color)]/70">
+                  {column.roles.map((role) => {
+                    const isExpanded = expandedRoleId === role.id;
+                    return (
+                      <div
+                        key={role.id}
+                        className={`transition-colors ${
+                          isExpanded
+                            ? "bg-[var(--bg-primary)]"
+                            : "hover:bg-[var(--bg-surface)]/60"
+                        }`}
+                      >
+                        {/* Minimalist Role Header */}
+                        <button
+                          type="button"
+                          onClick={() => handleToggleRole(role.id)}
+                          className="w-full text-left p-4 sm:p-5 flex items-start justify-between gap-3 cursor-pointer select-none focus:outline-none group"
+                          aria-expanded={isExpanded}
+                        >
+                          <div className="space-y-1 min-w-0">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="font-display font-bold text-base text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors">
+                                {role.title}
                               </span>
-                              {sIdx < role.progression.length - 1 && (
-                                <span className="text-[var(--accent)] font-bold text-xs">→</span>
+                              {role.isCurrent && (
+                                <span className="text-[9px] font-bold px-1.5 py-0.2 bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/40 uppercase whitespace-nowrap">
+                                  ACTIVE
+                                </span>
                               )}
-                            </React.Fragment>
-                          );
-                        })}
+                            </div>
+
+                            <span className="text-xs text-[var(--accent)] font-semibold block">
+                              {role.period}
+                            </span>
+
+                            <span className="text-[11px] text-[var(--text-muted)] block line-clamp-1">
+                              {role.organization}
+                            </span>
+                          </div>
+
+                          <div className="flex items-center gap-1.5 shrink-0 pt-0.5">
+                            {role.progressionStep && (
+                              <span className="text-[10px] text-[var(--text-muted)] font-mono hidden sm:inline">
+                                {role.progressionStep}
+                              </span>
+                            )}
+                            <span
+                              className={`w-5 h-5 flex items-center justify-center text-xs font-bold border transition-colors ${
+                                isExpanded
+                                  ? "bg-[var(--accent)] text-[#111111] border-[var(--accent)]"
+                                  : "border-[var(--border-color)] text-[var(--text-muted)] group-hover:border-[var(--accent)] group-hover:text-[var(--accent)]"
+                              }`}
+                            >
+                              {isExpanded ? "−" : "+"}
+                            </span>
+                          </div>
+                        </button>
+
+                        {/* Expanded Details: Revealed only when clicked */}
+                        {isExpanded && (
+                          <div className="px-5 pb-5 pt-1 space-y-3 text-xs border-t border-[var(--border-color)]/40 bg-[var(--bg-surface)]/20 animate-fadeIn">
+                            <p className="text-[var(--text-secondary)] leading-relaxed text-xs">
+                              {role.description}
+                            </p>
+
+                            <div className="space-y-1.5 pt-1">
+                              <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">
+                                KEY IMPACT:
+                              </span>
+                              <ul className="space-y-1.5 text-xs text-[var(--text-secondary)]">
+                                {role.bullets.map((b, bIdx) => (
+                                  <li key={bIdx} className="flex items-start gap-1.5 leading-relaxed">
+                                    <span className="text-[var(--accent)] font-bold shrink-0">↳</span>
+                                    <span>{b}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    </div>
-
-                    {/* Role Description */}
-                    <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
-                      {role.description}
-                    </p>
-
-                    {/* Concrete Deliverable Bullets */}
-                    <div className="space-y-1.5 pt-1">
-                      <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">
-                        KEY DELIVERABLES:
-                      </span>
-                      <ul className="space-y-1.5 text-xs text-[var(--text-secondary)]">
-                        {role.bullets.map((b, bIdx) => (
-                          <li key={bIdx} className="flex items-start gap-2 leading-relaxed">
-                            <span className="text-[var(--accent)] font-bold shrink-0">↳</span>
-                            <span>{b}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
+                    );
+                  })}
+                </div>
               </div>
             );
           })}

@@ -51,9 +51,20 @@ export interface LeadershipRole {
   description: string;
   progression: string[];
   stepIndex: number;
+  progressionStep?: string;
   progressionNote?: string;
   bullets: string[];
   isCurrent?: boolean;
+}
+
+export interface LeadershipColumn {
+  id: "department" | "syntax" | "hostel";
+  tag: string;
+  title: string;
+  subtitle: string;
+  progressionPath: string;
+  isCenter?: boolean;
+  roles: LeadershipRole[];
 }
 
 export interface EducationData {
@@ -487,117 +498,161 @@ export const EXPERIENCES: ExperienceItem[] = [
   },
 ];
 
-export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
+export const LEADERSHIP_COLUMNS: LeadershipColumn[] = [
+  // Column 1 (Left): MME Department, VNIT
   {
-    id: "syntax-president",
-    title: "President",
-    organization: "SyntaX Coding Club, VNIT",
-    period: "June 2026 – Present",
-    progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
-    stepIndex: 2,
-    progressionNote: "Promoted to President",
-    isCurrent: true,
-    description:
-      "Leading technical initiatives, workshops, development activities, competitive programming sessions, and student hackathons across the university.",
-    bullets: [
-      "Directing university-wide technical initiatives, competitive programming bootcamps, and developer workshops.",
-      "Leading executive operations, sponsor partnerships, and overseeing flagship hackathons for 500+ student participants.",
+    id: "department",
+    tag: "// ACADEMIC & MENTORSHIP",
+    title: "DEPARTMENT",
+    subtitle: "MME Department, VNIT",
+    progressionPath: "Class Rep → Student Mentor",
+    roles: [
+      {
+        id: "mme-mentor",
+        title: "Student Mentor",
+        organization: "MME Department, Student Mentor Programme (SMP)",
+        period: "Apr 2025 – Present",
+        progression: ["Class Representative (Jan–May 2024)", "Student Mentor (Apr 2025–Present)"],
+        stepIndex: 1,
+        progressionStep: "Step 02 · Lead",
+        progressionNote: "Appointed Student Mentor",
+        isCurrent: true,
+        description:
+          "Mentoring junior undergraduate students, providing academic guidance, technical onboarding, and career direction within VNIT.",
+        bullets: [
+          "Mentored 15+ first-year students in academics, technical skills, and extracurricular activities.",
+          "Guided mentees towards internships and technical growth; several secured IIT and industry research internships.",
+        ],
+      },
+      {
+        id: "mme-cr",
+        title: "Class Representative",
+        organization: "MME Department, VNIT",
+        period: "Jan 2024 – May 2024",
+        progression: ["Class Representative (Jan–May 2024)", "Student Mentor (Apr 2025–Present)"],
+        stepIndex: 0,
+        progressionStep: "Step 01 · Rep",
+        progressionNote: "Elected Class Representative",
+        description:
+          "Coordinated between faculty and students for classes, laboratories, and examinations; led cohort to Enthu Trophy.",
+        bullets: [
+          "Coordinated between departmental faculty and students for lecture timetables, laboratory cohorts, and examination logistics.",
+          "Led the class cohort to win the prestigious Enthu Trophy during Institute Gathering (IG) 2024.",
+        ],
+      },
     ],
   },
+
+  // Column 2 (Center - Featured): SyntaX Coding Club, VNIT
   {
-    id: "syntax-vp",
-    title: "Vice President",
-    organization: "SyntaX Coding Club, VNIT (formerly WAGC Club)",
-    period: "Aug 2025 – May 2026",
-    progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
-    stepIndex: 1,
-    progressionNote: "Elected Vice President",
-    description:
-      "Conducted workshops introducing programming and software development; organized SynHack, VNIT's flagship hackathon.",
-    bullets: [
-      "Conducted hands-on workshops introducing programming, algorithmic thinking, and modern software development to 200+ students.",
-      "Organized SynHack, VNIT's flagship hackathon with institute-wide participation and industry problem statements.",
+    id: "syntax",
+    tag: "// TECHNICAL CLUB LEADERSHIP",
+    title: "SYNTAX",
+    subtitle: "SyntaX Coding Club, VNIT (formerly WAGC)",
+    progressionPath: "Jr. Dev → Vice President → President",
+    isCenter: true,
+    roles: [
+      {
+        id: "syntax-president",
+        title: "President",
+        organization: "SyntaX Coding Club, VNIT",
+        period: "June 2026 – Present",
+        progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
+        stepIndex: 2,
+        progressionStep: "Step 03 · Head",
+        progressionNote: "Promoted to President",
+        isCurrent: true,
+        description:
+          "Leading technical initiatives, workshops, development activities, competitive programming sessions, and student hackathons across the university.",
+        bullets: [
+          "Directing university-wide technical initiatives, competitive programming bootcamps, and developer workshops.",
+          "Leading executive operations, sponsor partnerships, and overseeing flagship hackathons for 500+ student participants.",
+        ],
+      },
+      {
+        id: "syntax-vp",
+        title: "Vice President",
+        organization: "SyntaX Coding Club (formerly WAGC Club)",
+        period: "Aug 2025 – May 2026",
+        progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
+        stepIndex: 1,
+        progressionStep: "Step 02 · Exec",
+        progressionNote: "Elected Vice President",
+        description:
+          "Conducted workshops introducing programming and software development; organized SynHack, VNIT's flagship hackathon.",
+        bullets: [
+          "Conducted hands-on workshops introducing programming, algorithmic thinking, and modern software development to 200+ students.",
+          "Organized SynHack, VNIT's flagship hackathon with institute-wide participation and industry problem statements.",
+        ],
+      },
+      {
+        id: "syntax-jr-dev",
+        title: "Junior Developer",
+        organization: "SyntaX Coding Club, VNIT",
+        period: "Aug 2024 – May 2025",
+        progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
+        stepIndex: 0,
+        progressionStep: "Step 01 · Core",
+        progressionNote: "Core Developer",
+        description:
+          "Contributed to internal club projects, open-source utilities, and technical event infrastructure for campus competitions.",
+        bullets: [
+          "Built web utilities and event registration workflows for club coding contests and workshops.",
+          "Contributed to student open-source repositories and assisted in freshman technical onboarding sessions.",
+        ],
+      },
     ],
   },
+
+  // Column 3 (Right): Hostel Section, VNIT
   {
-    id: "mme-mentor",
-    title: "Student Mentor",
-    organization: "MME Department, Student Mentor Programme (SMP), VNIT",
-    period: "Apr 2025 – Present",
-    progression: ["Class Representative (Jan–May 2024)", "Student Mentor (Apr 2025–Present)"],
-    stepIndex: 1,
-    progressionNote: "Appointed Student Mentor",
-    isCurrent: true,
-    description:
-      "Mentoring junior undergraduate students, providing academic guidance, technical onboarding, and career direction within VNIT.",
-    bullets: [
-      "Mentored 15+ first-year students in academics, technical skills, and extracurricular activities.",
-      "Guided mentees towards internships and technical growth; several secured IIT and industry research internships.",
-    ],
-  },
-  {
-    id: "hostel-gs",
-    title: "General Secretary",
-    organization: "V.G. Bhide Boys Hostel, VNIT",
-    period: "Aug 2024 – May 2025",
-    progression: ["Technical Secretary (Sep 2023–Aug 2024)", "General Secretary (Aug 2024–May 2025)"],
-    stepIndex: 1,
-    progressionNote: "Elected General Secretary",
-    description:
-      "Elected student representative managing hostel administration, student welfare, facilities, and campus residential logistics.",
-    bullets: [
-      "Organized the hostel's first-ever hackathon to develop software solutions for hostel-related residential challenges.",
-      "Improved hostel sports facilities by adding new equipment including a complete Table Tennis setup.",
-      "Resolved student grievances, mediated disputes, and coordinated with wardens and institute administration to enhance hostel facilities.",
-    ],
-  },
-  {
-    id: "syntax-jr-dev",
-    title: "Junior Developer",
-    organization: "SyntaX Coding Club, VNIT",
-    period: "Aug 2024 – May 2025",
-    progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
-    stepIndex: 0,
-    progressionNote: "Core Developer",
-    description:
-      "Contributed to internal club projects, open-source utilities, and technical event infrastructure for campus competitions.",
-    bullets: [
-      "Built web utilities and event registration workflows for club coding contests and workshops.",
-      "Contributed to student open-source repositories and assisted in freshman technical onboarding sessions.",
-    ],
-  },
-  {
-    id: "mme-cr",
-    title: "Class Representative",
-    organization: "MME Department, VNIT",
-    period: "Jan 2024 – May 2024",
-    progression: ["Class Representative (Jan–May 2024)", "Student Mentor (Apr 2025–Present)"],
-    stepIndex: 0,
-    progressionNote: "Elected Class Representative",
-    description:
-      "Coordinated between faculty and students for classes, laboratories, and examinations; led cohort to Enthu Trophy.",
-    bullets: [
-      "Coordinated between departmental faculty and students for lecture timetables, laboratory cohorts, and examination logistics.",
-      "Led the class cohort to win the prestigious Enthu Trophy during Institute Gathering (IG) 2024.",
-    ],
-  },
-  {
-    id: "hostel-ts",
-    title: "Technical Secretary",
-    organization: "J.C. Bose Boys Hostel, VNIT",
-    period: "Sep 2023 – Aug 2024",
-    progression: ["Technical Secretary (Sep 2023–Aug 2024)", "General Secretary (Aug 2024–May 2025)"],
-    stepIndex: 0,
-    progressionNote: "Appointed Technical Secretary",
-    description:
-      "Supervised technical maintenance, network connectivity, digital registry, and student technical infrastructure.",
-    bullets: [
-      "Implemented and maintained the fingerprint-based biometric hostel entry system for first-year students.",
-      "Established the complete hostel computer laboratory including software and networking infrastructure.",
-      "Provided continuous technical support for hostel digital infrastructure and connectivity.",
+    id: "hostel",
+    tag: "// RESIDENTIAL GOVERNANCE",
+    title: "HOSTEL",
+    subtitle: "Hostel Section, VNIT",
+    progressionPath: "Tech Secretary → General Secretary",
+    roles: [
+      {
+        id: "hostel-gs",
+        title: "General Secretary",
+        organization: "V.G. Bhide Boys Hostel, VNIT",
+        period: "Aug 2024 – May 2025",
+        progression: ["Technical Secretary (Sep 2023–Aug 2024)", "General Secretary (Aug 2024–May 2025)"],
+        stepIndex: 1,
+        progressionStep: "Step 02 · Head",
+        progressionNote: "Elected General Secretary",
+        description:
+          "Elected student representative managing hostel administration, student welfare, facilities, and campus residential logistics.",
+        bullets: [
+          "Organized the hostel's first-ever hackathon to develop software solutions for hostel-related residential challenges.",
+          "Improved hostel sports facilities by adding new equipment including a complete Table Tennis setup.",
+          "Resolved student grievances, mediated disputes, and coordinated with wardens and institute administration to enhance hostel facilities.",
+        ],
+      },
+      {
+        id: "hostel-ts",
+        title: "Technical Secretary",
+        organization: "J.C. Bose Boys Hostel, VNIT",
+        period: "Sep 2023 – Aug 2024",
+        progression: ["Technical Secretary (Sep 2023–Aug 2024)", "General Secretary (Aug 2024–May 2025)"],
+        stepIndex: 0,
+        progressionStep: "Step 01 · Tech Lead",
+        progressionNote: "Appointed Technical Secretary",
+        description:
+          "Supervised technical maintenance, network connectivity, digital registry, and student technical infrastructure.",
+        bullets: [
+          "Implemented and maintained the fingerprint-based biometric hostel entry system for first-year students.",
+          "Established the complete hostel computer laboratory including software and networking infrastructure.",
+          "Provided continuous technical support for hostel digital infrastructure and connectivity.",
+        ],
+      },
     ],
   },
 ];
+
+export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = LEADERSHIP_COLUMNS.flatMap(
+  (col) => col.roles
+);
 
 export const RATINGS_DATA: RatingPlatform[] = [
   {
