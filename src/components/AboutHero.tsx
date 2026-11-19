@@ -319,10 +319,7 @@ export default function AboutHero() {
 
         {/* Drawer Footer Status */}
         <div className="border-t border-[var(--border-color)] pt-3 flex items-center justify-between font-mono text-[11px] text-[var(--text-secondary)]">
-          <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
-            <span>VNIT NAGPUR</span>
-          </span>
+          <span>VNIT NAGPUR</span>
           <span className="text-[var(--text-muted)] text-[10px]">21.1458° N, 79.0882° E</span>
         </div>
       </aside>

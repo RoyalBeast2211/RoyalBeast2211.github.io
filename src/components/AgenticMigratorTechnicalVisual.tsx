@@ -28,7 +28,6 @@ export default function AgenticMigratorTechnicalVisual() {
           </div>
           <span className="text-[var(--text-muted)]">|</span>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
             <span className="text-[var(--text-primary)] font-bold tracking-wider text-[11px] sm:text-xs">
               ACM // AGENTIC MIGRATOR
             </span>

@@ -214,7 +214,6 @@ export default function InteractiveSortingVisualizer() {
       {/* Top console bar */}
       <div className="flex flex-wrap items-center justify-between pb-3 mb-4 border-b border-[var(--border-color)] text-xs">
         <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] inline-block animate-pulse" />
           <span className="text-[var(--accent)] font-bold tracking-wider">ALGOLIZER // CORE RUNTIME</span>
           <span className="text-[var(--text-muted)] hidden sm:inline">{"· 60 FPS INTERACTIVE ENGINE"}</span>
         </div>

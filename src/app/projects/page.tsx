@@ -137,7 +137,6 @@ export default function ProjectsArchivePage() {
 
           {/* Central Monospace Badge */}
           <div className="hidden md:flex items-center gap-2 text-[var(--text-muted)] text-[11px]">
-            <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
             <span className="font-semibold text-[var(--text-primary)]">OMKAR MORE</span>
             <span>·</span>
             <span>COMPLETE PROJECT ARCHIVE</span>

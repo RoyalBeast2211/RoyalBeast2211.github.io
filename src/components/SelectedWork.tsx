@@ -216,7 +216,6 @@ function CyclingBenchmarkCard({
       {/* Top Header Row: Label & Navigation Controls */}
       <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono border-b border-[var(--border-color)] pb-2">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
           <span className="text-[var(--text-primary)] uppercase tracking-wider font-bold">
             {title}
           </span>

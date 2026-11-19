@@ -6,12 +6,12 @@ import {
   RATINGS_DATA,
   ACHIEVEMENTS,
 } from "@/data/portfolioData";
-import { ArrowUpRight, Trophy, ExternalLink, Activity } from "lucide-react";
+import { ArrowUpRight, Trophy, ExternalLink } from "lucide-react";
 import { useCodolio } from "@/context/CodolioContext";
 import { observeScrollReveal, animateCounter } from "@/animations";
 
 export default function ProblemSolving() {
-  const { data: codolio, isLive } = useCodolio();
+  const { data: codolio } = useCodolio();
   const containerRef = useRef<HTMLElement>(null);
   const counterRef = useRef<HTMLDivElement>(null);
 
@@ -121,26 +121,9 @@ export default function ProblemSolving() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
           {/* Left: Oversized Number 950+ */}
           <div className="lg:col-span-7 space-y-3">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="font-mono text-xs text-[var(--text-muted)] flex items-center gap-2">
-                <span className="text-[var(--accent)] font-bold">TOTAL VERIFIED SOLUTIONS //</span>
-                <span>DATA STRUCTURES & ALGORITHMS</span>
-              </div>
-
-              {/* Live Sync Badge */}
-              <a
-                href={codolio?.codolioUrl || "https://codolio.com/profile/theomkarmore"}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[var(--bg-surface)] border border-[var(--border-color)] hover:border-[var(--accent)] text-[10px] font-mono text-[var(--text-primary)] transition-colors group"
-                title="Always fetched live from Codolio public profile"
-              >
-                <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-[#10B981] animate-pulse" : "bg-[var(--accent)]"}`} />
-                <span className="group-hover:text-[var(--accent)] transition-colors">
-                  {isLive ? "LIVE CODOLIO SYNC" : "CODOLIO VERIFIED"}
-                </span>
-                <Activity className="w-3 h-3 text-[var(--accent)]" />
-              </a>
+            <div className="font-mono text-xs text-[var(--text-muted)] flex items-center gap-2">
+              <span className="text-[var(--accent)] font-bold">TOTAL VERIFIED SOLUTIONS //</span>
+              <span>DATA STRUCTURES & ALGORITHMS</span>
             </div>
 
             <div

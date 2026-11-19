@@ -99,14 +99,11 @@ export default function Navbar() {
               </span>
             </a>
 
-            {/* Status dot & Live IST Clock */}
+            {/* Location & IST Clock */}
             <div className="hidden xl:flex items-center gap-2 pl-4 border-l border-[var(--border-color)] text-[11px] font-mono text-[var(--text-secondary)]">
-              <span className="inline-block w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-              <span>ONLINE</span>
-              <span className="text-[var(--border-color)]">·</span>
               <span>21.1458° N, 79.0882° E</span>
               <span className="text-[var(--border-color)]">·</span>
-              <span>{currentTime ? `${currentTime} IST` : "LIVE"}</span>
+              <span>{currentTime ? `${currentTime} IST` : "IST"}</span>
             </div>
           </div>
 

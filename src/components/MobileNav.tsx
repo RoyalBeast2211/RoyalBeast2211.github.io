@@ -233,13 +233,10 @@ export default function MobileNav() {
 
           {/* Bottom Area: Environment & Live Details & Resume Action */}
           <div className="space-y-4 pt-4 border-t border-[var(--border-color)] font-mono text-xs">
-            {/* Live IST Status & Coordinates */}
+            {/* IST Time & Location */}
             <div className="flex items-center justify-between text-[11px] text-[var(--text-secondary)]">
-              <span className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-                <span>ONLINE · VNIT NAGPUR</span>
-              </span>
-              <span className="text-[var(--accent)] font-bold">{currentTime} IST</span>
+              <span>VNIT NAGPUR</span>
+              <span className="text-[var(--accent)] font-bold">{currentTime ? `${currentTime} IST` : "IST"}</span>
             </div>
 
             {/* View Resume Action with 44px+ height */}

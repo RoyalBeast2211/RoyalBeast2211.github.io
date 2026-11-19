@@ -123,7 +123,6 @@ export default function MiniRedisTechnicalVisual() {
           </div>
           <span className="text-[var(--text-muted)]">|</span>
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
             <span className="text-[var(--text-primary)] font-bold tracking-wider text-[11px] sm:text-xs">
               MINIREDIS // TCP :6379
             </span>
@@ -412,7 +411,6 @@ export default function MiniRedisTechnicalVisual() {
             <div className="p-2.5 bg-[var(--bg-primary)] border-2 border-[var(--accent)] space-y-1.5">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1">
-                  <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
                   <span className="text-xs font-bold text-[var(--text-primary)]">NODE_01 (MASTER)</span>
                 </div>
                 <span className="px-1.5 py-0.2 bg-[var(--accent)] text-[#111111] text-[8px] font-black uppercase">
