@@ -851,89 +851,98 @@ export default function SelectedWork() {
       {/* ========================================================= */}
       {/* EXPANDED ENGINEERING REPERTOIRE (OTHER PROJECTS 03 - 08) */}
       {/* ========================================================= */}
-      <div className="mt-16 lg:mt-24 pt-12 border-t-2 border-[var(--border-color)] space-y-8">
-        <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono">
+      <div className="mt-8 lg:mt-12 pt-6 lg:pt-8 border-t-2 border-[var(--border-color)] space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 font-mono">
           <div>
-            <span className="text-xs text-[var(--accent)] font-bold tracking-widest block uppercase">
+            <span className="text-[10px] sm:text-xs text-[var(--accent)] font-bold tracking-widest block uppercase">
               {"// EXPANDED REPERTOIRE"}
             </span>
-            <h3 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[var(--text-primary)] tracking-tight uppercase mt-1">
+            <h3 className="font-display font-extrabold text-xl sm:text-2xl lg:text-3xl text-[var(--text-primary)] tracking-tight uppercase mt-0.5">
               ADDITIONAL PRODUCTIONS &amp; SYSTEMS
             </h3>
           </div>
-          <span className="text-xs text-[var(--text-muted)] font-mono">
-            6 SPECIALIZED PLATFORMS &amp; ENGINES
-          </span>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <span className="hidden xl:inline-block text-[11px] text-[var(--text-muted)] font-mono">
+              6 SPECIALIZED SYSTEMS
+            </span>
+            <Link
+              href="/projects"
+              data-cursor="OPEN ARCHIVE"
+              className="view-all-projects-cta group inline-flex items-center gap-2 px-3.5 py-2 bg-[var(--accent)] hover:brightness-110 text-[#111111] font-black text-xs uppercase tracking-wider transition-all duration-150 active:scale-[0.98] shadow-sm border border-[var(--accent)]"
+            >
+              <span>VIEW ALL PROJECTS</span>
+              <span className="inline-flex items-center transition-transform duration-200 group-hover:translate-x-1 font-bold">
+                →
+              </span>
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 font-mono">
           {PROJECTS.filter((p) => !p.featured).slice(0, 6).map((proj) => (
             <div
               key={proj.id}
-              className="group p-6 bg-[var(--bg-surface)] border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] flex flex-col justify-between space-y-5 transition-all duration-200 relative shadow-xs hover:shadow-md"
+              className="group p-3.5 sm:p-4 bg-[var(--bg-surface)] border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] flex flex-col justify-between space-y-2.5 transition-all duration-200 relative shadow-xs hover:shadow-md"
             >
-              <div className="space-y-3.5">
+              <div className="space-y-2">
                 {/* Card Top: Number, Category & Status */}
-                <div className="flex items-center justify-between text-xs border-b border-[var(--border-color)] pb-3">
-                  <span className="text-[var(--accent)] font-bold text-[11px]">
+                <div className="flex items-center justify-between text-xs border-b border-[var(--border-color)] pb-2">
+                  <span className="text-[var(--accent)] font-bold text-[10px]">
                     {proj.number}
                   </span>
-                  <span className="text-[10px] px-2 py-0.5 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] uppercase">
+                  <span className="text-[9px] px-1.5 py-0.5 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] uppercase">
                     {proj.category}
                   </span>
-                  <span className="text-[10px] text-[#10B981] font-semibold">
+                  <span className="text-[9px] text-[#10B981] font-semibold">
                     {proj.status || "Completed"}
                   </span>
                 </div>
 
                 {/* Title & Subtitle */}
                 <div>
-                  <h4 className="font-display font-black text-2xl text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors uppercase tracking-tight">
+                  <h4 className="font-display font-black text-base sm:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors uppercase tracking-tight truncate">
                     {proj.title}
                   </h4>
-                  <p className="text-[11px] text-[var(--accent)] font-semibold tracking-wider uppercase mt-0.5">
+                  <p className="text-[10px] text-[var(--accent)] font-semibold tracking-wider uppercase truncate">
                     {proj.subtitle}
                   </p>
                 </div>
 
-                {/* Tagline & Description */}
-                <p className="text-xs text-[var(--text-primary)] font-semibold leading-snug border-l-2 border-[var(--accent)] pl-2.5">
-                  {proj.tagline}
-                </p>
-
-                <p className="text-xs text-[var(--text-secondary)] leading-relaxed line-clamp-3">
-                  {proj.description}
+                {/* Tagline / Description (compact 2-line clamp) */}
+                <p className="text-[11px] text-[var(--text-secondary)] leading-snug line-clamp-2 h-[2.5rem]">
+                  {proj.tagline || proj.description}
                 </p>
 
                 {/* Tech Pills */}
-                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-[var(--border-color)]/60 text-[10px]">
-                  {proj.tech.slice(0, 4).map((t, idx) => (
+                <div className="flex flex-wrap gap-1 pt-1.5 border-t border-[var(--border-color)]/60 text-[9px]">
+                  {proj.tech.slice(0, 3).map((t, idx) => (
                     <span
                       key={idx}
-                      className="px-2 py-0.5 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)]"
+                      className="px-1.5 py-0.5 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] truncate max-w-[100px]"
                     >
                       {t}
                     </span>
                   ))}
-                  {proj.tech.length > 4 && (
-                    <span className="px-1.5 py-0.5 text-[var(--text-muted)] text-[9px]">
-                      +{proj.tech.length - 4}
+                  {proj.tech.length > 3 && (
+                    <span className="px-1 py-0.5 text-[var(--text-muted)] text-[8px]">
+                      +{proj.tech.length - 3}
                     </span>
                   )}
                 </div>
 
-                {/* Real Performance & Benchmark Metrics */}
+                {/* Performance & Benchmark Metrics */}
                 {proj.metrics && proj.metrics.length > 0 && (
-                  <div className="grid grid-cols-3 gap-1.5 pt-2.5 border-t border-[var(--border-color)]/60 font-mono text-[10px]">
+                  <div className="grid grid-cols-3 gap-1 pt-1.5 border-t border-[var(--border-color)]/60 font-mono text-[9px]">
                     {proj.metrics.slice(0, 3).map((m, idx) => (
                       <div
                         key={idx}
-                        className="p-1.5 bg-[var(--bg-primary)] border border-[var(--border-color)] flex flex-col justify-between"
+                        className="p-1 bg-[var(--bg-primary)] border border-[var(--border-color)] flex flex-col justify-between"
                       >
-                        <span className="text-[8px] text-[var(--text-muted)] uppercase block font-semibold truncate">
+                        <span className="text-[7.5px] text-[var(--text-muted)] uppercase block font-semibold truncate">
                           {m.label}
                         </span>
-                        <span className="font-bold text-[var(--accent)] block mt-0.5 truncate text-[10px]">
+                        <span className="font-bold text-[var(--accent)] block mt-0.5 truncate text-[9px]">
                           {m.value}
                         </span>
                       </div>
@@ -943,11 +952,11 @@ export default function SelectedWork() {
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 border-t border-[var(--border-color)] flex items-center justify-between gap-3 text-xs">
+              <div className="pt-2 border-t border-[var(--border-color)] flex items-center justify-between gap-2 text-xs">
                 <button
                   type="button"
                   onClick={() => setActiveProjectModal(proj)}
-                  className="flex-1 py-2.5 px-3 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold text-center uppercase tracking-wider transition-all duration-150 active:scale-[0.98] cursor-pointer"
+                  className="flex-1 py-1.5 px-2.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold text-center text-[10px] uppercase tracking-wider transition-all duration-150 active:scale-[0.98] cursor-pointer"
                 >
                   DOSSIER ↗
                 </button>
@@ -957,10 +966,10 @@ export default function SelectedWork() {
                     href={proj.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="p-2.5 border border-[var(--border-color)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[var(--accent)] transition-all duration-150 active:scale-[0.95]"
+                    className="p-1.5 border border-[var(--border-color)] hover:border-[var(--accent)] text-[var(--text-primary)] hover:text-[var(--accent)] transition-all duration-150 active:scale-[0.95]"
                     title="Audit Source Code on GitHub"
                   >
-                    <GithubIcon className="w-4 h-4" />
+                    <GithubIcon className="w-3.5 h-3.5" />
                   </a>
                 )}
               </div>
@@ -970,34 +979,6 @@ export default function SelectedWork() {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* ========================================================= */}
-      {/* VIEW ALL PROJECTS CTA */}
-      {/* ========================================================= */}
-      <div className="mt-16 lg:mt-24 pt-12 border-t-2 border-[var(--border-color)] flex flex-col sm:flex-row sm:items-center justify-between gap-6 font-mono text-xs">
-        <div>
-          <span className="text-[var(--accent)] font-bold block uppercase tracking-wider text-[11px]">
-            ARCHIVE // 09 TOTAL PROJECTS
-          </span>
-          <span className="text-[var(--text-secondary)] text-xs mt-1 block">
-            Go Distributed DB · Multi-Agent Orchestration · Mobile · Systems CLI · C++ Optics · WebSockets
-          </span>
-        </div>
-
-        <Link
-          href="/projects"
-          data-cursor="OPEN ARCHIVE"
-          className="view-all-projects-cta group inline-flex items-center gap-3 px-6 py-4 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold text-xs uppercase tracking-wider transition-all duration-150 active:scale-[0.98] self-start sm:self-auto shadow-md"
-        >
-          <span>VIEW ALL PROJECTS</span>
-          <span className="inline-flex items-center transition-transform duration-200 group-hover:translate-x-1">
-            <span className="inline-block transition-all duration-200 w-2 group-hover:w-6 overflow-hidden align-middle">
-              ───
-            </span>
-            <span>↗</span>
-          </span>
-        </Link>
       </div>
 
       {/* Project Detail Modal Overlay */}
