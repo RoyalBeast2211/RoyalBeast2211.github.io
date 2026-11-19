@@ -7,6 +7,8 @@ import { PROJECTS, ProjectItem, ProjectCategory } from "@/data/portfolioData";
 import MobileProjectViewer from "@/components/MobileProjectViewer";
 import DesktopBrowserViewer from "@/components/DesktopBrowserViewer";
 import GitlikeTechnicalVisual from "@/components/GitlikeTechnicalVisual";
+import MiniRedisTechnicalVisual from "@/components/MiniRedisTechnicalVisual";
+import AgenticMigratorTechnicalVisual from "@/components/AgenticMigratorTechnicalVisual";
 import InteractiveSortingVisualizer from "@/components/InteractiveSortingVisualizer";
 import ThemeToggle from "@/components/ThemeToggle";
 import CustomCursor from "@/components/CustomCursor";
@@ -39,44 +41,25 @@ export default function ProjectsArchivePage() {
 
   const gridContainerRef = useRef<HTMLDivElement>(null);
 
-  // Archive ordering: Fresh unseen projects first, then already-seen featured projects (IG App, GitLike) last
+  // Archive ordering: Complete portfolio catalog from PROJECT_01 to PROJECT_09
   const orderedArchiveProjects = React.useMemo(() => {
-    const seenIds = ["ig-app", "gitlike"];
-    const unseen = PROJECTS.filter((p) => !seenIds.includes(p.id));
-    const seen = PROJECTS.filter((p) => seenIds.includes(p.id));
-
-    // Curated flow for unseen: Algolizer flagship first, then systems, web, and mobile
-    const preferredOrder = [
-      "algolizer",
-      "raytracer",
-      "chatty",
-      "vnit-directory",
-      "ieee-conference",
-    ];
-
-    unseen.sort((a, b) => {
-      const idxA = preferredOrder.indexOf(a.id);
-      const idxB = preferredOrder.indexOf(b.id);
-      return (idxA === -1 ? 99 : idxA) - (idxB === -1 ? 99 : idxB);
-    });
-
-    const combined = [...unseen, ...seen];
-    return combined.map((proj, idx) => ({
+    return PROJECTS.map((proj) => ({
       ...proj,
-      archiveNumber: `PROJECT_${String(idx + 1).padStart(2, "0")}`,
+      archiveNumber: proj.number,
     }));
   }, []);
 
   // Filter projects based on activeCategory
   const filteredProjects = orderedArchiveProjects.filter((p) => {
     if (activeCategory === "ALL") return true;
-    if (activeCategory === "CLI") return p.category === "CLI" || p.id === "gitlike";
+    if (activeCategory === "CLI")
+      return p.category === "CLI" || p.id === "miniredis" || p.id === "gitlike" || p.id === "agentic-code-migrator";
     if (activeCategory === "SYSTEMS")
-      return p.category === "SYSTEMS" || p.id === "gitlike" || p.id === "raytracer";
+      return p.category === "SYSTEMS" || p.id === "miniredis" || p.id === "agentic-code-migrator" || p.id === "gitlike" || p.id === "raytracer";
     if (activeCategory === "MOBILE") return p.category === "MOBILE";
     if (activeCategory === "WEB") return p.category === "WEB";
     if (activeCategory === "EXPERIMENTS")
-      return p.category === "EXPERIMENTS" || p.id === "algolizer" || p.id === "raytracer";
+      return p.category === "EXPERIMENTS" || p.id === "agentic-code-migrator" || p.id === "algolizer" || p.id === "raytracer";
     return p.category === activeCategory;
   });
 
@@ -163,7 +146,7 @@ export default function ProjectsArchivePage() {
           {/* Theme Toggle & Status */}
           <div className="flex items-center gap-4">
             <span className="text-[11px] text-[var(--text-muted)] hidden lg:inline">
-              07+ REGISTERED BUILDS
+              09+ REGISTERED BUILDS
             </span>
             <ThemeToggle />
           </div>
@@ -191,17 +174,17 @@ export default function ProjectsArchivePage() {
               </p>
             </div>
 
-            {/* Hero Small Metadata (Prompt Section 26) */}
+            {/* Hero Small Metadata */}
             <div className="p-4 bg-[var(--bg-surface)] border border-[var(--border-color)] font-mono text-xs space-y-1.5 shrink-0 max-w-sm">
               <div className="flex items-center justify-between text-[var(--text-muted)] text-[10px] uppercase font-bold tracking-wider">
                 <span>CATALOG INDEX</span>
                 <span className="text-[var(--accent)]">ACTIVE REPO</span>
               </div>
               <div className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
-                07+ PROJECTS
+                09+ PROJECTS
               </div>
               <div className="text-[11px] text-[var(--text-secondary)] tracking-wider uppercase font-semibold">
-                WEB · MOBILE · SYSTEMS · EXPERIMENTS
+                GO · MULTI-AGENT · SYSTEMS · WEB · MOBILE
               </div>
             </div>
           </div>
@@ -237,15 +220,16 @@ export default function ProjectsArchivePage() {
         </section>
 
         {/* ========================================================= */}
-        {/* 27. ARCHIVE EDITORIAL PROJECT GRID (Intentional Asymmetry) */}
+        {/* 27. ARCHIVE EDITORIAL PROJECT GRID */}
         {/* ========================================================= */}
         <section ref={gridContainerRef} className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
           {filteredProjects.map((project) => {
-            // Intentional asymmetric column spans:
-            // Flagships (IG App, GitLike, Algolizer) span full width (12 cols)
-            // Raytracer & Chatty span 6 cols each
-            // TeleDir & IEEE SeFet span 6 cols each
-            const isFlagship = project.id === "ig-app" || project.id === "gitlike" || project.id === "algolizer";
+            const isFlagship =
+              project.id === "miniredis" ||
+              project.id === "agentic-code-migrator" ||
+              project.id === "ig-app" ||
+              project.id === "gitlike" ||
+              project.id === "algolizer";
             const colSpan = isFlagship ? "md:col-span-12" : "md:col-span-6";
 
             return (
@@ -254,18 +238,17 @@ export default function ProjectsArchivePage() {
                 id={`archive-${project.id}`}
                 className={`${colSpan} group relative bg-[var(--bg-surface)]/40 border border-[var(--border-color)] p-4 sm:p-8 flex flex-col justify-between hover:border-[var(--accent)] transition-colors duration-300 shadow-sm`}
               >
-                {/* Top Meta Line: Monospace Category & Year (Prompt Section 28) */}
+                {/* Top Meta Line */}
                 <div className="flex items-center justify-between font-mono text-xs text-[var(--text-muted)] pb-4 border-b border-[var(--border-color)]/60">
                   <div className="flex items-center gap-2">
                     <span className="text-[var(--accent)] font-bold">{project.archiveNumber || project.number}</span>
                     <span className="text-[var(--border-color)]">/</span>
-                    {/* Monospace tiny label without colorful badge */}
                     <span className="text-[11px] font-semibold text-[var(--text-primary)] tracking-widest uppercase">
                       {project.category}
                     </span>
                   </div>
                   <div className="flex items-center gap-3">
-                    {(project.id === "ig-app" || project.id === "gitlike") && (
+                    {(project.id === "miniredis" || project.id === "agentic-code-migrator") && (
                       <span className="text-[10px] text-[var(--accent)] font-mono font-bold uppercase tracking-wider hidden sm:inline">
                         [FEATURED ON HOME]
                       </span>
@@ -279,15 +262,25 @@ export default function ProjectsArchivePage() {
                   </div>
                 </div>
 
-                {/* Card Center: Visual Mockup based on Project Frame Type (Prompt Section 31 & 32) */}
+                {/* Card Center: Visual Mockup based on Project Frame Type */}
                 <div className="my-6">
-                  {project.id === "algolizer" ? (
-                    // Algolizer: Live Interactive Visualizer directly (simple & responsive)
+                  {project.id === "miniredis" ? (
+                    <div className="py-2">
+                      <MiniRedisTechnicalVisual />
+                    </div>
+                  ) : project.id === "agentic-code-migrator" ? (
+                    <div className="py-2">
+                      <AgenticMigratorTechnicalVisual />
+                    </div>
+                  ) : project.id === "algolizer" ? (
                     <div className="py-2">
                       <InteractiveSortingVisualizer />
                     </div>
+                  ) : project.id === "gitlike" ? (
+                    <div className="py-2">
+                      <GitlikeTechnicalVisual />
+                    </div>
                   ) : project.frameType === "phone" ? (
-                    // Mobile Projects use Reusable Phone Frame (IG App & TeleDir)
                     <div className="flex justify-center py-4 bg-[var(--bg-primary)]/40 border border-[var(--border-color)]/40 rounded-sm">
                       <MobileProjectViewer
                         images={
@@ -302,13 +295,7 @@ export default function ProjectsArchivePage() {
                         userCount={project.userCount}
                       />
                     </div>
-                  ) : project.frameType === "terminal" ? (
-                    // CLI / Systems Projects use Technical Visual Frame (GitLike)
-                    <div className="py-2">
-                      <GitlikeTechnicalVisual />
-                    </div>
                   ) : (
-                    // Web & Graphics Projects use Desktop Browser Frame (Chatty, Raytracer, IEEE)
                     <div className="py-2">
                       <DesktopBrowserViewer
                         url={project.liveUrl?.startsWith("http") ? project.liveUrl : `https://${project.id}.vnit.ac.in`}

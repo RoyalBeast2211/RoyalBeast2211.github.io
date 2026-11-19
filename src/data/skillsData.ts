@@ -25,6 +25,22 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     title: "LANGUAGES",
     skills: [
       {
+        name: "Go",
+        category: "LANGUAGES",
+        categoryNum: "01",
+        categoryLabel: "LANGUAGE / SYSTEMS",
+        capabilities: [
+          "TCP Sockets",
+          "Goroutines & Concurrency",
+          "RESP Wire Protocol",
+          "In-Memory Databases",
+        ],
+        projects: [
+          { title: "MiniRedis", href: "/#miniredis" },
+        ],
+        related: ["TCP Networking", "AOF + RDB", "LRU Cache"],
+      },
+      {
         name: "C++",
         category: "LANGUAGES",
         categoryNum: "01",
@@ -53,6 +69,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
           "Object Serialization",
         ],
         projects: [
+          { title: "Agentic Code Migrator", href: "/#agentic-code-migrator" },
           { title: "Accenture SWE", href: "/#experience" },
           { title: "GitLike", href: "/#gitlike" },
         ],
@@ -234,6 +251,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
           "Agent Evaluation",
         ],
         projects: [
+          { title: "Agentic Code Migrator", href: "/#agentic-code-migrator" },
           { title: "Accenture SWE", href: "/#experience" },
           { title: "DeepAgents", href: "/#experience" },
         ],
@@ -251,6 +269,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
           "Decoupled Architectures",
         ],
         projects: [
+          { title: "Agentic Code Migrator", href: "/#agentic-code-migrator" },
           { title: "Accenture QA Architecture", href: "/#experience" },
         ],
         related: ["LLM Agents", "AI Workflows", "AsyncIO"],

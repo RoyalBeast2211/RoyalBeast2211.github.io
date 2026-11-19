@@ -26,12 +26,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Omkar More — Software Engineer | Systems & Agentic Workflows",
   description:
-    "Official portfolio of Omkar More, Software Engineer & B.Tech student at VNIT Nagpur. Incoming Software Engineering Intern at Accenture, Knight on LeetCode (1860, Top 5% Globally, 980+ Solved), and builder of GitLike VCS, RayTracer, and Chatty.",
+    "Official portfolio of Omkar More, Software Engineer & B.Tech student at VNIT Nagpur. Incoming Software Engineering Intern at Accenture, Knight on LeetCode (1860, Top 5% Globally, 980+ Solved), and builder of MiniRedis, Agentic Code Migrator, and GitLike VCS.",
   keywords: [
     "Omkar More",
     "Software Engineer",
     "VNIT Nagpur",
     "Accenture",
+    "Go",
+    "MiniRedis",
+    "Agentic Code Migrator",
     "Python Concurrency",
     "C++",
     "Systems Programming",
@@ -40,6 +43,8 @@ export const metadata: Metadata = {
     "Databricks",
     "LangChain",
     "LangGraph",
+    "Docker",
+    "MCP",
     "React.js",
     "Next.js",
     "LeetCode Knight",

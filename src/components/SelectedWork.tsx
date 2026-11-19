@@ -3,9 +3,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { PROJECTS, ProjectItem } from "@/data/portfolioData";
-import MobileProjectViewer from "./MobileProjectViewer";
-import GitlikeTechnicalVisual from "./GitlikeTechnicalVisual";
 import SectionHeader from "./SectionHeader";
+import MiniRedisTechnicalVisual from "./MiniRedisTechnicalVisual";
+import AgenticMigratorTechnicalVisual from "./AgenticMigratorTechnicalVisual";
 import { observeScrollReveal, initMagneticElement } from "@/animations";
 import { animate } from "animejs";
 import LiquidReveal from "./LiquidReveal";
@@ -27,8 +27,8 @@ function GithubIcon({ className }: { className?: string }) {
   );
 }
 
-// Prompt Section 16: Count-up animation for 4,000+ (700-900ms, runs once)
-function CountUpNumber({ target = 4000, suffix = "+" }: { target?: number; suffix?: string }) {
+// Count-up animation for throughput / metrics
+function CountUpNumber({ target = 100000, suffix = "+" }: { target?: number; suffix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const animatedRef = useRef(false);
@@ -76,31 +76,30 @@ export default function SelectedWork() {
   const [activeProjectModal, setActiveProjectModal] = useState<ProjectItem | null>(null);
   const [expandedProjectId, setExpandedProjectId] = useState<string | null>(null);
 
-  // Featured projects: IG App & GitLike ONLY
+  // Top 2 Curated Featured Projects: MiniRedis & Agentic Code Migrator
   const featuredProjects = PROJECTS.filter((p) => p.featured).sort(
     (a, b) => (a.featuredOrder || 0) - (b.featuredOrder || 0)
   );
 
-  const igApp = featuredProjects.find((p) => p.id === "ig-app") || PROJECTS[0];
-  const gitlike = featuredProjects.find((p) => p.id === "gitlike") || PROJECTS[1];
+  const miniRedis = featuredProjects.find((p) => p.id === "miniredis") || PROJECTS[0];
+  const agenticMigrator = featuredProjects.find((p) => p.id === "agentic-code-migrator") || PROJECTS[1];
 
-  const igCardRef = useRef<HTMLElement>(null);
-  const igPhoneRef = useRef<HTMLDivElement>(null);
-  const igMetaRef = useRef<HTMLDivElement>(null);
-  const gitlikeCardRef = useRef<HTMLElement>(null);
-  const gitlikeTerminalRef = useRef<HTMLDivElement>(null);
-  const gitlikeMetaRef = useRef<HTMLDivElement>(null);
+  const miniRedisCardRef = useRef<HTMLElement>(null);
+  const miniRedisVisualRef = useRef<HTMLDivElement>(null);
+  const miniRedisMetaRef = useRef<HTMLDivElement>(null);
+
+  const migratorCardRef = useRef<HTMLElement>(null);
+  const migratorVisualRef = useRef<HTMLDivElement>(null);
+  const migratorMetaRef = useRef<HTMLDivElement>(null);
 
   // Magnetic button effects
-  const igLiveBtnRef = useRef<HTMLAnchorElement>(null);
-  const igCodeBtnRef = useRef<HTMLAnchorElement>(null);
-  const gitCodeBtnRef = useRef<HTMLAnchorElement>(null);
+  const miniRedisCodeBtnRef = useRef<HTMLAnchorElement>(null);
+  const migratorCodeBtnRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const cleanups: (() => void)[] = [];
-    if (igLiveBtnRef.current) cleanups.push(initMagneticElement(igLiveBtnRef.current, ".magnetic-target", 6));
-    if (igCodeBtnRef.current) cleanups.push(initMagneticElement(igCodeBtnRef.current, ".magnetic-target", 6));
-    if (gitCodeBtnRef.current) cleanups.push(initMagneticElement(gitCodeBtnRef.current, ".magnetic-target", 6));
+    if (miniRedisCodeBtnRef.current) cleanups.push(initMagneticElement(miniRedisCodeBtnRef.current, ".magnetic-target", 6));
+    if (migratorCodeBtnRef.current) cleanups.push(initMagneticElement(migratorCodeBtnRef.current, ".magnetic-target", 6));
     return () => cleanups.forEach((c) => c());
   }, []);
 
@@ -123,26 +122,26 @@ export default function SelectedWork() {
     };
   }, [activeProjectModal]);
 
-  // Section 16: IG App Entrance Stagger Sequence
+  // MiniRedis Entrance Stagger Sequence
   useEffect(() => {
-    if (!igCardRef.current) return;
+    if (!miniRedisCardRef.current) return;
     const cleanup = observeScrollReveal(
-      igCardRef.current,
+      miniRedisCardRef.current,
       () => {
-        if (igMetaRef.current) {
-          animate(igMetaRef.current, {
+        if (miniRedisMetaRef.current) {
+          animate(miniRedisMetaRef.current, {
             opacity: [0, 1],
             translateY: [25, 0],
             duration: 1250,
             ease: "outCubic",
           } as any);
         }
-        if (igPhoneRef.current) {
-          animate(igPhoneRef.current, {
+        if (miniRedisVisualRef.current) {
+          animate(miniRedisVisualRef.current, {
             opacity: [0, 1],
             translateY: [40, 0],
             duration: 1350,
-            delay: 200,
+            delay: 180,
             ease: "outCubic",
           } as any);
         }
@@ -152,22 +151,22 @@ export default function SelectedWork() {
     return cleanup;
   }, []);
 
-  // Gitlike Entrance Stagger
+  // Agentic Code Migrator Entrance Stagger
   useEffect(() => {
-    if (!gitlikeCardRef.current) return;
+    if (!migratorCardRef.current) return;
     const cleanup = observeScrollReveal(
-      gitlikeCardRef.current,
+      migratorCardRef.current,
       () => {
-        if (gitlikeTerminalRef.current) {
-          animate(gitlikeTerminalRef.current, {
+        if (migratorVisualRef.current) {
+          animate(migratorVisualRef.current, {
             opacity: [0, 1],
             translateX: [-30, 0],
             duration: 1250,
             ease: "outCubic",
           } as any);
         }
-        if (gitlikeMetaRef.current) {
-          animate(gitlikeMetaRef.current, {
+        if (migratorMetaRef.current) {
+          animate(migratorMetaRef.current, {
             opacity: [0, 1],
             translateX: [30, 0],
             duration: 1250,
@@ -183,7 +182,7 @@ export default function SelectedWork() {
 
   return (
     <section id="projects" className="relative z-10 max-w-[1520px] mx-auto px-4 sm:px-6 lg:px-12 pb-24 scroll-mt-20">
-      {/* 03 / PROJECTS Header per Prompt Section 19 */}
+      {/* 03 / PROJECTS Header */}
       <SectionHeader
         number="03"
         title="PROJECTS"
@@ -191,14 +190,14 @@ export default function SelectedWork() {
         badge="FEATURED"
       />
 
-      {/* TWO CURATED FEATURED PROJECTS ONLY */}
+      {/* TWO CURATED FEATURED PROJECTS */}
       <div className="space-y-24 lg:space-y-36">
         {/* ========================================================= */}
-        {/* PROJECT 01: IG APP (Product / Mobile / Human) */}
+        {/* PROJECT 01: MINIREDIS (Systems / Distributed / Go) */}
         {/* ========================================================= */}
         <article
-          ref={igCardRef}
-          id="ig-app"
+          ref={miniRedisCardRef}
+          id="miniredis"
           data-project-card="true"
           className="group relative border-b border-[var(--border-color)] pb-16 lg:pb-24"
         >
@@ -208,80 +207,80 @@ export default function SelectedWork() {
               <span className="text-[var(--accent)] font-bold">PROJECT_01</span>
               <span className="text-[var(--border-color)]">/</span>
               <span className="tracking-widest uppercase text-[var(--text-primary)] font-semibold">
-                SOCIAL APPLICATION
+                DISTRIBUTED IN-MEMORY DATABASE // GO SYSTEMS
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-[var(--text-secondary)]">{igApp.techString}</span>
+              <span className="text-[var(--text-secondary)]">{miniRedis.techString}</span>
               <span className="text-[var(--border-color)]">|</span>
-              <span className="text-[var(--text-primary)] font-bold">{igApp.year}</span>
+              <span className="text-[var(--text-primary)] font-bold">{miniRedis.year}</span>
             </div>
           </div>
 
-          {/* Desktop Grid Spread: Text on Left, Phone on Right (Untouched, hidden on mobile) */}
+          {/* Desktop Grid Spread: Text on Left, Visual Terminal Workbench on Right */}
           <div className="hidden lg:grid mt-14 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Column: IG App Narrative & Prominent User Stats */}
-            <div ref={igMetaRef} className="lg:col-span-6 space-y-6">
+            {/* Left Column: MiniRedis Narrative & Benchmark Throughput */}
+            <div ref={miniRedisMetaRef} className="lg:col-span-6 space-y-6">
               {/* Type pill */}
               <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
                 <span className="text-[var(--accent)] font-bold">{"//"}</span>
-                <span>CROSS-PLATFORM MOBILE</span>
+                <span>GO HIGH-CONCURRENCY STORAGE ENGINE</span>
               </div>
 
               {/* Title & Category */}
               <div className="space-y-1">
                 <h3 className="font-display font-black text-4xl sm:text-5xl lg:text-7xl tracking-tighter text-[var(--text-primary)] uppercase">
-                  {igApp.title}
+                  {miniRedis.title}
                 </h3>
                 <p className="font-mono text-xs sm:text-sm text-[var(--accent)] font-semibold tracking-wider uppercase">
-                  {igApp.subtitle}
+                  {miniRedis.subtitle}
                 </p>
               </div>
 
-              {/* PROMINENT FACT: 4,000+ REAL USERS (Prompt Section 04, 14, 16) */}
+              {/* PROMINENT FACT: 100K+ OPS/SEC THROUGHPUT */}
               <div className="p-5 sm:p-6 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-lg">
                 <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
-                  SCALE & PRODUCTION TRACTION
+                  SCALE &amp; BENCHMARK THROUGHPUT
                 </div>
                 <div className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-[var(--accent)] tracking-tight">
-                  <CountUpNumber target={4000} suffix="+" />
+                  <CountUpNumber target={100000} suffix="+" />
                 </div>
                 <div className="font-display font-bold text-base sm:text-lg tracking-wide uppercase text-[var(--text-primary)]">
-                  REAL UNIVERSITY USERS
+                  OPERATIONS / SECOND // P99 &lt; 1.5MS
                 </div>
                 <p className="font-mono text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">
-                  Engineered and deployed as a real product for VNIT&apos;s annual festival, serving 4,000+ students and faculty with live departmental leaderboard updates, competition brackets, and sub-second push notifications.
+                  High-throughput, Redis-compatible in-memory key-value database built from first principles in pure Go. Engineered with zero-dependency RESP wire protocol serialization, concurrent lock-striped storage with O(1) LRU eviction, hybrid AOF/RDB durability, and PSYNC primary-replica streaming.
                 </p>
               </div>
 
               {/* Description */}
               <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
-                {igApp.description}
+                {miniRedis.description}
               </p>
 
-              {/* Compact Technical Specification (Prompt Section 15) */}
+              {/* Compact Technical Specification */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[var(--border-color)]/60 font-mono text-xs">
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">TYPE</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">Mobile App</span>
+                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">Systems DB</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">USERS</span>
-                  <span className="font-bold text-[var(--accent)] block mt-0.5">4,000+</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">THROUGHPUT</span>
+                  <span className="font-bold text-[var(--accent)] block mt-0.5">100K+ req/s</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATUS</span>
-                  <span className="font-bold text-[#10B981] block mt-0.5">Live / Active</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">DURABILITY</span>
+                  <span className="font-bold text-[#10B981] block mt-0.5">AOF + RDB</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">STACK</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">Flutter·Dart</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">PROTOCOL</span>
+                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">RESP Wire</span>
                 </div>
               </div>
 
               {/* Highlights */}
               <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
-                {igApp.highlights.slice(0, 3).map((h, i) => (
+                {miniRedis.highlights.slice(0, 3).map((h, i) => (
                   <div key={i} className="flex items-start gap-2">
                     <span className="text-[var(--accent)] font-bold">↳</span>
                     <span>{h}</span>
@@ -291,37 +290,19 @@ export default function SelectedWork() {
 
               {/* Action Buttons */}
               <div className="pt-4 flex flex-wrap items-center gap-4 font-mono text-xs">
-                {igApp.liveUrl && (
+                {miniRedis.githubUrl && (
                   <a
-                    ref={igLiveBtnRef}
-                    href={igApp.liveUrl}
+                    ref={miniRedisCodeBtnRef}
+                    href={miniRedis.githubUrl}
                     target="_blank"
                     rel="noreferrer"
-                    data-cursor="LIVE APP ↗"
+                    data-cursor="SOURCE ↗"
                     data-magnetic="true"
                     className="editorial-link inline-flex items-center gap-2 px-5 py-3 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold uppercase tracking-wider transition-colors relative overflow-hidden"
                   >
                     <span className="magnetic-target inline-flex items-center gap-2">
-                      <span>VISIT LIVE DEMO</span>
-                      <span>─</span>
-                      <span>↗</span>
-                    </span>
-                  </a>
-                )}
-
-                {igApp.githubUrl && (
-                  <a
-                    ref={igCodeBtnRef}
-                    href={igApp.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-magnetic="true"
-                    data-cursor="SOURCE ↗"
-                    className="editorial-link inline-flex items-center gap-1.5 px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-primary)] transition-colors"
-                  >
-                    <span className="magnetic-target inline-flex items-center gap-1.5">
-                      <GithubIcon className="w-3.5 h-3.5" />
-                      <span>SOURCE CODE</span>
+                      <GithubIcon className="w-4 h-4" />
+                      <span>AUDIT REPO ON GITHUB</span>
                       <span>─</span>
                       <span>↗</span>
                     </span>
@@ -330,25 +311,17 @@ export default function SelectedWork() {
 
                 <button
                   type="button"
-                  onClick={() => setActiveProjectModal(igApp)}
-                  className="px-3 py-3 text-[var(--text-muted)] hover:text-[var(--accent)] underline underline-offset-4 transition-colors cursor-pointer"
+                  onClick={() => setActiveProjectModal(miniRedis)}
+                  className="px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-primary)] font-bold uppercase tracking-wider transition-colors cursor-pointer"
                 >
-                  [ VIEW ARCHITECTURAL DOSSIER ]
+                  VIEW DOSSIER ↗
                 </button>
               </div>
             </div>
 
-            {/* Right Column: Reusable Physical Smartphone Mockup with Horizontal Carousel */}
-            <div ref={igPhoneRef} className="lg:col-span-6 flex justify-center lg:justify-end">
-              <MobileProjectViewer
-                images={
-                  igApp.images && igApp.images.length > 0
-                    ? igApp.images
-                    : ["/images/ig-app.jpg"]
-                }
-                title={igApp.title}
-                userCount={igApp.userCount}
-              />
+            {/* Right Column: MiniRedis Technical Workbench */}
+            <div ref={miniRedisVisualRef} className="lg:col-span-6 w-full">
+              <MiniRedisTechnicalVisual />
             </div>
           </div>
 
@@ -357,54 +330,46 @@ export default function SelectedWork() {
             {/* Type pill */}
             <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
               <span className="text-[var(--accent)] font-bold">{"//"}</span>
-              <span>CROSS-PLATFORM MOBILE</span>
+              <span>GO SYSTEMS ENGINE</span>
             </div>
 
             {/* Title & Subtitle */}
             <div className="space-y-1">
               <h3 className="font-display font-black text-3xl sm:text-4xl tracking-tighter text-[var(--text-primary)] uppercase">
-                {igApp.title}
+                {miniRedis.title}
               </h3>
               <p className="font-mono text-xs text-[var(--accent)] font-semibold tracking-wider uppercase">
-                {igApp.subtitle}
+                {miniRedis.subtitle}
               </p>
             </div>
 
-            {/* Prominent Real Metric (Always visible) */}
+            {/* Prominent Real Metric */}
             <div className="p-4 sm:p-5 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-md">
               <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
-                SCALE & PRODUCTION TRACTION
+                SCALE &amp; BENCHMARK THROUGHPUT
               </div>
               <div className="text-4xl sm:text-5xl font-display font-black text-[var(--accent)] tracking-tight">
-                <CountUpNumber target={4000} suffix="+" />
+                <CountUpNumber target={100000} suffix="+" />
               </div>
               <div className="font-display font-bold text-sm tracking-wide uppercase text-[var(--text-primary)]">
-                REAL UNIVERSITY USERS
+                OPERATIONS / SECOND // P99 &lt; 1.5MS
               </div>
             </div>
 
-            {/* Interactive Phone Mockup Carousel (Touch-first, swipeable, independent) */}
-            <div className="flex justify-center py-2">
-              <MobileProjectViewer
-                images={
-                  igApp.images && igApp.images.length > 0
-                    ? igApp.images
-                    : ["/images/ig-app.jpg"]
-                }
-                title={igApp.title}
-                userCount={igApp.userCount}
-              />
+            {/* Interactive Visual (Mobile responsive) */}
+            <div className="w-full overflow-hidden">
+              <MiniRedisTechnicalVisual />
             </div>
 
             {/* Liquid Reveal for Hidden Information */}
             <LiquidReveal
-              isOpen={expandedProjectId === "ig-app"}
+              isOpen={expandedProjectId === "miniredis"}
               onToggle={() =>
-                setExpandedProjectId((prev) => (prev === "ig-app" ? null : "ig-app"))
+                setExpandedProjectId((prev) => (prev === "miniredis" ? null : "miniredis"))
               }
               openLabel="VIEW DETAILS"
               closeLabel="HIDE DETAILS"
-              badge="SPECS & STACK"
+              badge="ENGINE SPECS"
             >
               <div className="space-y-5 pt-2 border-l-2 border-[var(--accent)] pl-3.5">
                 <div>
@@ -412,7 +377,7 @@ export default function SelectedWork() {
                     DESCRIPTION:
                   </span>
                   <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {igApp.description}
+                    {miniRedis.description}
                   </p>
                 </div>
 
@@ -420,19 +385,19 @@ export default function SelectedWork() {
                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs">
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">TYPE</span>
-                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Mobile App</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Systems DB</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">USERS</span>
-                    <span className="font-bold text-[var(--accent)] block mt-0.5">4,000+ Real</span>
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">THROUGHPUT</span>
+                    <span className="font-bold text-[var(--accent)] block mt-0.5">100K+ req/s</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATUS</span>
-                    <span className="font-bold text-[#10B981] block mt-0.5">Live / Active</span>
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">DURABILITY</span>
+                    <span className="font-bold text-[#10B981] block mt-0.5">AOF + RDB</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STACK</span>
-                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Flutter · Dart</span>
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">PROTOCOL</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">RESP Wire</span>
                   </div>
                 </div>
 
@@ -441,7 +406,7 @@ export default function SelectedWork() {
                   <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
                     KEY ACHIEVEMENTS:
                   </span>
-                  {igApp.highlights.slice(0, 3).map((h, i) => (
+                  {miniRedis.highlights.slice(0, 3).map((h, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <span className="text-[var(--accent)] font-bold">↳</span>
                       <span className="leading-relaxed">{h}</span>
@@ -451,35 +416,24 @@ export default function SelectedWork() {
 
                 {/* Action Buttons */}
                 <div className="pt-3 flex flex-col gap-2.5 font-mono text-xs">
-                  {igApp.liveUrl && (
+                  {miniRedis.githubUrl && (
                     <a
-                      href={igApp.liveUrl}
+                      href={miniRedis.githubUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center justify-center gap-2 py-3 px-4 bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold uppercase tracking-wider"
                     >
-                      <span>VISIT LIVE DEMO</span>
-                      <span>↗</span>
-                    </a>
-                  )}
-                  {igApp.githubUrl && (
-                    <a
-                      href={igApp.githubUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center justify-center gap-2 py-3 px-4 border border-[var(--border-color)] text-[var(--text-primary)] font-bold uppercase tracking-wider"
-                    >
                       <GithubIcon className="w-3.5 h-3.5" />
-                      <span>SOURCE CODE</span>
+                      <span>AUDIT REPO ON GITHUB</span>
                       <span>↗</span>
                     </a>
                   )}
                   <button
                     type="button"
-                    onClick={() => setActiveProjectModal(igApp)}
-                    className="text-left py-1 text-[var(--text-muted)] hover:text-[var(--accent)] underline underline-offset-4 text-xs font-mono"
+                    onClick={() => setActiveProjectModal(miniRedis)}
+                    className="inline-flex items-center justify-center gap-2 py-3 px-4 border border-[var(--border-color)] text-[var(--text-primary)] font-bold uppercase tracking-wider"
                   >
-                    [ VIEW ARCHITECTURAL DOSSIER ]
+                    <span>VIEW DOSSIER ↗</span>
                   </button>
                 </div>
               </div>
@@ -488,11 +442,11 @@ export default function SelectedWork() {
         </article>
 
         {/* ========================================================= */}
-        {/* PROJECT 02: GITLIKE (Systems / Terminal / Technical) */}
+        {/* PROJECT 02: AGENTIC CODE MIGRATOR (Multi-Agent / Formal Verification) */}
         {/* ========================================================= */}
         <article
-          ref={gitlikeCardRef}
-          id="gitlike"
+          ref={migratorCardRef}
+          id="agentic-code-migrator"
           data-project-card="true"
           className="group relative border-b border-[var(--border-color)] pb-16 lg:pb-24"
         >
@@ -502,74 +456,90 @@ export default function SelectedWork() {
               <span className="text-[var(--accent)] font-bold">PROJECT_02</span>
               <span className="text-[var(--border-color)]">/</span>
               <span className="tracking-widest uppercase text-[var(--text-primary)] font-semibold">
-                VERSION CONTROL // CLI / SYSTEMS
+                AUTONOMOUS CODEBASE MIGRATION // MULTI-AGENT &amp; FORMAL VERIFICATION
               </span>
             </div>
             <div className="flex items-center gap-4">
-              <span className="text-[var(--text-secondary)]">{gitlike.techString}</span>
+              <span className="text-[var(--text-secondary)]">{agenticMigrator.techString}</span>
               <span className="text-[var(--border-color)]">|</span>
-              <span className="text-[var(--text-primary)] font-bold">{gitlike.year}</span>
+              <span className="text-[var(--text-primary)] font-bold">{agenticMigrator.year}</span>
             </div>
           </div>
 
-          {/* Desktop Grid Spread: Reversed Composition! Terminal on Left, Text on Right (Untouched, hidden on mobile) */}
+          {/* Desktop Grid Spread: Reversed Composition! Visual on Left, Narrative on Right */}
           <div className="hidden lg:grid mt-14 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Column: Systems Architecture & Code Inspector */}
-            <div ref={gitlikeTerminalRef} className="lg:col-span-6 order-2 lg:order-1">
-              <GitlikeTechnicalVisual />
+            {/* Left Column: Multi-Agent Architecture & Differential Sandbox Visual */}
+            <div ref={migratorVisualRef} className="lg:col-span-6 order-2 lg:order-1">
+              <AgenticMigratorTechnicalVisual />
             </div>
 
-            {/* Right Column: Systems Narrative & Technical Specifications */}
-            <div ref={gitlikeMetaRef} className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            {/* Right Column: Multi-Agent Narrative & Specifications */}
+            <div ref={migratorMetaRef} className="lg:col-span-6 order-1 lg:order-2 space-y-6">
               {/* Type pill */}
               <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
                 <span className="text-[var(--accent)] font-bold">{"//"}</span>
-                <span>CONTENT-ADDRESSABLE STORAGE ENGINE</span>
+                <span>LANGGRAPH MULTI-AGENT &amp; DOCKER DIFFERENTIAL ENGINE</span>
               </div>
 
               {/* Title & Category */}
               <div className="space-y-1">
                 <h3 className="font-display font-black text-4xl sm:text-5xl lg:text-7xl tracking-tighter text-[var(--text-primary)] uppercase">
-                  {gitlike.title}
+                  {agenticMigrator.title}
                 </h3>
                 <p className="font-mono text-xs sm:text-sm text-[var(--accent)] font-semibold tracking-wider uppercase">
-                  {gitlike.subtitle}
+                  {agenticMigrator.subtitle}
                 </p>
               </div>
 
               {/* Tagline */}
               <p className="font-mono text-xs sm:text-sm text-[var(--text-primary)] font-bold tracking-wide uppercase border-l-2 border-[var(--accent)] pl-3">
-                {gitlike.tagline}
+                {agenticMigrator.tagline}
               </p>
+
+              {/* PROMINENT FACT: 100% BEHAVIORAL EQUIVALENCE */}
+              <div className="p-5 sm:p-6 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-lg">
+                <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
+                  VERIFICATION GUARANTEE
+                </div>
+                <div className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-[var(--accent)] tracking-tight">
+                  100%
+                </div>
+                <div className="font-display font-bold text-base sm:text-lg tracking-wide uppercase text-[var(--text-primary)]">
+                  BEHAVIORAL OUTPUT PARITY (DOCKER SANDBOX)
+                </div>
+                <p className="font-mono text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">
+                  Goes beyond mere syntactic compilation by running source (Python 2 / Python) and target (Python 3 / Java) side-by-side in isolated Docker containers with coverage-guided differential testing, ensuring byte-identical runtime outputs.
+                </p>
+              </div>
 
               {/* Description */}
               <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
-                {gitlike.description}
+                {agenticMigrator.description}
               </p>
 
               {/* Compact Technical Specification */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[var(--border-color)]/60 font-mono text-xs">
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">TYPE</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">Systems CLI</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">ORCHESTRATOR</span>
+                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">LangGraph</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">STORAGE</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">Zlib Blobs</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">VERIFICATION</span>
+                  <span className="font-bold text-[#10B981] block mt-0.5">Differential</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">CRYPTO</span>
-                  <span className="font-bold text-[var(--accent)] block mt-0.5">SHA-1 Direct</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">SANDBOX</span>
+                  <span className="font-bold text-[var(--accent)] block mt-0.5">Docker Dual</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATUS</span>
-                  <span className="font-bold text-[#10B981] block mt-0.5">Production</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">TOOL PROTOCOL</span>
+                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">3 MCP Servers</span>
                 </div>
               </div>
 
               {/* Highlights */}
               <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
-                {gitlike.highlights.map((h, i) => (
+                {agenticMigrator.highlights.slice(0, 3).map((h, i) => (
                   <div key={i} className="flex items-start gap-2">
                     <span className="text-[var(--accent)] font-bold">↳</span>
                     <span>{h}</span>
@@ -579,10 +549,10 @@ export default function SelectedWork() {
 
               {/* Action Buttons */}
               <div className="pt-4 flex flex-wrap items-center gap-4 font-mono text-xs">
-                {gitlike.githubUrl && (
+                {agenticMigrator.githubUrl && (
                   <a
-                    ref={gitCodeBtnRef}
-                    href={gitlike.githubUrl}
+                    ref={migratorCodeBtnRef}
+                    href={agenticMigrator.githubUrl}
                     target="_blank"
                     rel="noreferrer"
                     data-magnetic="true"
@@ -591,7 +561,7 @@ export default function SelectedWork() {
                   >
                     <span className="magnetic-target inline-flex items-center gap-2">
                       <GithubIcon className="w-4 h-4" />
-                      <span>AUDIT VCS SOURCE</span>
+                      <span>AUDIT AGENTIC REPO</span>
                       <span>─</span>
                       <span>↗</span>
                     </span>
@@ -600,7 +570,7 @@ export default function SelectedWork() {
 
                 <button
                   type="button"
-                  onClick={() => setActiveProjectModal(gitlike)}
+                  onClick={() => setActiveProjectModal(agenticMigrator)}
                   className="px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-primary)] font-bold uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   VIEW DOSSIER ↗
@@ -614,38 +584,51 @@ export default function SelectedWork() {
             {/* Type pill */}
             <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
               <span className="text-[var(--accent)] font-bold">{"//"}</span>
-              <span>CONTENT-ADDRESSABLE STORAGE ENGINE</span>
+              <span>LANGGRAPH MULTI-AGENT &amp; DOCKER</span>
             </div>
 
             {/* Title & Category */}
             <div className="space-y-1">
               <h3 className="font-display font-black text-3xl sm:text-4xl tracking-tighter text-[var(--text-primary)] uppercase">
-                {gitlike.title}
+                {agenticMigrator.title}
               </h3>
               <p className="font-mono text-xs text-[var(--accent)] font-semibold tracking-wider uppercase">
-                CLI / SYSTEMS PROJECT
+                FORMAL VERIFICATION ENGINE
               </p>
             </div>
 
-            {/* Real Technical Workbench Visual (Cropped & responsive for mobile) */}
+            {/* Prominent Verification Stat */}
+            <div className="p-4 sm:p-5 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-md">
+              <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
+                VERIFICATION GUARANTEE
+              </div>
+              <div className="text-4xl sm:text-5xl font-display font-black text-[var(--accent)] tracking-tight">
+                100%
+              </div>
+              <div className="font-display font-bold text-sm tracking-wide uppercase text-[var(--text-primary)]">
+                BEHAVIORAL OUTPUT PARITY (DOCKER SANDBOX)
+              </div>
+            </div>
+
+            {/* Visual (Mobile responsive) */}
             <div className="w-full overflow-hidden">
-              <GitlikeTechnicalVisual />
+              <AgenticMigratorTechnicalVisual />
             </div>
 
             {/* Liquid Reveal for Hidden Information */}
             <LiquidReveal
-              isOpen={expandedProjectId === "gitlike"}
+              isOpen={expandedProjectId === "agentic-code-migrator"}
               onToggle={() =>
-                setExpandedProjectId((prev) => (prev === "gitlike" ? null : "gitlike"))
+                setExpandedProjectId((prev) => (prev === "agentic-code-migrator" ? null : "agentic-code-migrator"))
               }
               openLabel="VIEW DETAILS"
               closeLabel="HIDE DETAILS"
-              badge="VCS ENGINE SPECS"
+              badge="MIGRATOR SPECS"
             >
               <div className="space-y-5 pt-2 border-l-2 border-[var(--accent)] pl-3.5">
                 {/* Tagline */}
                 <p className="font-mono text-xs text-[var(--text-primary)] font-bold tracking-wide uppercase border-l-2 border-[var(--accent)] pl-2">
-                  {gitlike.tagline}
+                  {agenticMigrator.tagline}
                 </p>
 
                 {/* Description */}
@@ -654,27 +637,27 @@ export default function SelectedWork() {
                     DESCRIPTION:
                   </span>
                   <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {gitlike.description}
+                    {agenticMigrator.description}
                   </p>
                 </div>
 
                 {/* Compact Technical Specs */}
                 <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs">
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">TYPE</span>
-                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Systems CLI</span>
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">ORCHESTRATOR</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">LangGraph</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STORAGE</span>
-                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">Zlib Blobs</span>
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">VERIFICATION</span>
+                    <span className="font-bold text-[#10B981] block mt-0.5">Differential</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">CRYPTO</span>
-                    <span className="font-bold text-[var(--accent)] block mt-0.5">SHA-1 Direct</span>
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">SANDBOX</span>
+                    <span className="font-bold text-[var(--accent)] block mt-0.5">Docker Dual</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATUS</span>
-                    <span className="font-bold text-[#10B981] block mt-0.5">Production</span>
+                    <span className="text-[9px] text-[var(--text-muted)] block uppercase">PROTOCOL</span>
+                    <span className="font-bold text-[var(--text-primary)] block mt-0.5">3 MCP Servers</span>
                   </div>
                 </div>
 
@@ -683,7 +666,7 @@ export default function SelectedWork() {
                   <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
                     KEY TECHNICAL HIGHLIGHTS:
                   </span>
-                  {gitlike.highlights.map((h, i) => (
+                  {agenticMigrator.highlights.slice(0, 3).map((h, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <span className="text-[var(--accent)] font-bold">↳</span>
                       <span className="leading-relaxed">{h}</span>
@@ -693,21 +676,21 @@ export default function SelectedWork() {
 
                 {/* Action Buttons */}
                 <div className="pt-3 flex flex-col gap-2.5 font-mono text-xs">
-                  {gitlike.githubUrl && (
+                  {agenticMigrator.githubUrl && (
                     <a
-                      href={gitlike.githubUrl}
+                      href={agenticMigrator.githubUrl}
                       target="_blank"
                       rel="noreferrer"
                       className="inline-flex items-center justify-center gap-2 py-3 px-4 bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold uppercase tracking-wider"
                     >
                       <GithubIcon className="w-3.5 h-3.5" />
-                      <span>AUDIT VCS SOURCE</span>
+                      <span>AUDIT AGENTIC REPO</span>
                       <span>↗</span>
                     </a>
                   )}
                   <button
                     type="button"
-                    onClick={() => setActiveProjectModal(gitlike)}
+                    onClick={() => setActiveProjectModal(agenticMigrator)}
                     className="inline-flex items-center justify-center gap-2 py-3 px-4 border border-[var(--border-color)] text-[var(--text-primary)] font-bold uppercase tracking-wider"
                   >
                     <span>VIEW DOSSIER ↗</span>
@@ -720,7 +703,7 @@ export default function SelectedWork() {
       </div>
 
       {/* ========================================================= */}
-      {/* EXPANDED ENGINEERING REPERTOIRE (PROJECTS 03 - 07) */}
+      {/* EXPANDED ENGINEERING REPERTOIRE (OTHER PROJECTS 03 - 09) */}
       {/* ========================================================= */}
       <div className="mt-16 lg:mt-24 pt-12 border-t-2 border-[var(--border-color)] space-y-8">
         <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono">
@@ -729,11 +712,11 @@ export default function SelectedWork() {
               {"// EXPANDED REPERTOIRE"}
             </span>
             <h3 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[var(--text-primary)] tracking-tight uppercase mt-1">
-              ADDITIONAL PRODUCTIONS & SYSTEMS
+              ADDITIONAL PRODUCTIONS &amp; SYSTEMS
             </h3>
           </div>
           <span className="text-xs text-[var(--text-muted)] font-mono">
-            5 SPECIALIZED PLATFORMS & ENGINES
+            7 SPECIALIZED PLATFORMS &amp; ENGINES
           </span>
         </div>
 
@@ -830,10 +813,10 @@ export default function SelectedWork() {
       <div className="mt-16 lg:mt-24 pt-12 border-t-2 border-[var(--border-color)] flex flex-col sm:flex-row sm:items-center justify-between gap-6 font-mono text-xs">
         <div>
           <span className="text-[var(--accent)] font-bold block uppercase tracking-wider text-[11px]">
-            ARCHIVE // 07 TOTAL PROJECTS
+            ARCHIVE // 09 TOTAL PROJECTS
           </span>
           <span className="text-[var(--text-secondary)] text-xs mt-1 block">
-            C++ Optics · WebSockets · Systems CLI · Mobile · Academic Platforms
+            Go Distributed DB · Multi-Agent Orchestration · Mobile · Systems CLI · C++ Optics · WebSockets
           </span>
         </div>
 
@@ -904,7 +887,7 @@ export default function SelectedWork() {
                 <span className="text-[10px] text-[var(--text-muted)] uppercase block mb-2 font-bold tracking-wider">
                   VERIFIED SYSTEM METRICS:
                 </span>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   {activeProjectModal.metrics.map((m, i) => (
                     <div key={i} className="bg-[var(--bg-surface)] p-3 border border-[var(--border-color)]">
                       <span className="text-[9px] text-[var(--text-muted)] uppercase block">
