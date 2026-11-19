@@ -26,7 +26,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Omkar More — Software Engineer | Systems & Agentic Workflows",
   description:
-    "Official portfolio of Omkar More, Software Engineer & B.Tech student at VNIT Nagpur. Incoming Software Engineering Intern at Accenture, Knight on LeetCode (1860, Top 5% Globally, 980+ Solved), and builder of MiniRedis, Agentic Code Migrator, and GitLike VCS.",
+    "Official portfolio of Omkar More, Software Engineer & B.Tech student at VNIT Nagpur. Incoming Software Engineering Intern at Accenture, Knight on LeetCode (1900+, Top 5% Globally, 950+ Solved), and builder of MiniRedis, Agentic Code Migrator, and GitLike VCS.",
   keywords: [
     "Omkar More",
     "Software Engineer",
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Omkar More — Software Engineer | Systems & Agentic Workflows",
     description:
-      "Official portfolio of Omkar More, Software Engineer & B.Tech student at VNIT Nagpur. Knight on LeetCode (980+ solved), Incoming SWE Intern @ Accenture.",
+      "Official portfolio of Omkar More, Software Engineer & B.Tech student at VNIT Nagpur. Knight on LeetCode (1900+, 950+ solved), Incoming SWE Intern @ Accenture.",
     type: "website",
     locale: "en_US",
     siteName: "Omkar More Portfolio",

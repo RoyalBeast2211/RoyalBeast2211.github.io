@@ -198,7 +198,7 @@ export default function AboutHero() {
               SWE INTERN @ ACCENTURE
             </span>
             <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--accent)] font-bold text-[11px] sm:text-xs">
-              LEETCODE KNIGHT · 980+ SOLVED
+              LEETCODE KNIGHT · 950+ SOLVED
             </span>
             <span className="px-2.5 sm:px-3 py-1 sm:py-1.5 bg-[var(--bg-surface)] border border-[var(--border-color)] text-[var(--text-secondary)] text-[11px] sm:text-xs">
               PRESIDENT · SYNTAX CODING CLUB

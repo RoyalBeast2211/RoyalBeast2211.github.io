@@ -19,8 +19,8 @@ export default function ProblemSolving() {
   useEffect(() => {
     if (!containerRef.current || !counterRef.current) return;
 
-    const rawString = codolio?.totalSolvedString || "980+";
-    const targetNumber = parseInt(rawString.replace(/\D/g, ""), 10) || 980;
+    const rawString = codolio?.totalSolvedString || "950+";
+    const targetNumber = parseInt(rawString.replace(/\D/g, ""), 10) || 950;
 
     const cleanup = observeScrollReveal(
       containerRef.current,
@@ -113,13 +113,13 @@ export default function ProblemSolving() {
         number="04"
         title="PROBLEM SOLVING"
         tagline="COMPETITIVE PROGRAMMING, RATINGS & HONORS"
-        badge="980+ SOLVED"
+        badge="950+ SOLVED"
       />
 
       {/* Dramatic Typography Hero Block */}
       <div className="py-16 lg:py-20 border-b border-[var(--border-color)] editorial-grid relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
-          {/* Left: Oversized Number 980+ */}
+          {/* Left: Oversized Number 950+ */}
           <div className="lg:col-span-7 space-y-3">
             <div className="flex flex-wrap items-center gap-3">
               <div className="font-mono text-xs text-[var(--text-muted)] flex items-center gap-2">
@@ -147,7 +147,7 @@ export default function ProblemSolving() {
               ref={counterRef}
               className="font-display font-black text-[var(--text-primary)] leading-[0.8] tracking-tighter text-[clamp(5.5rem,16vw,17rem)] select-none hover:text-[var(--accent)] transition-colors duration-400"
             >
-              {codolio?.totalSolvedString || "980+"}
+              {codolio?.totalSolvedString || "950+"}
             </div>
 
             <div className="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl text-[var(--text-primary)] tracking-tight uppercase">
@@ -175,7 +175,7 @@ export default function ProblemSolving() {
               <div>
                 <span className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">LEETCODE</span>
                 <span className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
-                  {codolio?.platforms?.leetcode?.rating || "1860"} {codolio?.platforms?.leetcode?.badge?.toUpperCase() || "KNIGHT"}
+                  {codolio?.platforms?.leetcode?.rating ? `${codolio.platforms.leetcode.rating}+` : "1900+"} {codolio?.platforms?.leetcode?.badge?.toUpperCase() || "KNIGHT"}
                 </span>
               </div>
               <div className="text-right">
@@ -191,7 +191,7 @@ export default function ProblemSolving() {
               <div>
                 <span className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">CODECHEF</span>
                 <span className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
-                  {codolio?.platforms?.codechef?.rating || "1590"} RATING
+                  {codolio?.platforms?.codechef?.rating || "1600"} RATING
                 </span>
               </div>
               <div className="text-right">
@@ -209,7 +209,7 @@ export default function ProblemSolving() {
               <div>
                 <span className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">CODOLIO AGGREGATE</span>
                 <span className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
-                  {codolio?.totalSolvedString || "980+"} SOLVED
+                  {codolio?.totalSolvedString || "950+"} SOLVED
                 </span>
               </div>
               <div className="text-right">

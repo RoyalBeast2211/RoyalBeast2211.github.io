@@ -49,12 +49,12 @@ const DEFAULT_CODOLIO_DATA: CodolioData = {
   profileName: "theomkarmore",
   fullName: "Omkar More",
   profileViews: 204,
-  totalSolved: 980,
-  totalSolvedString: "980+",
+  totalSolved: 950,
+  totalSolvedString: "950+",
   platforms: {
     leetcode: {
       handle: "theomkarmore",
-      rating: 1860,
+      rating: 1900,
       badge: "Knight",
       totalSolved: 835,
       easy: 219,
@@ -66,7 +66,7 @@ const DEFAULT_CODOLIO_DATA: CodolioData = {
     },
     codechef: {
       handle: "theomkarmore",
-      rating: 1590,
+      rating: 1600,
       maxRating: 1623,
       stars: 3,
       starsString: "3★",

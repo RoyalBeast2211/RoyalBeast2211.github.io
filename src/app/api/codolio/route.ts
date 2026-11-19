@@ -33,7 +33,7 @@ export async function GET() {
     const lcMedium =
       leetcodeObj?.totalQuestionStats?.mediumQuestionCounts ?? 497;
     const lcHard = leetcodeObj?.totalQuestionStats?.hardQuestionCounts ?? 119;
-    const lcRating = leetcodeObj?.userStats?.currentRating ?? 1860;
+    const lcRating = leetcodeObj?.userStats?.currentRating ?? 1900;
     const lcBadge = leetcodeObj?.userStats?.contestBadgeName ?? "Knight";
     const lcActiveDays =
       leetcodeObj?.dailyActivityStatsResponse?.totalActiveDays ?? 301;
@@ -46,7 +46,7 @@ export async function GET() {
     const gfgHard = gfgObj?.totalQuestionStats?.hardQuestionCounts ?? 3;
 
     const ccSolved = codechefObj?.totalQuestionStats?.totalQuestionCounts ?? 39;
-    const ccRating = codechefObj?.userStats?.currentRating ?? 1590;
+    const ccRating = codechefObj?.userStats?.currentRating ?? 1600;
     const ccMaxRating = codechefObj?.userStats?.maxRating ?? 1623;
     // Max stars achieved (Peak rating 1623 is 3★ on CodeChef)
     const ccStars = ccMaxRating >= 1600 ? 3 : (codechefObj?.userStats?.stars ?? 3);
@@ -106,12 +106,12 @@ export async function GET() {
         profileName: "theomkarmore",
         fullName: "Omkar More",
         profileViews: 204,
-        totalSolved: 980,
-        totalSolvedString: "980+",
+        totalSolved: 950,
+        totalSolvedString: "950+",
         platforms: {
           leetcode: {
             handle: "theomkarmore",
-            rating: 1860,
+            rating: 1900,
             badge: "Knight",
             totalSolved: 835,
             easy: 219,
@@ -123,7 +123,7 @@ export async function GET() {
           },
           codechef: {
             handle: "theomkarmore",
-            rating: 1590,
+            rating: 1600,
             maxRating: 1623,
             stars: 3,
             starsString: "3★",

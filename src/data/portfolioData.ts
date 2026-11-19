@@ -465,9 +465,9 @@ export const EXPERIENCES: ExperienceItem[] = [
     description:
       "Engineered high-throughput enterprise systems, multi-agent frameworks, and data platforms in production workflows.",
     achievements: [
-      "Improved media analysis throughput by 20×, reducing processing time for 100+ images from 15 min to 45 sec (95% reduction) using Python async concurrency, semaphores, and parallel execution in a production.",
-      "Engineered a Databricks Volume backend for DeepAgents, implementing 8 production grade file search primitives and enabling enterprise scale data access directly from agent workflows.",
-      "Redesigned a QA multi agent architecture by replacing a complex subagent hierarchy with 2 specialized agents, reducing orchestration complexity while improving modularity and workflow maintainability.",
+      "Boosted media analysis throughput by 20×, cutting processing time from 15 min to 45 sec (95% reduction) using Python async concurrency, semaphores, and worker pools in production.",
+      "Engineered a Databricks Volume backend for DeepAgents, implementing 8 production file search primitives to enable high-throughput enterprise data retrieval within agent workflows.",
+      "Streamlined QA multi-agent architecture by replacing nested subagent hierarchies with 2 specialized agents, eliminating orchestration overhead and enhancing workflow maintainability.",
     ],
     tags: [
       "PYTHON CONCURRENCY",
@@ -498,14 +498,14 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
   },
   {
     title: "General Secretary",
-    organization: "V.G. Bhide Boys Hostel, Hostel Section, VNIT",
+    organization: "V.G. Bhide Boys Hostel, VNIT",
     period: "Aug 2024 – Aug 2025",
     description:
       "Elected student representative managing hostel administration, student welfare, facilities, and campus residential logistics.",
   },
   {
     title: "Technical Secretary",
-    organization: "J.C. Bose Boys Hostel, Hostel Section, VNIT",
+    organization: "J.C. Bose Boys Hostel, VNIT",
     period: "Aug 2023 – Aug 2024",
     description:
       "Supervised technical maintenance, network connectivity, digital registry, and student technical infrastructure.",
@@ -516,21 +516,21 @@ export const RATINGS_DATA: RatingPlatform[] = [
   {
     platform: "LEETCODE",
     badge: "KNIGHT",
-    rating: "1860",
+    rating: "1900+",
     tier: "TOP 5% GLOBALLY",
     handle: "theomkarmore",
     url: "https://leetcode.com/u/theomkarmore/",
     summary:
-      "Knight badge holder ranked in the top 5% of competitive programmers globally with 835+ algorithmic solutions. Demonstrates high-speed algorithmic execution, consistent contest participation, and deep mastery of data structures.",
+      "Knight badge holder ranked in the top 5% of competitive programmers globally (1900+ contest rating) with 835+ algorithmic solutions. Demonstrates high-speed algorithmic execution, consistent contest participation, and deep mastery of data structures.",
     highlights: [
+      "Knight (1900+) contest rating",
       "835+ verified solutions (497 Medium, 119 Hard, 219 Easy)",
-      "Knight Title achieved through rated contest consistency",
       "301 active days with 60-day maximum streak",
       "Dynamic programming, graph theory, trees & optimization",
     ],
     metrics: [
       { label: "SOLVED", value: "835" },
-      { label: "RATING", value: "1860" },
+      { label: "RATING", value: "1900+" },
       { label: "BADGE", value: "KNIGHT" },
     ],
     tag: "CONTEST RATING",
@@ -538,20 +538,20 @@ export const RATINGS_DATA: RatingPlatform[] = [
   {
     platform: "CODECHEF",
     badge: "3★ STAR",
-    rating: "1623 MAX / 1590",
+    rating: "1600 (3-STAR)",
     tier: "DIVISION 2 RATED",
     handle: "theomkarmore",
     url: "https://www.codechef.com/users/theomkarmore",
     summary:
-      "3-Star competitor (Peak 1623) in Division 2, solving complex algorithmic challenges under strict time pressure with emphasis on mathematical proofs, number theory, and constructive logic.",
+      "3-Star competitor (Rating: 1600) in Division 2, solving complex algorithmic challenges under strict time pressure with emphasis on mathematical proofs, number theory, and constructive logic.",
     highlights: [
-      "1623 peak rating achieving 3-Star status (Division 2)",
+      "3-Star ranked (1600 rating, Division 2)",
       "39 verified competitive solutions solved",
       "Discrete mathematics, combinatorics & number theory",
       "Time-pressured problem solving & complex constraints",
     ],
     metrics: [
-      { label: "CURRENT", value: "1590" },
+      { label: "RATING", value: "1600" },
       { label: "PEAK", value: "1623" },
       { label: "TIER", value: "3★ STAR" },
     ],
@@ -559,23 +559,23 @@ export const RATINGS_DATA: RatingPlatform[] = [
   },
   {
     platform: "CODOLIO",
-    badge: "980+ SOLVED",
-    rating: "980+",
+    badge: "950+ SOLVED",
+    rating: "950+",
     tier: "VERIFIED TOTAL",
     handle: "theomkarmore",
     url: "https://codolio.com/profile/theomkarmore",
     summary:
-      "Comprehensive verified track record of 980+ algorithmic solutions aggregated across LeetCode (835), GeeksforGeeks (106), and CodeChef (39), verifying sustained dedication to algorithmic problem solving.",
+      "Comprehensive verified track record of 950+ algorithmic problems solved across LeetCode, GeeksforGeeks, and CodeChef, verifying sustained dedication to algorithmic problem solving.",
     highlights: [
-      "980+ verified solutions aggregated across platforms",
-      "LeetCode: 835 | GeeksforGeeks: 106 | CodeChef: 39",
+      "950+ verified solutions aggregated across platforms",
+      "LeetCode: 835+ | GeeksforGeeks: 106+ | CodeChef: 39+",
       "Real-time synchronized portfolio profile",
       "Breadth of data structures, algorithms & systems problems",
     ],
     metrics: [
-      { label: "LEETCODE", value: "835" },
-      { label: "GFG", value: "106" },
-      { label: "TOTAL", value: "980+" },
+      { label: "LEETCODE", value: "835+" },
+      { label: "GFG", value: "106+" },
+      { label: "TOTAL", value: "950+" },
     ],
     tag: "CROSS-PLATFORM",
   },
@@ -606,12 +606,12 @@ export const ACHIEVEMENTS: AchievementItem[] = [
 ];
 
 export const PROBLEM_SOLVING_STATS = {
-  totalSolved: "980+",
+  totalSolved: "950+",
   headline: "PROBLEMS SOLVED",
   leetcode: {
     title: "LEETCODE",
     badge: "KNIGHT",
-    rating: "1860",
+    rating: "1900+",
     percentile: "Top 5% Globally (Knight)",
     url: "https://leetcode.com/u/theomkarmore/",
     totalSolved: 835,
@@ -624,7 +624,7 @@ export const PROBLEM_SOLVING_STATS = {
   codechef: {
     title: "CODECHEF",
     badge: "3★ STAR",
-    rating: "1590",
+    rating: "1600",
     peakRating: "1623",
     division: "Division 2",
     url: "https://www.codechef.com/users/theomkarmore",
@@ -641,8 +641,8 @@ export const PROBLEM_SOLVING_STATS = {
   },
   codolio: {
     title: "CODOLIO",
-    badge: "980+ SOLVED",
-    rating: "980+",
+    badge: "950+ SOLVED",
+    rating: "950+",
     division: "Verified Profile",
     url: "https://codolio.com/profile/theomkarmore",
     profileViews: 204,
