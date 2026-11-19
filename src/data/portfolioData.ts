@@ -617,22 +617,22 @@ export const RATINGS_DATA: RatingPlatform[] = [
   {
     platform: "CODECHEF",
     badge: "3★ STAR",
-    rating: "1600 (3-STAR)",
+    rating: "1623 PEAK",
     tier: "DIVISION 2 RATED",
     handle: "theomkarmore",
     url: "https://www.codechef.com/users/theomkarmore",
     summary:
-      "3-Star competitor (Rating: 1600) in Division 2, solving complex algorithmic challenges under strict time pressure with emphasis on mathematical proofs, number theory, and constructive logic.",
+      "3-Star competitor (Peak 1623) in Division 2, solving complex algorithmic challenges under strict time pressure with emphasis on mathematical proofs, number theory, and constructive logic.",
     highlights: [
-      "3-Star ranked (1600 rating, Division 2)",
+      "1623 peak rating achieving 3-Star status (Division 2)",
       "39 verified competitive solutions solved",
       "Discrete mathematics, combinatorics & number theory",
       "Time-pressured problem solving & complex constraints",
     ],
     metrics: [
-      { label: "RATING", value: "1600" },
       { label: "PEAK", value: "1623" },
       { label: "TIER", value: "3★ STAR" },
+      { label: "DIVISION", value: "DIV 2" },
     ],
     tag: "GLOBAL RATED",
   },

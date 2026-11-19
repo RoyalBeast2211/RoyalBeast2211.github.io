@@ -66,14 +66,14 @@ export default function ProblemSolving() {
       return {
         ...plat,
         badge: `${cc.starsString} STAR`,
-        rating: `${cc.maxRating} MAX / ${cc.rating}`,
+        rating: `${cc.maxRating} PEAK`,
         metrics: [
-          { label: "CURRENT", value: String(cc.rating) },
           { label: "PEAK", value: String(cc.maxRating) },
           { label: "TIER", value: cc.starsString },
+          { label: "DIVISION", value: "DIV 2" },
         ],
         highlights: [
-          `${cc.maxRating} peak rating achieving Division 2 status`,
+          `${cc.maxRating} peak rating achieving Division 2 (3-Star) status`,
           `${cc.totalSolved} verified competitive solutions solved`,
           "Discrete mathematics, combinatorics & number theory",
           "Time-pressured problem solving & complex constraints",
@@ -173,7 +173,7 @@ export default function ProblemSolving() {
               <div>
                 <span className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">CODECHEF</span>
                 <span className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
-                  {codolio?.platforms?.codechef?.rating || "1600"} RATING
+                  {codolio?.platforms?.codechef?.maxRating || 1623} PEAK
                 </span>
               </div>
               <div className="text-right">
@@ -181,7 +181,7 @@ export default function ProblemSolving() {
                   {codolio?.platforms?.codechef?.starsString || "3★"} STAR
                 </span>
                 <span className="text-[10px] text-[var(--text-muted)] mt-1 block font-semibold">
-                  PEAK {codolio?.platforms?.codechef?.maxRating || 1623}
+                  DIVISION 2
                 </span>
               </div>
             </div>
