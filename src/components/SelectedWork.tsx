@@ -652,7 +652,7 @@ export default function SelectedWork() {
       </div>
 
       {/* ========================================================= */}
-      {/* EXPANDED ENGINEERING REPERTOIRE (OTHER PROJECTS 03 - 09) */}
+      {/* EXPANDED ENGINEERING REPERTOIRE (OTHER PROJECTS 03 - 08) */}
       {/* ========================================================= */}
       <div className="mt-16 lg:mt-24 pt-12 border-t-2 border-[var(--border-color)] space-y-8">
         <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono">
@@ -665,12 +665,12 @@ export default function SelectedWork() {
             </h3>
           </div>
           <span className="text-xs text-[var(--text-muted)] font-mono">
-            7 SPECIALIZED PLATFORMS &amp; ENGINES
+            6 SPECIALIZED PLATFORMS &amp; ENGINES
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-mono">
-          {PROJECTS.filter((p) => !p.featured).map((proj) => (
+          {PROJECTS.filter((p) => !p.featured).slice(0, 6).map((proj) => (
             <div
               key={proj.id}
               className="group p-6 bg-[var(--bg-surface)] border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] flex flex-col justify-between space-y-5 transition-all duration-200 relative shadow-xs hover:shadow-md"
