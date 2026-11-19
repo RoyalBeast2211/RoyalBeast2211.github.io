@@ -50,6 +50,7 @@ export interface LeadershipRole {
   period: string;
   description: string;
   progression: string[];
+  stepIndex: number;
   progressionNote?: string;
   bullets: string[];
   isCurrent?: boolean;
@@ -493,6 +494,7 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
     organization: "SyntaX Coding Club, VNIT",
     period: "June 2026 – Present",
     progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
+    stepIndex: 2,
     progressionNote: "Promoted to President",
     isCurrent: true,
     description:
@@ -508,6 +510,7 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
     organization: "SyntaX Coding Club, VNIT (formerly WAGC Club)",
     period: "Aug 2025 – May 2026",
     progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
+    stepIndex: 1,
     progressionNote: "Elected Vice President",
     description:
       "Conducted workshops introducing programming and software development; organized SynHack, VNIT's flagship hackathon.",
@@ -522,6 +525,7 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
     organization: "MME Department, Student Mentor Programme (SMP), VNIT",
     period: "Apr 2025 – Present",
     progression: ["Class Representative (Jan–May 2024)", "Student Mentor (Apr 2025–Present)"],
+    stepIndex: 1,
     progressionNote: "Appointed Student Mentor",
     isCurrent: true,
     description:
@@ -537,6 +541,7 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
     organization: "V.G. Bhide Boys Hostel, VNIT",
     period: "Aug 2024 – May 2025",
     progression: ["Technical Secretary (Sep 2023–Aug 2024)", "General Secretary (Aug 2024–May 2025)"],
+    stepIndex: 1,
     progressionNote: "Elected General Secretary",
     description:
       "Elected student representative managing hostel administration, student welfare, facilities, and campus residential logistics.",
@@ -552,6 +557,7 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
     organization: "SyntaX Coding Club, VNIT",
     period: "Aug 2024 – May 2025",
     progression: ["Junior Developer (2024–25)", "Vice President (2025–26)", "President (2026–Present)"],
+    stepIndex: 0,
     progressionNote: "Core Developer",
     description:
       "Contributed to internal club projects, open-source utilities, and technical event infrastructure for campus competitions.",
@@ -566,6 +572,7 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
     organization: "MME Department, VNIT",
     period: "Jan 2024 – May 2024",
     progression: ["Class Representative (Jan–May 2024)", "Student Mentor (Apr 2025–Present)"],
+    stepIndex: 0,
     progressionNote: "Elected Class Representative",
     description:
       "Coordinated between faculty and students for classes, laboratories, and examinations; led cohort to Enthu Trophy.",
@@ -580,6 +587,7 @@ export const POSITIONS_OF_RESPONSIBILITY: LeadershipRole[] = [
     organization: "J.C. Bose Boys Hostel, VNIT",
     period: "Sep 2023 – Aug 2024",
     progression: ["Technical Secretary (Sep 2023–Aug 2024)", "General Secretary (Aug 2024–May 2025)"],
+    stepIndex: 0,
     progressionNote: "Appointed Technical Secretary",
     description:
       "Supervised technical maintenance, network connectivity, digital registry, and student technical infrastructure.",

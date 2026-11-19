@@ -364,7 +364,7 @@ export default function ExperienceTimeline() {
                       </span>
                       <div className="flex flex-wrap items-center gap-1.5">
                         {role.progression.map((step, sIdx) => {
-                          const isMatch = step.toLowerCase().includes(role.title.toLowerCase().split(" ")[0]);
+                          const isMatch = sIdx === role.stepIndex;
                           return (
                             <React.Fragment key={sIdx}>
                               <span
