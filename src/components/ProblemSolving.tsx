@@ -113,7 +113,6 @@ export default function ProblemSolving() {
         number="04"
         title="PROBLEM SOLVING"
         tagline="COMPETITIVE PROGRAMMING, RATINGS & HONORS"
-        badge="950+ SOLVED"
       />
 
       {/* Dramatic Typography Hero Block */}
