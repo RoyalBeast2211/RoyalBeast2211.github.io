@@ -216,15 +216,6 @@ export default function ProblemSolving() {
               RATINGS & CONTEST BENCHMARKS
             </h3>
           </div>
-          <a
-            href={codolio?.codolioUrl || "https://codolio.com/profile/theomkarmore"}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs text-[var(--text-secondary)] hover:text-[var(--accent)] transition-colors flex items-center gap-1"
-          >
-            <span>LIVE AUDITED ON CODOLIO.COM</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
         </div>
 
         {/* 3 Detailed Rating Cards */}
