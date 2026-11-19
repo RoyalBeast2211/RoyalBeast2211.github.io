@@ -132,7 +132,7 @@ export default function ProblemSolving() {
                 href={codolio?.codolioUrl || "https://codolio.com/profile/theomkarmore"}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[var(--terminal-bg)] border border-[var(--terminal-border)] hover:border-[var(--accent)] text-[10px] font-mono text-[var(--terminal-text)] transition-colors group"
+                className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-[var(--bg-surface)] border border-[var(--border-color)] hover:border-[var(--accent)] text-[10px] font-mono text-[var(--text-primary)] transition-colors group"
                 title="Always fetched live from Codolio public profile"
               >
                 <span className={`w-1.5 h-1.5 rounded-full ${isLive ? "bg-[#10B981] animate-pulse" : "bg-[var(--accent)]"}`} />
@@ -170,41 +170,44 @@ export default function ProblemSolving() {
 
           {/* Right: Quick Highlights Summary */}
           <div className="lg:col-span-5 space-y-3 font-mono">
-            <div className="p-4 bg-[var(--terminal-bg)] text-[var(--terminal-text)] border border-[var(--terminal-border)] flex items-center justify-between">
+            {/* Box 1: LeetCode */}
+            <div className="p-4 bg-[var(--bg-surface)] text-[var(--text-primary)] border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] transition-colors flex items-center justify-between shadow-xs">
               <div>
-                <span className="text-[10px] text-[var(--text-muted)] uppercase block">LEETCODE</span>
+                <span className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">LEETCODE</span>
                 <span className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
                   {codolio?.platforms?.leetcode?.rating || "1860"} {codolio?.platforms?.leetcode?.badge?.toUpperCase() || "KNIGHT"}
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-xs bg-[var(--accent)] text-[#111111] font-bold px-2 py-0.5 block">TOP 5%</span>
-                <span className="text-[10px] text-[var(--text-muted)] mt-1 block">
+                <span className="text-xs bg-[var(--accent)] text-[#111111] font-bold px-2 py-0.5 block shadow-xs">TOP 5%</span>
+                <span className="text-[10px] text-[var(--text-muted)] mt-1 block font-semibold">
                   {codolio?.platforms?.leetcode?.totalSolved || 835} SOLVED
                 </span>
               </div>
             </div>
 
-            <div className="p-4 bg-[var(--bg-surface)] text-[var(--text-primary)] border border-[var(--border-color)] flex items-center justify-between">
+            {/* Box 2: CodeChef */}
+            <div className="p-4 bg-[var(--bg-surface)] text-[var(--text-primary)] border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] transition-colors flex items-center justify-between shadow-xs">
               <div>
-                <span className="text-[10px] text-[var(--text-secondary)] uppercase block">CODECHEF</span>
+                <span className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">CODECHEF</span>
                 <span className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
                   {codolio?.platforms?.codechef?.rating || "1590"} RATING
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-xs font-bold text-[var(--text-primary)] border border-[var(--border-strong)] px-2 py-0.5 block">
+                <span className="text-xs font-bold text-[var(--text-primary)] bg-[var(--bg-primary)] border border-[var(--border-strong)] px-2 py-0.5 block shadow-xs">
                   {codolio?.platforms?.codechef?.starsString || "3★"} STAR
                 </span>
-                <span className="text-[10px] text-[var(--text-secondary)] mt-1 block">
+                <span className="text-[10px] text-[var(--text-muted)] mt-1 block font-semibold">
                   PEAK {codolio?.platforms?.codechef?.maxRating || 1623}
                 </span>
               </div>
             </div>
 
-            <div className="p-4 bg-[var(--terminal-bg)] text-[var(--terminal-text)] border border-[var(--terminal-border)] flex items-center justify-between">
+            {/* Box 3: Codolio Aggregate */}
+            <div className="p-4 bg-[var(--bg-surface)] text-[var(--text-primary)] border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] transition-colors flex items-center justify-between shadow-xs">
               <div>
-                <span className="text-[10px] text-[var(--text-muted)] uppercase block">CODOLIO AGGREGATE</span>
+                <span className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">CODOLIO AGGREGATE</span>
                 <span className="font-display font-extrabold text-2xl text-[var(--text-primary)]">
                   {codolio?.totalSolvedString || "980+"} SOLVED
                 </span>
@@ -213,7 +216,7 @@ export default function ProblemSolving() {
                 <span className="text-xs text-[var(--accent)] font-bold">
                   {codolio?.profileViews || 204}+ VIEWS
                 </span>
-                <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">3 PLATFORMS</span>
+                <span className="text-[10px] text-[var(--text-muted)] block mt-0.5 font-semibold">3 PLATFORMS</span>
               </div>
             </div>
           </div>
@@ -304,8 +307,8 @@ export default function ProblemSolving() {
               <div className="space-y-4 pt-4 border-t border-[var(--border-strong)]">
                 <div className="grid grid-cols-3 gap-2 text-center">
                   {plat.metrics.map((m, i) => (
-                    <div key={i} className="bg-[var(--terminal-bg)] text-[var(--terminal-text)] p-2 border border-[var(--terminal-border)]">
-                      <span className="text-[9px] text-[var(--text-muted)] block uppercase">
+                    <div key={i} className="bg-[var(--bg-primary)] text-[var(--text-primary)] p-2 border border-[var(--border-color)]">
+                      <span className="text-[9px] text-[var(--text-muted)] block uppercase font-bold">
                         {m.label}
                       </span>
                       <span className="text-[11px] font-bold text-[var(--accent)] block mt-0.5 whitespace-nowrap">

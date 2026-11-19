@@ -265,10 +265,10 @@ export default function ContactFooter() {
           </div>
 
           {/* Right: Quick Brutalist Dispatch Form */}
-          <div className="relative z-10 lg:col-span-5 bg-[var(--terminal-bg)] text-[var(--terminal-text)] p-6 sm:p-8 border border-[var(--terminal-border)] shadow-2xl">
-            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-color)]/30 font-mono text-xs">
+          <div className="relative z-10 lg:col-span-5 bg-[var(--bg-surface)] text-[var(--text-primary)] p-6 sm:p-8 border-2 border-[var(--border-strong)] shadow-2xl">
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-[var(--border-color)] font-mono text-xs">
               <span className="text-[var(--accent)] font-bold">SEND MESSAGE DIRECT</span>
-              <span className="text-[var(--text-muted)]">[ENCRYPTED]</span>
+              <span className="text-[var(--text-muted)] font-semibold">[ENCRYPTED]</span>
             </div>
 
             {formSent ? (
@@ -276,11 +276,11 @@ export default function ContactFooter() {
                 <div className="w-10 h-10 mx-auto rounded-full bg-[var(--accent)] flex items-center justify-center text-[#111111] font-bold">
                   ✓
                 </div>
-                <p className="text-sm font-bold text-[var(--terminal-text)]">MESSAGE PACKET DISPATCHED</p>
+                <p className="text-sm font-bold text-[var(--text-primary)]">MESSAGE PACKET DISPATCHED</p>
                 <p className="text-xs text-[var(--text-muted)]">Thank you. I will reply within 24 hours.</p>
                 <button
                   onClick={() => setFormSent(false)}
-                  className="text-xs text-[var(--accent)] underline pt-2 block mx-auto cursor-pointer"
+                  className="text-xs text-[var(--accent)] underline pt-2 block mx-auto cursor-pointer font-bold"
                 >
                   Send another message
                 </button>
@@ -288,7 +288,7 @@ export default function ContactFooter() {
             ) : (
               <form onSubmit={handleFormSubmit} className="space-y-4 font-mono text-xs">
                 <div className="space-y-1">
-                  <label className="text-[10px] text-[var(--text-muted)] uppercase block">
+                  <label className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">
                     NAME // SENDER
                   </label>
                   <input
@@ -297,12 +297,12 @@ export default function ContactFooter() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="Ada Lovelace"
-                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors relative z-10"
+                    className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] px-3 py-2 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors relative z-10"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] text-[var(--text-muted)] uppercase block">
+                  <label className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">
                     EMAIL // RETURN ROUTE
                   </label>
                   <input
@@ -311,12 +311,12 @@ export default function ContactFooter() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="ada@computing.org"
-                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors relative z-10"
+                    className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] px-3 py-2 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors relative z-10"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-[10px] text-[var(--text-muted)] uppercase block">
+                  <label className="text-[10px] text-[var(--text-muted)] uppercase block font-semibold">
                     MESSAGE // PAYLOAD
                   </label>
                   <textarea
@@ -325,12 +325,12 @@ export default function ContactFooter() {
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     placeholder="Hey Omkar, let's talk about..."
-                    className="w-full bg-[var(--bg-surface)] border border-[var(--border-color)] px-3 py-2 text-[var(--terminal-text)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors resize-none relative z-10"
+                    className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] px-3 py-2 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors resize-none relative z-10"
                   />
                 </div>
 
                 {submitError && (
-                  <div className="p-2.5 border border-red-500/50 bg-red-950/30 text-red-300 text-[11px] leading-relaxed font-mono">
+                  <div className="p-2.5 border border-red-500/40 bg-red-500/10 text-red-600 dark:text-red-400 text-[11px] leading-relaxed font-mono">
                     {submitError}
                   </div>
                 )}

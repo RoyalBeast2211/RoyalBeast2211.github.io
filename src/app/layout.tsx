@@ -110,7 +110,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased selection:bg-[var(--accent)] selection:text-[var(--dark-bg)]">
+      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] antialiased selection:bg-[var(--selection-bg)] selection:text-[var(--selection-text)]">
         <ThemeProvider>
           <CodolioProvider>{children}</CodolioProvider>
         </ThemeProvider>

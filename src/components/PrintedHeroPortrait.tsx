@@ -189,11 +189,11 @@ export default function PrintedHeroPortrait({
         <div className="relative w-full h-[2.5px] bg-[var(--accent)] shadow-[0_0_12px_var(--accent),0_0_24px_var(--accent)]" />
 
         {/* Left & Right Mechanical Frame Registration Notches */}
-        <div className="absolute -left-1 -top-2 w-2.5 h-4.5 border-l-2 border-t-2 border-b-2 border-[var(--accent)] bg-[var(--terminal-bg)]" />
-        <div className="absolute -right-1 -top-2 w-2.5 h-4.5 border-r-2 border-t-2 border-b-2 border-[var(--accent)] bg-[var(--terminal-bg)]" />
+        <div className="absolute -left-1 -top-2 w-2.5 h-4.5 border-l-2 border-t-2 border-b-2 border-[var(--accent)] bg-[var(--bg-surface)]" />
+        <div className="absolute -right-1 -top-2 w-2.5 h-4.5 border-r-2 border-t-2 border-b-2 border-[var(--accent)] bg-[var(--bg-surface)]" />
 
         {/* Floating Print Status HUD attached to the carriage head */}
-        <div className="absolute right-2 -top-6 px-2 py-0.5 bg-[var(--terminal-bg)] border border-[var(--accent)] font-mono text-[9px] font-bold text-[var(--accent)] tracking-widest flex items-center gap-1.5 shadow-xl select-none">
+        <div className="absolute right-2 -top-6 px-2 py-0.5 bg-[var(--bg-surface)] border border-[var(--accent)] font-mono text-[9px] font-bold text-[var(--accent)] tracking-widest flex items-center gap-1.5 shadow-xl select-none">
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-ping" />
           <span>PRINTING //</span>
           <span ref={readoutRef}>0%</span>
@@ -201,7 +201,7 @@ export default function PrintedHeroPortrait({
       </div>
 
       {/* Bottom Editorial Technical Metadata Bar */}
-      <div className="absolute bottom-0 inset-x-0 bg-[var(--terminal-bg)]/90 backdrop-blur-xs px-2.5 py-2 sm:px-3 sm:py-2.5 border-t border-[var(--border-color)] font-mono text-[10px] sm:text-[11px] text-[var(--terminal-text)] flex justify-between items-center z-20 select-none">
+      <div className="absolute bottom-0 inset-x-0 bg-[var(--bg-surface)]/90 backdrop-blur-xs px-2.5 py-2 sm:px-3 sm:py-2.5 border-t border-[var(--border-color)] font-mono text-[10px] sm:text-[11px] text-[var(--text-primary)] flex justify-between items-center z-20 select-none">
         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
           <span className="text-[var(--accent)] font-bold whitespace-nowrap">
             PORTRAIT // 01

@@ -198,7 +198,7 @@ export default function CinematicTransitionOverlay() {
       {activeFilmFrame && (
         <div
           aria-hidden="true"
-          className="pointer-events-none fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 px-4 py-2 bg-[var(--terminal-bg)]/95 border border-[var(--accent)] text-[var(--terminal-text)] font-mono text-xs font-bold uppercase tracking-widest shadow-2xl flex items-center gap-2 animate-in fade-in zoom-in-95 duration-75 select-none"
+          className="pointer-events-none fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 px-4 py-2 bg-[var(--bg-surface)]/95 border border-[var(--accent)] text-[var(--text-primary)] font-mono text-xs font-bold uppercase tracking-widest shadow-2xl flex items-center gap-2 animate-in fade-in zoom-in-95 duration-75 select-none"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
           <span>FRAME // {activeFilmFrame}</span>
