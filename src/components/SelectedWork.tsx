@@ -28,47 +28,255 @@ function GithubIcon({ className }: { className?: string }) {
 }
 
 // Count-up animation for throughput / metrics
-function CountUpNumber({ target = 100000, suffix = "+" }: { target?: number; suffix?: string }) {
+function CountUpNumber({ target = 697771, suffix = "" }: { target?: number; suffix?: string }) {
   const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const animatedRef = useRef(false);
+  const prevTargetRef = useRef(0);
 
   useEffect(() => {
-    if (!ref.current || animatedRef.current) return;
+    let frameId: number;
+    const duration = 750; // ms
+    const startVal = prevTargetRef.current;
+    const delta = target - startVal;
+    const start = performance.now();
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !animatedRef.current) {
-            animatedRef.current = true;
-            const duration = 800; // ms
-            const start = performance.now();
-            const step = (now: number) => {
-              const progress = Math.min((now - start) / duration, 1);
-              // Out Cubic easing
-              const ease = 1 - Math.pow(1 - progress, 3);
-              const currentVal = Math.round(ease * target);
-              setCount(currentVal);
-              if (progress < 1) {
-                requestAnimationFrame(step);
-              }
-            };
-            requestAnimationFrame(step);
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(ref.current);
-    return () => observer.disconnect();
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      // Out Cubic easing
+      const ease = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(startVal + delta * ease));
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+      } else {
+        prevTargetRef.current = target;
+      }
+    };
+    frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
   }, [target]);
 
   return (
-    <span ref={ref}>
+    <span>
       {count.toLocaleString()}
       {suffix}
     </span>
+  );
+}
+
+interface BenchmarkCardItem {
+  id: string;
+  pill: string;
+  label: string;
+  badge?: string;
+  targetNumber?: number;
+  suffix?: string;
+  displayValue?: string;
+  subtitle: string;
+  detail: string;
+}
+
+const MINIREDIS_BENCHMARK_CARDS: BenchmarkCardItem[] = [
+  {
+    id: "read-throughput",
+    pill: "READ",
+    label: "PEAK READ THROUGHPUT // 50 CLIENTS (GO 1.27)",
+    badge: "697,771 REQ/S",
+    targetNumber: 697771,
+    suffix: " req/s",
+    subtitle: "GET THROUGHPUT // P95 ~123.6µS LATENCY",
+    detail: "16-way lock striping eliminates reader-writer lock contention across loopback sockets.",
+  },
+  {
+    id: "write-throughput",
+    pill: "WRITE",
+    label: "MUTATION LOAD TEST // 50 CLIENTS",
+    badge: "+13.6% GAIN",
+    targetNumber: 682785,
+    suffix: " req/s",
+    subtitle: "SET THROUGHPUT // P95 ~125.8µS LATENCY",
+    detail: "Zero-allocation byte-slice RESP serializer reduces per-operation allocations by 91%.",
+  },
+  {
+    id: "mixed-throughput",
+    pill: "MIXED",
+    label: "50/50 READ-WRITE CONCURRENT WORKLOAD",
+    badge: "+46.9% GAIN",
+    targetNumber: 679713,
+    suffix: " req/s",
+    subtitle: "MIXED WORKLOAD // P95: 126.5µS (3.79X LOWER)",
+    detail: "+216,903 req/s gain over single mutex; lock transition stalls decoupled.",
+  },
+  {
+    id: "parallel-engine",
+    pill: "ENGINE",
+    label: "IN-MEMORY PARALLEL STORAGE ENGINE",
+    badge: "16 SHARDS",
+    targetNumber: 34700000,
+    suffix: " ops/s",
+    subtitle: "StoreGetParallel // 21.4M OPS/S SET",
+    detail: "+430% throughput speedup over single global mutex baseline with zero lock contention.",
+  },
+  {
+    id: "reliability",
+    pill: "STABILITY",
+    label: "15-SECOND CONTINUOUS STRESS LOAD TEST",
+    badge: "0.0000% ERRORS",
+    targetNumber: 7221179,
+    suffix: " ops",
+    subtitle: "481,407 REQ/S SUSTAINED // 0 DROPS",
+    detail: "Zero errors, zero connection drops, and zero goroutine leaks under continuous client load.",
+  },
+  {
+    id: "latency",
+    pill: "LATENCY",
+    label: "SUB-MILLISECOND QUEUEING TAIL LATENCY",
+    badge: "32µS P50",
+    targetNumber: 32,
+    suffix: " µs",
+    subtitle: "P50: 32µS · P95: 123µS · P99: 212µS",
+    detail: "Near-linear throughput scaling from 1 client (73k r/s) to 25 clients (523k r/s saturation).",
+  },
+];
+
+const ACM_BENCHMARK_CARDS: BenchmarkCardItem[] = [
+  {
+    id: "parity",
+    pill: "PARITY",
+    label: "BEHAVIORAL VERIFICATION GUARANTEE",
+    badge: "DOCKER SANDBOX",
+    displayValue: "100%",
+    subtitle: "100% BEHAVIORAL OUTPUT PARITY",
+    detail: "Side-by-side legacy vs migrated Docker container sandbox execution with 0 bytes divergence.",
+  },
+  {
+    id: "tools",
+    pill: "TOOLS",
+    label: "STATIC ANALYSIS TOOLCHAIN & AST",
+    badge: "13/13 VERIFIED",
+    displayValue: "13 / 13",
+    subtitle: "ANALYSIS TOOLS VERIFIED ON SAMPLE REPO",
+    detail: "LibCST & tree-sitter AST decomposition into bottom-up topological call dependency graphs.",
+  },
+  {
+    id: "scenarios",
+    pill: "STATE",
+    label: "LANGGRAPH DETERMINISTIC STATE MACHINE",
+    badge: "BOUNDED RETRIES",
+    displayValue: "30 / 30",
+    subtitle: "30/30 KNOWN-ANSWER SCENARIOS PASSED",
+    detail: "Deterministic state checkpoints, ≤ 3 retry bounds with feedback, and crash resume.",
+  },
+  {
+    id: "mcp",
+    pill: "MCP",
+    label: "MODEL CONTEXT PROTOCOL INFRASTRUCTURE",
+    badge: "JSON-RPC 2.0",
+    displayValue: "3 SERVERS",
+    subtitle: "ACM-ANALYSIS · ACM-WORKSPACE · ACM-SANDBOX",
+    detail: "Every agent action and tool call is strictly mediated through standardized MCP servers.",
+  },
+  {
+    id: "sandboxes",
+    pill: "DOCKER",
+    label: "ISOLATED RUNTIME CONTAINER HARNESS",
+    badge: "3 RUNTIMES",
+    displayValue: "3 ENGINES",
+    subtitle: "PYTHON 2.7 · PYTHON 3.10 · JAVA 17",
+    detail: "Hermetic container environments ensuring zero host pollution and determinism.",
+  },
+];
+
+function CyclingBenchmarkCard({
+  cards,
+  title = "BENCHMARK TELEMETRY",
+  className = "",
+}: {
+  cards: BenchmarkCardItem[];
+  title?: string;
+  className?: string;
+}) {
+  const [index, setIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    if (isPaused || cards.length <= 1) return;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % cards.length);
+    }, 4200);
+    return () => clearInterval(timer);
+  }, [isPaused, cards.length]);
+
+  const current = cards[index];
+
+  return (
+    <div
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      className={`p-4 sm:p-5 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/50 relative overflow-hidden space-y-2.5 shadow-md transition-all duration-200 select-none ${className}`}
+    >
+      {/* Top Header Row: Label & Navigation Controls */}
+      <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono border-b border-[var(--border-color)] pb-2">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[var(--accent)] animate-pulse" />
+          <span className="text-[var(--text-primary)] uppercase tracking-wider font-bold">
+            {title}
+          </span>
+          {current.badge && (
+            <span className="px-1.5 py-0.5 bg-[var(--accent)] text-[#111111] font-black uppercase text-[8px] tracking-wider shadow-xs">
+              {current.badge}
+            </span>
+          )}
+        </div>
+
+        {/* Quick Nav Chips */}
+        <div className="flex items-center gap-1">
+          {cards.map((c, i) => (
+            <button
+              key={c.id}
+              type="button"
+              onClick={() => setIndex(i)}
+              className={`px-1.5 py-0.5 text-[9px] font-bold uppercase transition-colors cursor-pointer border ${
+                i === index
+                  ? "bg-[var(--accent)] text-[#111111] border-[var(--accent)]"
+                  : "bg-[var(--bg-primary)] text-[var(--text-muted)] border-[var(--border-color)] hover:text-[var(--text-primary)]"
+              }`}
+            >
+              {c.pill}
+            </button>
+          ))}
+          <span className="text-[9px] text-[var(--text-muted)] font-mono ml-1 font-semibold">
+            {String(index + 1).padStart(2, "0")}/{String(cards.length).padStart(2, "0")}
+          </span>
+        </div>
+      </div>
+
+      {/* Main Animated Metric Presentation */}
+      <div key={current.id} className="space-y-1 animate-in fade-in duration-300">
+        <div className="text-[10px] font-mono text-[var(--text-secondary)] uppercase tracking-wider font-semibold">
+          {current.label}
+        </div>
+        <div className="text-3xl sm:text-4xl lg:text-5xl font-display font-black text-[var(--accent)] tracking-tight">
+          {current.displayValue ? (
+            current.displayValue
+          ) : current.targetNumber !== undefined ? (
+            <CountUpNumber target={current.targetNumber} suffix={current.suffix} />
+          ) : null}
+        </div>
+        <div className="font-display font-bold text-xs sm:text-sm tracking-wide uppercase text-[var(--text-primary)]">
+          {current.subtitle}
+        </div>
+        <div className="text-[11px] font-mono text-[var(--text-secondary)] leading-snug">
+          {current.detail}
+        </div>
+      </div>
+
+      {/* Progress Bar Line */}
+      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--border-color)]">
+        <div
+          className="h-full bg-[var(--accent)] transition-all duration-300"
+          style={{ width: `${((index + 1) / cards.length) * 100}%` }}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -245,21 +453,26 @@ export default function SelectedWork() {
               {/* Compact 4-Metric Strip */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-1 font-mono text-xs">
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">THROUGHPUT</span>
-                  <span className="font-bold text-[var(--accent)] block text-xs mt-0.5">100K+ req/s</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">PEAK READ</span>
+                  <span className="font-bold text-[var(--accent)] block text-xs mt-0.5">697.8K req/s</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">LATENCY</span>
-                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">&lt; 1.5ms (p99)</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">PARALLEL STORE</span>
+                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">34.7M ops/s</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">DURABILITY</span>
-                  <span className="font-bold text-[#047857] dark:text-[#10B981] block text-xs mt-0.5">AOF + RDB</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">TAIL LATENCY</span>
+                  <span className="font-bold text-[#047857] dark:text-[#10B981] block text-xs mt-0.5">32µs (p50)</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">REPLICATION</span>
-                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">PSYNC Backlog</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">RELIABILITY</span>
+                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">7.22M (0 err)</span>
                 </div>
+              </div>
+
+              {/* Dynamic Cycling Benchmark Matrix (Auto-rotating Telemetry) */}
+              <div className="pt-1">
+                <CyclingBenchmarkCard cards={MINIREDIS_BENCHMARK_CARDS} title="MINIREDIS // BENCHMARK MATRIX" />
               </div>
 
               {/* Highlights Points */}
@@ -327,18 +540,8 @@ export default function SelectedWork() {
               </p>
             </div>
 
-            {/* Prominent Real Metric */}
-            <div className="p-4 sm:p-5 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-md">
-              <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
-                SCALE &amp; BENCHMARK THROUGHPUT
-              </div>
-              <div className="text-4xl sm:text-5xl font-display font-black text-[var(--accent)] tracking-tight">
-                <CountUpNumber target={100000} suffix="+" />
-              </div>
-              <div className="font-display font-bold text-sm tracking-wide uppercase text-[var(--text-primary)]">
-                OPERATIONS / SECOND // P99 &lt; 1.5MS
-              </div>
-            </div>
+            {/* Prominent Real Metric: Cycling Benchmark Matrix */}
+            <CyclingBenchmarkCard cards={MINIREDIS_BENCHMARK_CARDS} title="MINIREDIS // BENCHMARK MATRIX" />
 
             {/* Interactive Visual (Mobile responsive) */}
             <div className="w-full overflow-hidden">
@@ -382,7 +585,7 @@ export default function SelectedWork() {
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">THROUGHPUT</span>
-                    <span className="font-bold text-[var(--accent)] block mt-0.5">100K+ req/s</span>
+                    <span className="font-bold text-[var(--accent)] block mt-0.5">697.8K req/s</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">DURABILITY</span>
@@ -480,20 +683,25 @@ export default function SelectedWork() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-1 font-mono text-xs">
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">PARITY</span>
-                  <span className="font-bold text-[var(--accent)] block text-xs mt-0.5">100% Output</span>
+                  <span className="font-bold text-[var(--accent)] block text-xs mt-0.5">100% Behavioral</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">ORCHESTRATOR</span>
-                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">LangGraph State</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATIC SUITE</span>
+                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">13/13 Tools</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">SANDBOX</span>
-                  <span className="font-bold text-[#047857] dark:text-[#10B981] block text-xs mt-0.5">Dual Docker</span>
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">STATE CHECKS</span>
+                  <span className="font-bold text-[#047857] dark:text-[#10B981] block text-xs mt-0.5">30/30 (≤3 retries)</span>
                 </div>
                 <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">TOOL PROTOCOL</span>
                   <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">3 MCP Servers</span>
                 </div>
+              </div>
+
+              {/* Dynamic Cycling Benchmark Matrix (Auto-rotating Verification Telemetry) */}
+              <div className="pt-1">
+                <CyclingBenchmarkCard cards={ACM_BENCHMARK_CARDS} title="ACM // VERIFICATION MATRIX" />
               </div>
 
               {/* Highlights Points */}
@@ -556,18 +764,8 @@ export default function SelectedWork() {
               </p>
             </div>
 
-            {/* Prominent Verification Stat */}
-            <div className="p-4 sm:p-5 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-md">
-              <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
-                VERIFICATION GUARANTEE
-              </div>
-              <div className="text-4xl sm:text-5xl font-display font-black text-[var(--accent)] tracking-tight">
-                100%
-              </div>
-              <div className="font-display font-bold text-sm tracking-wide uppercase text-[var(--text-primary)]">
-                BEHAVIORAL OUTPUT PARITY (DOCKER SANDBOX)
-              </div>
-            </div>
+            {/* Prominent Verification Stat: Cycling Benchmark Matrix */}
+            <CyclingBenchmarkCard cards={ACM_BENCHMARK_CARDS} title="ACM // VERIFICATION MATRIX" />
 
             {/* Visual (Mobile responsive) */}
             <div className="w-full overflow-hidden">
@@ -724,6 +922,25 @@ export default function SelectedWork() {
                     </span>
                   )}
                 </div>
+
+                {/* Real Performance & Benchmark Metrics */}
+                {proj.metrics && proj.metrics.length > 0 && (
+                  <div className="grid grid-cols-3 gap-1.5 pt-2.5 border-t border-[var(--border-color)]/60 font-mono text-[10px]">
+                    {proj.metrics.slice(0, 3).map((m, idx) => (
+                      <div
+                        key={idx}
+                        className="p-1.5 bg-[var(--bg-primary)] border border-[var(--border-color)] flex flex-col justify-between"
+                      >
+                        <span className="text-[8px] text-[var(--text-muted)] uppercase block font-semibold truncate">
+                          {m.label}
+                        </span>
+                        <span className="font-bold text-[var(--accent)] block mt-0.5 truncate text-[10px]">
+                          {m.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Action Buttons */}

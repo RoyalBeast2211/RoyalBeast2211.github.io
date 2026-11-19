@@ -294,19 +294,19 @@ export default function MiniRedisTechnicalVisual() {
           <div className="grid grid-cols-4 gap-1.5 pt-0.5 font-mono text-[9px]">
             <div className="p-1.5 bg-[var(--bg-primary)] border border-[var(--border-color)]">
               <span className="text-[var(--text-muted)] block text-[8px]">THROUGHPUT</span>
-              <span className="font-bold text-[var(--accent)] block">100K+ req/s</span>
+              <span className="font-bold text-[var(--accent)] block">697.8K req/s</span>
             </div>
             <div className="p-1.5 bg-[var(--bg-primary)] border border-[var(--border-color)]">
               <span className="text-[var(--text-muted)] block text-[8px]">CLIENTS</span>
               <span className="font-bold text-[var(--text-primary)] block">250+ Conn</span>
             </div>
             <div className="p-1.5 bg-[var(--bg-primary)] border border-[var(--border-color)]">
-              <span className="text-[var(--text-muted)] block text-[8px]">P99 LATENCY</span>
-              <span className="font-bold text-[#047857] dark:text-[#10B981] block">&lt; 1.5ms</span>
+              <span className="text-[var(--text-muted)] block text-[8px]">P95 LATENCY</span>
+              <span className="font-bold text-[#047857] dark:text-[#10B981] block">123.6 µs</span>
             </div>
             <div className="p-1.5 bg-[var(--bg-primary)] border border-[var(--border-color)]">
-              <span className="text-[var(--text-muted)] block text-[8px]">MODEL</span>
-              <span className="font-bold text-[var(--text-primary)] block">Hash + DLL</span>
+              <span className="text-[var(--text-muted)] block text-[8px]">PARALLEL STORE</span>
+              <span className="font-bold text-[var(--text-primary)] block">34.7M ops/s</span>
             </div>
           </div>
         </div>

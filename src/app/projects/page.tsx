@@ -341,6 +341,25 @@ export default function ProjectsArchivePage() {
                     ))}
                   </div>
 
+                  {/* Real Performance & Benchmark Metrics */}
+                  {project.metrics && project.metrics.length > 0 && (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-[var(--border-color)]/60 font-mono text-[10px]">
+                      {project.metrics.map((m, idx) => (
+                        <div
+                          key={idx}
+                          className="p-2 bg-[var(--bg-primary)] border border-[var(--border-color)] flex flex-col justify-between"
+                        >
+                          <span className="text-[9px] text-[var(--text-muted)] uppercase block font-semibold truncate">
+                            {m.label}
+                          </span>
+                          <span className="font-bold text-[var(--accent)] block mt-0.5 truncate text-[11px]">
+                            {m.value}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
                   {/* Stack pills */}
                   <div className="pt-2 flex flex-wrap gap-1.5 font-mono text-[10px]">
                     {project.tech.map((t) => (
