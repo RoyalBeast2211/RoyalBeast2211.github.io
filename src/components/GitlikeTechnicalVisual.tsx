@@ -7,9 +7,9 @@ export default function GitlikeTechnicalVisual() {
   const [activeTab, setActiveTab] = useState<"arch" | "code">("arch");
 
   return (
-    <div className="w-full bg-[var(--terminal-bg)] text-[var(--terminal-text)] border-2 border-[var(--border-strong)] shadow-2xl overflow-hidden font-mono select-none">
+    <div className="w-full bg-[var(--bg-surface)] text-[var(--text-primary)] border-2 border-[var(--border-strong)] shadow-2xl overflow-hidden font-mono select-none">
       {/* Top Editorial Window Header */}
-      <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-[var(--bg-surface)] border-b border-[var(--border-color)] flex flex-wrap items-center justify-between gap-2.5 text-xs">
+      <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-[var(--bg-surface-secondary)] border-b border-[var(--border-color)] flex flex-wrap items-center justify-between gap-2.5 text-xs">
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
@@ -197,7 +197,7 @@ export default function GitlikeTechnicalVisual() {
       )}
 
       {/* Bottom Technical Spec Strip */}
-      <div className="px-4 py-3 bg-[var(--bg-surface)] border-t border-[var(--border-color)] flex flex-wrap items-center justify-between gap-4 text-[11px] text-[var(--text-secondary)]">
+      <div className="px-4 py-3 bg-[var(--bg-surface-secondary)] border-t border-[var(--border-color)] flex flex-wrap items-center justify-between gap-4 text-[11px] text-[var(--text-secondary)]">
         <div className="flex items-center gap-4">
           <span className="text-[var(--text-primary)] font-bold">SPECS:</span>
           <span>15+ CLI COMMANDS</span>

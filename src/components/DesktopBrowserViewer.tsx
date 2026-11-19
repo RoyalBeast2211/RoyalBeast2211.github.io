@@ -79,12 +79,12 @@ export default function DesktopBrowserViewer({
 
       {/* Browser Window Frame */}
       <div
-        className={`relative w-full rounded-md border border-[var(--border-strong)] bg-[#111111] overflow-hidden shadow-xl transition-all duration-300 ease-out ${
+        className={`relative w-full rounded-md border border-[var(--border-strong)] bg-[var(--bg-surface)] overflow-hidden shadow-xl transition-all duration-300 ease-out ${
           isHovered ? "border-[var(--accent)]/60 -translate-y-1 shadow-2xl" : ""
         }`}
       >
         {/* Browser Top Window Bar */}
-        <div className="bg-[#1C1C1C] px-3.5 py-2.5 flex items-center justify-between border-b border-[#2A2A2A] gap-4">
+        <div className="bg-[var(--bg-surface-secondary)] px-3.5 py-2.5 flex items-center justify-between border-b border-[var(--border-color)] gap-4">
           {/* Traffic light dots */}
           <div className="flex items-center gap-1.5 shrink-0">
             <div className="w-2.5 h-2.5 rounded-full bg-[#FF5F56] border border-[#E0443E]" />
@@ -93,13 +93,13 @@ export default function DesktopBrowserViewer({
           </div>
 
           {/* Browser Address Bar */}
-          <div className="flex-1 max-w-md mx-auto bg-[#0F0F0F] border border-[#2D2D2D] rounded-xs px-2.5 py-1 flex items-center gap-2 text-[10px] text-[#A0A0A0] truncate">
-            <Lock className="w-2.5 h-2.5 text-[#22C55E] shrink-0" />
+          <div className="flex-1 max-w-md mx-auto bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-xs px-2.5 py-1 flex items-center gap-2 text-[10px] text-[var(--text-secondary)] truncate">
+            <Lock className="w-2.5 h-2.5 text-[#10B981] shrink-0" />
             <span className="truncate">{url}</span>
           </div>
 
           {/* Status badge */}
-          <div className="text-[10px] text-[#777777] uppercase font-mono tracking-wider shrink-0 hidden sm:block">
+          <div className="text-[10px] text-[var(--text-muted)] uppercase font-mono tracking-wider shrink-0 hidden sm:block">
             HTTPS 2.0
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function DesktopBrowserViewer({
         {/* Viewport Window Area (Exact 16:9 widescreen ratio matching 2560x1440 images) */}
         <div
           onClick={onOpenModal}
-          className="relative w-full aspect-[16/9] bg-[#0A0A0A] overflow-hidden cursor-pointer group"
+          className="relative w-full aspect-[16/9] bg-[var(--image-bg)] overflow-hidden cursor-pointer group"
         >
           {children ? (
             children

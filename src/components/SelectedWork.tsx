@@ -191,7 +191,7 @@ export default function SelectedWork() {
       />
 
       {/* TWO CURATED FEATURED PROJECTS */}
-      <div className="space-y-24 lg:space-y-36">
+      <div className="space-y-16 lg:space-y-20">
         {/* ========================================================= */}
         {/* PROJECT 01: MINIREDIS (Systems / Distributed / Go) */}
         {/* ========================================================= */}
@@ -199,10 +199,10 @@ export default function SelectedWork() {
           ref={miniRedisCardRef}
           id="miniredis"
           data-project-card="true"
-          className="group relative border-b border-[var(--border-color)] pb-16 lg:pb-24"
+          className="group relative border-b border-[var(--border-color)] pb-12 lg:pb-16"
         >
           {/* Top Meta Line */}
-          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[var(--text-muted)] pb-6 border-b border-[var(--border-color)]/60">
+          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[var(--text-muted)] pb-4 border-b border-[var(--border-color)]/60">
             <div className="flex items-center gap-3">
               <span className="text-[var(--accent)] font-bold">PROJECT_01</span>
               <span className="text-[var(--border-color)]">/</span>
@@ -218,9 +218,9 @@ export default function SelectedWork() {
           </div>
 
           {/* Desktop Grid Spread: Text on Left, Visual Terminal Workbench on Right */}
-          <div className="hidden lg:grid mt-14 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Left Column: MiniRedis Narrative & Benchmark Throughput */}
-            <div ref={miniRedisMetaRef} className="lg:col-span-6 space-y-6">
+          <div className="hidden lg:grid mt-8 lg:mt-10 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            {/* Left Column: MiniRedis Narrative & Benchmark Points */}
+            <div ref={miniRedisMetaRef} className="lg:col-span-6 space-y-4">
               {/* Type pill */}
               <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
                 <span className="text-[var(--accent)] font-bold">{"//"}</span>
@@ -229,7 +229,7 @@ export default function SelectedWork() {
 
               {/* Title & Category */}
               <div className="space-y-1">
-                <h3 className="font-display font-black text-4xl sm:text-5xl lg:text-7xl tracking-tighter text-[var(--text-primary)] uppercase">
+                <h3 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight text-[var(--text-primary)] uppercase">
                   {miniRedis.title}
                 </h3>
                 <p className="font-mono text-xs sm:text-sm text-[var(--accent)] font-semibold tracking-wider uppercase">
@@ -237,59 +237,43 @@ export default function SelectedWork() {
                 </p>
               </div>
 
-              {/* PROMINENT FACT: 100K+ OPS/SEC THROUGHPUT */}
-              <div className="p-5 sm:p-6 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-lg">
-                <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
-                  SCALE &amp; BENCHMARK THROUGHPUT
-                </div>
-                <div className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-[var(--accent)] tracking-tight">
-                  <CountUpNumber target={100000} suffix="+" />
-                </div>
-                <div className="font-display font-bold text-base sm:text-lg tracking-wide uppercase text-[var(--text-primary)]">
-                  OPERATIONS / SECOND // P99 &lt; 1.5MS
-                </div>
-                <p className="font-mono text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">
-                  High-throughput, Redis-compatible in-memory key-value database built from first principles in pure Go. Engineered with zero-dependency RESP wire protocol serialization, concurrent lock-striped storage with O(1) LRU eviction, hybrid AOF/RDB durability, and PSYNC primary-replica streaming.
-                </p>
-              </div>
-
-              {/* Description */}
-              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
-                {miniRedis.description}
+              {/* Tagline */}
+              <p className="font-mono text-xs text-[var(--text-primary)] font-semibold leading-relaxed border-l-2 border-[var(--accent)] pl-2.5">
+                {miniRedis.tagline}
               </p>
 
-              {/* Compact Technical Specification */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[var(--border-color)]/60 font-mono text-xs">
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">TYPE</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">Systems DB</span>
-                </div>
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
+              {/* Compact 4-Metric Strip */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-1 font-mono text-xs">
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">THROUGHPUT</span>
-                  <span className="font-bold text-[var(--accent)] block mt-0.5">100K+ req/s</span>
+                  <span className="font-bold text-[var(--accent)] block text-xs mt-0.5">100K+ req/s</span>
                 </div>
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">LATENCY</span>
+                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">&lt; 1.5ms (p99)</span>
+                </div>
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">DURABILITY</span>
-                  <span className="font-bold text-[#10B981] block mt-0.5">AOF + RDB</span>
+                  <span className="font-bold text-[#047857] dark:text-[#10B981] block text-xs mt-0.5">AOF + RDB</span>
                 </div>
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">PROTOCOL</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">RESP Wire</span>
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">REPLICATION</span>
+                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">PSYNC Backlog</span>
                 </div>
               </div>
 
-              {/* Highlights */}
-              <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
-                {miniRedis.highlights.slice(0, 3).map((h, i) => (
+              {/* Highlights Points */}
+              <div className="space-y-1.5 py-1 font-mono text-xs text-[var(--text-secondary)]">
+                {miniRedis.highlights.map((h, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <span className="text-[var(--accent)] font-bold">↳</span>
-                    <span>{h}</span>
+                    <span className="text-[var(--accent)] font-bold shrink-0">↳</span>
+                    <span className="leading-snug">{h}</span>
                   </div>
                 ))}
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 flex flex-wrap items-center gap-4 font-mono text-xs">
+              <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs">
                 {miniRedis.githubUrl && (
                   <a
                     ref={miniRedisCodeBtnRef}
@@ -298,10 +282,10 @@ export default function SelectedWork() {
                     rel="noreferrer"
                     data-cursor="SOURCE ↗"
                     data-magnetic="true"
-                    className="editorial-link inline-flex items-center gap-2 px-5 py-3 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold uppercase tracking-wider transition-colors relative overflow-hidden"
+                    className="editorial-link inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold uppercase tracking-wider transition-colors relative overflow-hidden"
                   >
                     <span className="magnetic-target inline-flex items-center gap-2">
-                      <GithubIcon className="w-4 h-4" />
+                      <GithubIcon className="w-3.5 h-3.5" />
                       <span>AUDIT REPO ON GITHUB</span>
                       <span>─</span>
                       <span>↗</span>
@@ -312,7 +296,7 @@ export default function SelectedWork() {
                 <button
                   type="button"
                   onClick={() => setActiveProjectModal(miniRedis)}
-                  className="px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-primary)] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  className="px-3.5 py-2.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-primary)] font-bold uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   VIEW DOSSIER ↗
                 </button>
@@ -372,13 +356,22 @@ export default function SelectedWork() {
               badge="ENGINE SPECS"
             >
               <div className="space-y-5 pt-2 border-l-2 border-[var(--accent)] pl-3.5">
-                <div>
-                  <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
-                    DESCRIPTION:
+                {/* Tagline */}
+                <p className="font-mono text-xs text-[var(--text-primary)] font-bold tracking-wide uppercase border-l-2 border-[var(--accent)] pl-2">
+                  {miniRedis.tagline}
+                </p>
+
+                {/* Highlights */}
+                <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
+                  <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
+                    KEY TECHNICAL HIGHLIGHTS:
                   </span>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {miniRedis.description}
-                  </p>
+                  {miniRedis.highlights.map((h, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <span className="text-[var(--accent)] font-bold">↳</span>
+                      <span className="leading-relaxed">{h}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* Compact Technical Specs */}
@@ -393,25 +386,12 @@ export default function SelectedWork() {
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">DURABILITY</span>
-                    <span className="font-bold text-[#10B981] block mt-0.5">AOF + RDB</span>
+                    <span className="font-bold text-[#047857] dark:text-[#10B981] block mt-0.5">AOF + RDB</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">PROTOCOL</span>
                     <span className="font-bold text-[var(--text-primary)] block mt-0.5">RESP Wire</span>
                   </div>
-                </div>
-
-                {/* Highlights */}
-                <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
-                  <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
-                    KEY ACHIEVEMENTS:
-                  </span>
-                  {miniRedis.highlights.slice(0, 3).map((h, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <span className="text-[var(--accent)] font-bold">↳</span>
-                      <span className="leading-relaxed">{h}</span>
-                    </div>
-                  ))}
                 </div>
 
                 {/* Action Buttons */}
@@ -448,10 +428,10 @@ export default function SelectedWork() {
           ref={migratorCardRef}
           id="agentic-code-migrator"
           data-project-card="true"
-          className="group relative border-b border-[var(--border-color)] pb-16 lg:pb-24"
+          className="group relative border-b border-[var(--border-color)] pb-12 lg:pb-16"
         >
           {/* Top Meta Line */}
-          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[var(--text-muted)] pb-6 border-b border-[var(--border-color)]/60">
+          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-xs text-[var(--text-muted)] pb-4 border-b border-[var(--border-color)]/60">
             <div className="flex items-center gap-3">
               <span className="text-[var(--accent)] font-bold">PROJECT_02</span>
               <span className="text-[var(--border-color)]">/</span>
@@ -467,14 +447,14 @@ export default function SelectedWork() {
           </div>
 
           {/* Desktop Grid Spread: Reversed Composition! Visual on Left, Narrative on Right */}
-          <div className="hidden lg:grid mt-14 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="hidden lg:grid mt-8 lg:mt-10 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* Left Column: Multi-Agent Architecture & Differential Sandbox Visual */}
             <div ref={migratorVisualRef} className="lg:col-span-6 order-2 lg:order-1">
               <AgenticMigratorTechnicalVisual />
             </div>
 
-            {/* Right Column: Multi-Agent Narrative & Specifications */}
-            <div ref={migratorMetaRef} className="lg:col-span-6 order-1 lg:order-2 space-y-6">
+            {/* Right Column: Multi-Agent Highlights & Specifications */}
+            <div ref={migratorMetaRef} className="lg:col-span-6 order-1 lg:order-2 space-y-4">
               {/* Type pill */}
               <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[var(--bg-surface)] text-[var(--text-primary)] font-mono text-[11px] border border-[var(--border-color)]">
                 <span className="text-[var(--accent)] font-bold">{"//"}</span>
@@ -483,7 +463,7 @@ export default function SelectedWork() {
 
               {/* Title & Category */}
               <div className="space-y-1">
-                <h3 className="font-display font-black text-4xl sm:text-5xl lg:text-7xl tracking-tighter text-[var(--text-primary)] uppercase">
+                <h3 className="font-display font-black text-3xl sm:text-4xl lg:text-5xl tracking-tight text-[var(--text-primary)] uppercase">
                   {agenticMigrator.title}
                 </h3>
                 <p className="font-mono text-xs sm:text-sm text-[var(--accent)] font-semibold tracking-wider uppercase">
@@ -492,63 +472,42 @@ export default function SelectedWork() {
               </div>
 
               {/* Tagline */}
-              <p className="font-mono text-xs sm:text-sm text-[var(--text-primary)] font-bold tracking-wide uppercase border-l-2 border-[var(--accent)] pl-3">
+              <p className="font-mono text-xs text-[var(--text-primary)] font-semibold leading-relaxed border-l-2 border-[var(--accent)] pl-2.5">
                 {agenticMigrator.tagline}
               </p>
 
-              {/* PROMINENT FACT: 100% BEHAVIORAL EQUIVALENCE */}
-              <div className="p-5 sm:p-6 bg-[var(--bg-surface)] border-2 border-[var(--accent)]/40 relative overflow-hidden space-y-1 shadow-lg">
-                <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-widest font-bold">
-                  VERIFICATION GUARANTEE
+              {/* Compact 4-Metric Strip */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 py-1 font-mono text-xs">
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
+                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">PARITY</span>
+                  <span className="font-bold text-[var(--accent)] block text-xs mt-0.5">100% Output</span>
                 </div>
-                <div className="text-4xl sm:text-5xl lg:text-6xl font-display font-black text-[var(--accent)] tracking-tight">
-                  100%
-                </div>
-                <div className="font-display font-bold text-base sm:text-lg tracking-wide uppercase text-[var(--text-primary)]">
-                  BEHAVIORAL OUTPUT PARITY (DOCKER SANDBOX)
-                </div>
-                <p className="font-mono text-xs text-[var(--text-secondary)] mt-2 leading-relaxed">
-                  Goes beyond mere syntactic compilation by running source (Python 2 / Python) and target (Python 3 / Java) side-by-side in isolated Docker containers with coverage-guided differential testing, ensuring byte-identical runtime outputs.
-                </p>
-              </div>
-
-              {/* Description */}
-              <p className="text-sm sm:text-base text-[var(--text-secondary)] leading-relaxed">
-                {agenticMigrator.description}
-              </p>
-
-              {/* Compact Technical Specification */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-[var(--border-color)]/60 font-mono text-xs">
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">ORCHESTRATOR</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">LangGraph</span>
+                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">LangGraph State</span>
                 </div>
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
-                  <span className="text-[9px] text-[var(--text-muted)] block uppercase">VERIFICATION</span>
-                  <span className="font-bold text-[#10B981] block mt-0.5">Differential</span>
-                </div>
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">SANDBOX</span>
-                  <span className="font-bold text-[var(--accent)] block mt-0.5">Docker Dual</span>
+                  <span className="font-bold text-[#047857] dark:text-[#10B981] block text-xs mt-0.5">Dual Docker</span>
                 </div>
-                <div className="bg-[var(--bg-surface)] p-2.5 border border-[var(--border-color)]">
+                <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                   <span className="text-[9px] text-[var(--text-muted)] block uppercase">TOOL PROTOCOL</span>
-                  <span className="font-bold text-[var(--text-primary)] block mt-0.5">3 MCP Servers</span>
+                  <span className="font-bold text-[var(--text-primary)] block text-xs mt-0.5">3 MCP Servers</span>
                 </div>
               </div>
 
-              {/* Highlights */}
-              <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
-                {agenticMigrator.highlights.slice(0, 3).map((h, i) => (
+              {/* Highlights Points */}
+              <div className="space-y-1.5 py-1 font-mono text-xs text-[var(--text-secondary)]">
+                {agenticMigrator.highlights.map((h, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <span className="text-[var(--accent)] font-bold">↳</span>
-                    <span>{h}</span>
+                    <span className="text-[var(--accent)] font-bold shrink-0">↳</span>
+                    <span className="leading-snug">{h}</span>
                   </div>
                 ))}
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 flex flex-wrap items-center gap-4 font-mono text-xs">
+              <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs">
                 {agenticMigrator.githubUrl && (
                   <a
                     ref={migratorCodeBtnRef}
@@ -557,10 +516,10 @@ export default function SelectedWork() {
                     rel="noreferrer"
                     data-magnetic="true"
                     data-cursor="SOURCE ↗"
-                    className="editorial-link inline-flex items-center gap-2 px-5 py-3 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold uppercase tracking-wider transition-colors relative overflow-hidden"
+                    className="editorial-link inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--text-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent)] hover:text-[#111111] font-bold uppercase tracking-wider transition-colors relative overflow-hidden"
                   >
                     <span className="magnetic-target inline-flex items-center gap-2">
-                      <GithubIcon className="w-4 h-4" />
+                      <GithubIcon className="w-3.5 h-3.5" />
                       <span>AUDIT AGENTIC REPO</span>
                       <span>─</span>
                       <span>↗</span>
@@ -571,7 +530,7 @@ export default function SelectedWork() {
                 <button
                   type="button"
                   onClick={() => setActiveProjectModal(agenticMigrator)}
-                  className="px-4 py-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-primary)] font-bold uppercase tracking-wider transition-colors cursor-pointer"
+                  className="px-3.5 py-2.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--text-primary)] font-bold uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   VIEW DOSSIER ↗
                 </button>
@@ -631,14 +590,17 @@ export default function SelectedWork() {
                   {agenticMigrator.tagline}
                 </p>
 
-                {/* Description */}
-                <div>
-                  <span className="text-[10px] font-mono text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
-                    DESCRIPTION:
+                {/* Highlights */}
+                <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
+                  <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
+                    KEY TECHNICAL HIGHLIGHTS:
                   </span>
-                  <p className="text-sm text-[var(--text-secondary)] leading-relaxed">
-                    {agenticMigrator.description}
-                  </p>
+                  {agenticMigrator.highlights.map((h, i) => (
+                    <div key={i} className="flex items-start gap-2">
+                      <span className="text-[var(--accent)] font-bold">↳</span>
+                      <span className="leading-relaxed">{h}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* Compact Technical Specs */}
@@ -649,7 +611,7 @@ export default function SelectedWork() {
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">VERIFICATION</span>
-                    <span className="font-bold text-[#10B981] block mt-0.5">Differential</span>
+                    <span className="font-bold text-[#047857] dark:text-[#10B981] block mt-0.5">Differential</span>
                   </div>
                   <div className="bg-[var(--bg-surface)] p-2 border border-[var(--border-color)]">
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">SANDBOX</span>
@@ -659,19 +621,6 @@ export default function SelectedWork() {
                     <span className="text-[9px] text-[var(--text-muted)] block uppercase">PROTOCOL</span>
                     <span className="font-bold text-[var(--text-primary)] block mt-0.5">3 MCP Servers</span>
                   </div>
-                </div>
-
-                {/* Highlights */}
-                <div className="space-y-1.5 pt-2 border-t border-[var(--border-color)]/60 font-mono text-xs text-[var(--text-secondary)]">
-                  <span className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider block font-bold mb-1">
-                    KEY TECHNICAL HIGHLIGHTS:
-                  </span>
-                  {agenticMigrator.highlights.slice(0, 3).map((h, i) => (
-                    <div key={i} className="flex items-start gap-2">
-                      <span className="text-[var(--accent)] font-bold">↳</span>
-                      <span className="leading-relaxed">{h}</span>
-                    </div>
-                  ))}
                 </div>
 
                 {/* Action Buttons */}

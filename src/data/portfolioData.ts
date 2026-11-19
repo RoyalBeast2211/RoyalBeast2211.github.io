@@ -134,11 +134,10 @@ export const PROJECTS: ProjectItem[] = [
     stackDetail: "GO / NETWORKING / PERSISTENCE / REPLICATION",
     terminalCommand: "$ go run . -port 6379 --aof=everysec",
     highlights: [
-      "Engineered zero-dependency RESP wire parser and serializer handling framing, partial chunk reads, and pipeline execution over raw TCP sockets.",
-      "Built concurrent in-memory storage engine with sync.RWMutex, O(1) LRU memory eviction, and sub-millisecond TTL active and lazy expiration.",
-      "Implemented dual-engine durability: fsync-tunable Append-Only File (AOF) with 3-phase live BGREWRITEAOF compaction, and point-in-time binary RDB snapshots with CRC32 checksums.",
-      "Architected master-replica replication with PSYNC handshake, circular ring-buffer backlog, and dynamic REPLICAOF node role promotion.",
-      "Created custom native load-testing CLI and automated benchmarking matrix measuring p50, p95, and p99 latency distributions under 250+ concurrent clients.",
+      "Zero-dependency RESP wire protocol parser & serializer handling framing and pipelines over raw TCP sockets.",
+      "Concurrent in-memory key-value store with sync.RWMutex, O(1) LRU eviction, and active/lazy TTL expiration.",
+      "Dual durability: fsync-tunable AOF with live BGREWRITEAOF compaction + binary RDB snapshots with CRC32 integrity.",
+      "Primary-replica PSYNC replication with circular ring-buffer backlog and dynamic failover role promotion.",
     ],
     metrics: [
       { label: "THROUGHPUT", value: "100K+ OPS/SEC" },
@@ -170,11 +169,10 @@ export const PROJECTS: ProjectItem[] = [
     stackDetail: "PYTHON / LANGGRAPH / DOCKER / LIBCST / MCP",
     terminalCommand: "$ python -m layer1 --layer2 agents --scope core_migration",
     highlights: [
-      "Layer 0: Built AST static analysis pipeline using LibCST and tree-sitter to decompose repositories into bottom-up call-order dependency graphs and isolated fragments.",
-      "Layer 1: Orchestrated deterministic LangGraph state machine with automated retry bounding, human-in-the-loop review gates, and crash-resilient checkpointing.",
-      "Layer 2: Deployed specialized multi-agent hierarchy (Analyzer, Translator, Test-Generator, Verdict, and Repair) backed by tiered open-weight models via Groq.",
-      "Docker Differential Sandbox: Ran legacy and translated codebases side-by-side on identical generated inputs, validating exact behavioral output parity and runtime invariants.",
-      "Engineered 3 native Model Context Protocol (MCP) servers (acm-analysis, acm-workspace, acm-sandbox) governing all file mutations and sandbox execution.",
+      "Layer 0: LibCST & tree-sitter AST analysis decomposes repos into bottom-up call-order dependency graphs.",
+      "Layer 1: Deterministic LangGraph state machine with automated retries (≤ 3), human gates, and crash resume.",
+      "Layer 2: Tiered multi-agent swarm (Translator, Test-Gen, Repair) on Groq open-weight models with 3 MCP servers.",
+      "Docker Differential Sandbox: Side-by-side execution on identical inputs enforcing 100% byte-level behavioral parity.",
     ],
     metrics: [
       { label: "VERIFICATION", value: "DIFFERENTIAL DOCKER" },
