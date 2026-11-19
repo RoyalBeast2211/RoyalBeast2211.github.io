@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import SectionHeader from "./SectionHeader";
-import { EXPERIENCES, LEADERSHIP_TRACKS, ExperienceItem } from "@/data/portfolioData";
-import { MapPin, Calendar, ChevronRight } from "lucide-react";
+import { EXPERIENCES, POSITIONS_OF_RESPONSIBILITY, ExperienceItem } from "@/data/portfolioData";
+import { MapPin, Calendar, ChevronDown } from "lucide-react";
 import { observeScrollReveal, animateTextReveal, animateLineDraw } from "@/animations";
 import LiquidReveal from "./LiquidReveal";
 
@@ -242,9 +242,15 @@ function ExperienceRow({
 export default function ExperienceTimeline() {
   // Mobile accordion behavior: only one expanded at a time to prevent endless scroll
   const [expandedExpIdx, setExpandedExpIdx] = useState<number | null>(null);
+  // Minimalist interactive POR state: toggle role details and progression on click
+  const [expandedRoleId, setExpandedRoleId] = useState<string | null>(null);
 
   const handleToggleMobile = (idx: number) => {
     setExpandedExpIdx((prev) => (prev === idx ? null : idx));
+  };
+
+  const handleToggleRole = (id: string) => {
+    setExpandedRoleId((prev) => (prev === id ? null : id));
   };
 
   return (
@@ -270,123 +276,126 @@ export default function ExperienceTimeline() {
         ))}
       </div>
 
-      {/* Positions of Responsibility Sub-section with Track Progression */}
-      <div className="mt-16 pt-12 border-t-2 border-[var(--border-strong)] space-y-10">
+      {/* Positions of Responsibility: Minimalist Interactive List */}
+      <div className="mt-16 pt-12 border-t-2 border-[var(--border-strong)] space-y-6">
         <div className="flex flex-wrap items-baseline justify-between gap-4 font-mono">
           <div>
             <span className="text-xs text-[var(--accent)] font-bold tracking-widest block uppercase">
-              {"// CAMPUS LEADERSHIP & PROGRESSION"}
+              {"// CAMPUS LEADERSHIP"}
             </span>
             <h3 className="font-display font-extrabold text-2xl sm:text-3xl text-[var(--text-primary)] tracking-tight uppercase mt-1">
               POSITIONS OF RESPONSIBILITY
             </h3>
           </div>
-          <span className="text-xs text-[var(--text-muted)]">
-            VNIT NAGPUR // PROVEN LEADERSHIP TRAJECTORIES
+          <span className="text-xs text-[var(--text-muted)] font-mono">
+            {POSITIONS_OF_RESPONSIBILITY.length} ROLES RECORDED · CLICK TO INSPECT IMPACT & PROGRESSION
           </span>
         </div>
 
-        {/* Leadership Tracks */}
-        <div className="space-y-10">
-          {LEADERSHIP_TRACKS.map((track, trackIdx) => (
-            <div
-              key={track.id}
-              className="p-6 sm:p-8 bg-[var(--bg-surface)]/60 border-2 border-[var(--border-color)] hover:border-[var(--border-strong)] transition-all space-y-6 font-mono relative shadow-xs"
-            >
-              {/* Track Header & Progression Stepper */}
-              <div className="space-y-3 pb-5 border-b border-[var(--border-color)]">
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div>
-                    <span className="text-[11px] font-bold text-[var(--accent)] tracking-wider block">
-                      TRACK 0{trackIdx + 1} // {track.subtitle}
-                    </span>
-                    <h4 className="font-display font-black text-xl sm:text-2xl text-[var(--text-primary)] tracking-tight uppercase mt-0.5">
-                      {track.trackName}
-                    </h4>
-                  </div>
-                  <span className="text-xs px-2.5 py-1 bg-[var(--bg-primary)] border border-[var(--border-color)] text-[var(--text-secondary)] font-semibold">
-                    {track.roles.length} ROLES RECORDED
-                  </span>
-                </div>
-
-                {/* Progression Stepper Ribbon */}
-                <div className="pt-2">
-                  <div className="text-[10px] text-[var(--text-muted)] uppercase tracking-wider font-semibold mb-2">
-                    PROVEN TRAJECTORY & PROMOTIONS:
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs">
-                    {track.progression.map((step, sIdx) => {
-                      const isLast = sIdx === track.progression.length - 1;
-                      return (
-                        <React.Fragment key={sIdx}>
-                          <span
-                            className={`px-2.5 py-1 text-[11px] sm:text-xs font-semibold flex items-center gap-1.5 border ${
-                              isLast
-                                ? "bg-[var(--accent)]/15 text-[var(--accent)] border-[var(--accent)]/60 font-bold"
-                                : "bg-[var(--bg-primary)] text-[var(--text-primary)] border-[var(--border-color)]"
-                            }`}
-                          >
-                            <span className="opacity-60 text-[10px]">0{sIdx + 1}.</span>
-                            <span>{step}</span>
-                            {isLast && (
-                              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)] animate-pulse" />
-                            )}
-                          </span>
-                          {!isLast && (
-                            <ChevronRight className="w-3.5 h-3.5 text-[var(--accent)] shrink-0 hidden sm:inline" />
-                          )}
-                        </React.Fragment>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-
-              {/* Roles Cards Grid */}
+        {/* Minimalist interactive rows */}
+        <div className="border-y border-[var(--border-color)] divide-y divide-[var(--border-color)] font-mono">
+          {POSITIONS_OF_RESPONSIBILITY.map((role) => {
+            const isExpanded = expandedRoleId === role.id;
+            return (
               <div
-                className={`grid grid-cols-1 ${
-                  track.roles.length === 3 ? "lg:grid-cols-3" : "md:grid-cols-2"
-                } gap-5`}
+                key={role.id}
+                className={`transition-colors ${
+                  isExpanded ? "bg-[var(--bg-surface)]/50" : "hover:bg-[var(--bg-surface)]/40"
+                }`}
               >
-                {track.roles.map((role, rIdx) => (
-                  <div
-                    key={rIdx}
-                    className={`p-5 border transition-all flex flex-col justify-between space-y-4 ${
-                      role.isCurrent
-                        ? "bg-[var(--bg-primary)] border-[var(--accent)]/70 shadow-sm"
-                        : "bg-[var(--bg-primary)]/70 border-[var(--border-color)] hover:border-[var(--border-strong)]"
-                    }`}
-                  >
-                    <div className="space-y-2.5">
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="space-y-0.5">
-                          {role.progressionNote && (
-                            <span className="text-[10px] font-bold text-[var(--accent)] block uppercase tracking-wider">
-                              {role.progressionNote}
-                            </span>
-                          )}
-                          <h5 className="font-display font-extrabold text-lg text-[var(--text-primary)] tracking-tight uppercase">
-                            {role.title}
-                          </h5>
-                        </div>
+                {/* Header Row: Always visible */}
+                <button
+                  type="button"
+                  onClick={() => handleToggleRole(role.id)}
+                  className="w-full text-left py-4 sm:py-5 px-3 sm:px-4 flex items-center justify-between gap-4 cursor-pointer select-none focus:outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] group"
+                  aria-expanded={isExpanded}
+                >
+                  <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+                    <span
+                      className={`w-6 h-6 shrink-0 flex items-center justify-center text-xs font-bold border transition-colors ${
+                        isExpanded
+                          ? "bg-[var(--accent)] text-[#111111] border-[var(--accent)]"
+                          : "border-[var(--border-color)] text-[var(--text-muted)] group-hover:border-[var(--accent)] group-hover:text-[var(--accent)]"
+                      }`}
+                    >
+                      {isExpanded ? "−" : "+"}
+                    </span>
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-display font-bold text-base sm:text-lg text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors truncate">
+                          {role.title}
+                        </span>
                         {role.isCurrent && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 bg-[var(--accent)] text-[#111111] uppercase whitespace-nowrap">
+                          <span className="text-[10px] font-bold px-1.5 py-0.5 bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/40 uppercase whitespace-nowrap">
                             ACTIVE
                           </span>
                         )}
                       </div>
-
-                      <div className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)] font-semibold">
-                        <Calendar className="w-3.5 h-3.5 text-[var(--accent)] shrink-0" />
-                        <span>{role.period}</span>
-                      </div>
-
-                      <div className="text-xs text-[var(--text-muted)] font-medium">
+                      <span className="text-xs text-[var(--text-secondary)] block truncate mt-0.5">
                         {role.organization}
-                      </div>
+                      </span>
+                    </div>
+                  </div>
 
-                      {/* Accomplishment Bullets */}
-                      <ul className="space-y-2 pt-2 border-t border-[var(--border-color)]/60 text-xs text-[var(--text-secondary)]">
+                  <div className="flex items-center gap-3 sm:gap-5 shrink-0 text-right">
+                    {role.progressionNote && (
+                      <span className="text-xs text-[var(--text-muted)] hidden md:inline">
+                        {role.progressionNote}
+                      </span>
+                    )}
+                    <span className="text-xs font-semibold text-[var(--accent)] whitespace-nowrap">
+                      {role.period}
+                    </span>
+                    <ChevronDown
+                      className={`w-4 h-4 text-[var(--text-muted)] transition-transform duration-200 hidden sm:inline ${
+                        isExpanded ? "rotate-180 text-[var(--accent)]" : "group-hover:text-[var(--text-primary)]"
+                      }`}
+                    />
+                  </div>
+                </button>
+
+                {/* Expanded Details: Revealed only when clicked */}
+                {isExpanded && (
+                  <div className="px-4 pb-5 pt-1 pl-12 sm:pl-14 space-y-4 text-xs border-t border-[var(--border-color)]/40 bg-[var(--bg-surface)]/20">
+                    {/* Progression Timeline */}
+                    <div className="p-3 bg-[var(--bg-primary)] border border-[var(--border-color)] space-y-2">
+                      <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">
+                        LEADERSHIP PROGRESSION:
+                      </span>
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {role.progression.map((step, sIdx) => {
+                          const isMatch = step.toLowerCase().includes(role.title.toLowerCase().split(" ")[0]);
+                          return (
+                            <React.Fragment key={sIdx}>
+                              <span
+                                className={`px-2 py-0.5 text-[11px] font-semibold border ${
+                                  isMatch
+                                    ? "bg-[var(--accent)] text-[#111111] border-[var(--accent)] font-bold shadow-xs"
+                                    : "bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-color)]"
+                                }`}
+                              >
+                                {step}
+                              </span>
+                              {sIdx < role.progression.length - 1 && (
+                                <span className="text-[var(--accent)] font-bold text-xs">→</span>
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Role Description */}
+                    <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+                      {role.description}
+                    </p>
+
+                    {/* Concrete Deliverable Bullets */}
+                    <div className="space-y-1.5 pt-1">
+                      <span className="text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider block">
+                        KEY DELIVERABLES:
+                      </span>
+                      <ul className="space-y-1.5 text-xs text-[var(--text-secondary)]">
                         {role.bullets.map((b, bIdx) => (
                           <li key={bIdx} className="flex items-start gap-2 leading-relaxed">
                             <span className="text-[var(--accent)] font-bold shrink-0">↳</span>
@@ -396,10 +405,10 @@ export default function ExperienceTimeline() {
                       </ul>
                     </div>
                   </div>
-                ))}
+                )}
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
